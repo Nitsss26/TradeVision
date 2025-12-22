@@ -1,0 +1,399 @@
+export const products = [
+    // ========== TEXTILES & APPAREL ==========
+    {
+        _id: "p1",
+        manufacturerId: "m1",
+        manufacturerName: "TexFab India Pvt Ltd",
+        basicInfo: {
+            name: "Organic Cotton Poplin Fabric - GOTS Certified",
+            slug: "organic-cotton-poplin-fabric",
+            shortDescription: "Premium quality 100% organic cotton poplin, 120 GSM. GOTS certified.",
+            fullDescription: "High-count organic cotton poplin fabric suitable for shirting, dresses, and home textiles.",
+            category: { level1: "Textiles & Apparel", level2: "Fabrics", level3: "Cotton" },
+            tags: ["organic", "cotton", "poplin", "shirting", "GOTS"]
+        },
+        pricing: { basePrice: 120, currency: "INR", moq: 500, priceModel: "tiered" },
+        media: { images: [{ url: "https://images.pexels.com/photos/3735641/pexels-photo-3735641.jpeg?w=600", isPrimary: true }] },
+        specs: { "Material": "100% Organic Cotton", "Weave": "Poplin", "GSM": "120", "Width": "58 inches" },
+        inventory: { inStock: true, stockQuantity: 50000 },
+        metrics: { views: 1200, inquiries: 45, rating: 4.8 },
+        manufacturer: { isVerified: true }
+    },
+    {
+        _id: "p2",
+        manufacturerId: "m1",
+        manufacturerName: "TexFab India Pvt Ltd",
+        basicInfo: {
+            name: "Linen Blend Shirting Fabric - Summer Collection",
+            slug: "linen-blend-shirting-fabric",
+            shortDescription: "60% Cotton 40% Linen blend for premium summer apparel.",
+            fullDescription: "Breathable and elegant linen blend fabric for summer wear.",
+            category: { level1: "Textiles & Apparel", level2: "Fabrics", level3: "Linen" },
+            tags: ["linen", "blend", "shirting", "premium", "summer"]
+        },
+        pricing: { basePrice: 240, currency: "INR", moq: 200 },
+        media: { images: [{ url: "https://images.pexels.com/photos/4210860/pexels-photo-4210860.jpeg?w=600", isPrimary: true }] },
+        specs: { "Composition": "60% Cotton, 40% Linen", "Width": "60 inches", "Weave": "Plain" },
+        inventory: { inStock: true, stockQuantity: 15000 },
+        metrics: { views: 800, inquiries: 30, rating: 4.6 },
+        manufacturer: { isVerified: true }
+    },
+    {
+        _id: "p3",
+        manufacturerId: "m1",
+        manufacturerName: "TexFab India Pvt Ltd",
+        basicInfo: {
+            name: "Rayon Viscose Printed Fabric - Digital Print",
+            slug: "rayon-viscose-printed-fabric",
+            shortDescription: "Soft and flowy rayon fabric with vibrant digital prints.",
+            fullDescription: "100% Viscose Rayon fabric with reactive digital printing.",
+            category: { level1: "Textiles & Apparel", level2: "Fabrics", level3: "Rayon" },
+            tags: ["rayon", "viscose", "printed", "fashion", "digital"]
+        },
+        pricing: { basePrice: 160, currency: "INR", moq: 300 },
+        media: { images: [{ url: "https://images.pexels.com/photos/1152077/pexels-photo-1152077.jpeg?w=600", isPrimary: true }] },
+        specs: { "Material": "100% Viscose", "Width": "44 inches", "GSM": "110", "Print": "Digital" },
+        inventory: { inStock: true, stockQuantity: 25000 },
+        metrics: { views: 1800, inquiries: 65, rating: 4.5 },
+        manufacturer: { isVerified: true }
+    },
+
+    // ========== AUTOMOTIVE ==========
+    {
+        _id: "p4",
+        manufacturerId: "m2",
+        manufacturerName: "Precision Auto Components",
+        basicInfo: {
+            name: "CNC Machined Aluminum Gear Shaft - 6061-T6",
+            slug: "cnc-machined-aluminum-gear-shaft",
+            shortDescription: "High precision 6061-T6 Aluminum gear shaft for automotive.",
+            fullDescription: "Custom CNC turned and milled gear shaft. IATF 16949 certified.",
+            category: { level1: "Automotive", level2: "Components", level3: "Transmission" },
+            tags: ["cnc", "automotive", "shaft", "aluminum", "precision"]
+        },
+        pricing: { basePrice: 450, currency: "INR", moq: 100 },
+        media: { images: [{ url: "https://images.pexels.com/photos/3846508/pexels-photo-3846508.jpeg?w=600", isPrimary: true }] },
+        specs: { "Material": "Aluminum 6061-T6", "Process": "CNC Turning", "Tolerance": "+/- 0.005mm" },
+        inventory: { inStock: true, stockQuantity: 2000 },
+        metrics: { views: 850, inquiries: 20, rating: 4.9 },
+        manufacturer: { isVerified: true }
+    },
+    {
+        _id: "p5",
+        manufacturerId: "m2",
+        manufacturerName: "Precision Auto Components",
+        basicInfo: {
+            name: "Stainless Steel Brake Disc Rotor - 304 SS",
+            slug: "stainless-steel-brake-disc",
+            shortDescription: "Premium quality SS 304 brake disc rotor for heavy vehicles.",
+            fullDescription: "High-performance brake disc rotor with ventilated design.",
+            category: { level1: "Automotive", level2: "Brake Systems", level3: "Rotors" },
+            tags: ["brakes", "rotor", "stainless", "commercial"]
+        },
+        pricing: { basePrice: 1800, currency: "INR", moq: 50 },
+        media: { images: [{ url: "https://images.pexels.com/photos/3807517/pexels-photo-3807517.jpeg?w=600", isPrimary: true }] },
+        specs: { "Material": "SS 304", "Diameter": "330mm", "Type": "Ventilated" },
+        inventory: { inStock: true, stockQuantity: 500 },
+        metrics: { views: 620, inquiries: 18, rating: 4.7 },
+        manufacturer: { isVerified: true }
+    },
+
+    // ========== PACKAGING ==========
+    {
+        _id: "p6",
+        manufacturerId: "m3",
+        manufacturerName: "GreenEarth Packaging Solutions",
+        basicInfo: {
+            name: "Eco-Friendly Kraft Paper Shopping Bag",
+            slug: "kraft-paper-shopping-bag",
+            shortDescription: "120 GSM recycled Kraft paper bags with twisted handles.",
+            fullDescription: "Durable and sustainable packaging solution. 100% recyclable.",
+            category: { level1: "Packaging", level2: "Bags", level3: "Paper Bags" },
+            tags: ["eco-friendly", "kraft", "retail", "sustainable"]
+        },
+        pricing: { basePrice: 12, currency: "INR", moq: 1000 },
+        media: { images: [{ url: "https://images.pexels.com/photos/7262897/pexels-photo-7262897.jpeg?w=600", isPrimary: true }] },
+        specs: { "Material": "Recycled Kraft Paper", "GSM": "120", "Handle": "Twisted Paper" },
+        inventory: { inStock: true, stockQuantity: 100000 },
+        metrics: { views: 3000, inquiries: 150, rating: 4.7 },
+        manufacturer: { isVerified: true }
+    },
+    {
+        _id: "p7",
+        manufacturerId: "m3",
+        manufacturerName: "GreenEarth Packaging Solutions",
+        basicInfo: {
+            name: "Biodegradable Food Container 500ml - Bagasse",
+            slug: "biodegradable-food-containers-500ml",
+            shortDescription: "Sugarcane bagasse based disposable food containers.",
+            fullDescription: "Eco-friendly takeaway containers made from sugarcane bagasse.",
+            category: { level1: "Packaging", level2: "Food Packaging", level3: "Disposables" },
+            tags: ["eco-friendly", "food", "biodegradable", "bagasse"]
+        },
+        pricing: { basePrice: 5, currency: "INR", moq: 2000 },
+        media: { images: [{ url: "https://images.pexels.com/photos/4498124/pexels-photo-4498124.jpeg?w=600", isPrimary: true }] },
+        specs: { "Capacity": "500ml", "Material": "Sugarcane Bagasse", "Grade": "Food Grade" },
+        inventory: { inStock: true, stockQuantity: 200000 },
+        metrics: { views: 2200, inquiries: 130, rating: 4.8 },
+        manufacturer: { isVerified: true }
+    },
+
+    // ========== ELECTRONICS ==========
+    {
+        _id: "p8",
+        manufacturerId: "m4",
+        manufacturerName: "VoltMax Electronics",
+        basicInfo: {
+            name: "Smart IoT Gateway PCB - 4 Layer Assembly",
+            slug: "smart-iot-gateway-pcb",
+            shortDescription: "Custom designed 4-layer PCB for IoT gateways with ESP32.",
+            fullDescription: "Industrial grade IoT gateway PCB with ESP32 module.",
+            category: { level1: "Electronics", level2: "PCB Assembly", level3: "IoT" },
+            tags: ["pcb", "iot", "electronics", "esp32"]
+        },
+        pricing: { basePrice: 1500, currency: "INR", moq: 50 },
+        media: { images: [{ url: "https://images.pexels.com/photos/163100/circuit-circuit-board-resistor-computer-163100.jpeg?w=600", isPrimary: true }] },
+        specs: { "Layers": "4", "Material": "FR4", "Copper": "1oz", "Finish": "ENIG" },
+        inventory: { inStock: true, stockQuantity: 500 },
+        metrics: { views: 750, inquiries: 35, rating: 4.8 },
+        manufacturer: { isVerified: true }
+    },
+    {
+        _id: "p9",
+        manufacturerId: "m4",
+        manufacturerName: "VoltMax Electronics",
+        basicInfo: {
+            name: "LED Driver Module 50W - Constant Current",
+            slug: "led-driver-module-50w",
+            shortDescription: "50W constant current LED driver for commercial lighting.",
+            fullDescription: "High efficiency LED driver with 90%+ efficiency.",
+            category: { level1: "Electronics", level2: "LED Components", level3: "Drivers" },
+            tags: ["led", "driver", "lighting", "commercial"]
+        },
+        pricing: { basePrice: 350, currency: "INR", moq: 100 },
+        media: { images: [{ url: "https://images.pexels.com/photos/3768914/pexels-photo-3768914.jpeg?w=600", isPrimary: true }] },
+        specs: { "Power": "50W", "Input": "AC 100-265V", "Efficiency": "90%+" },
+        inventory: { inStock: true, stockQuantity: 3000 },
+        metrics: { views: 890, inquiries: 42, rating: 4.6 },
+        manufacturer: { isVerified: true }
+    },
+
+    // ========== CONSTRUCTION ==========
+    {
+        _id: "p10",
+        manufacturerId: "m5",
+        manufacturerName: "Royal Ceramics & Tiles",
+        basicInfo: {
+            name: "600x600mm Vitrified Floor Tiles - Nano Finish",
+            slug: "vitrified-floor-tiles-600x600",
+            shortDescription: "Double charged polished vitrified tiles with nano finish.",
+            fullDescription: "Premium quality vitrified floor tiles for residential and commercial.",
+            category: { level1: "Construction", level2: "Tiles", level3: "Floor Tiles" },
+            tags: ["tiles", "vitrified", "flooring", "nano"]
+        },
+        pricing: { basePrice: 450, currency: "INR", moq: 1000 },
+        media: { images: [{ url: "https://images.pexels.com/photos/585419/pexels-photo-585419.jpeg?w=600", isPrimary: true }] },
+        specs: { "Size": "600x600mm", "Thickness": "9mm", "Finish": "Polished Nano" },
+        inventory: { inStock: true, stockQuantity: 200000 },
+        metrics: { views: 5000, inquiries: 210, rating: 4.5 },
+        manufacturer: { isVerified: true }
+    },
+
+    // ========== CHEMICALS ==========
+    {
+        _id: "p11",
+        manufacturerId: "m6",
+        manufacturerName: "ChemPure Organics Ltd",
+        basicInfo: {
+            name: "Industrial Grade Acetone 99.5% - Bulk",
+            slug: "acetone-99-industrial",
+            shortDescription: "High purity acetone for industrial solvent applications.",
+            fullDescription: "Pure Acetone (Propanone) 99.5% min purity.",
+            category: { level1: "Chemicals", level2: "Solvents", level3: "Organic Solvents" },
+            tags: ["acetone", "solvent", "chemical", "industrial"]
+        },
+        pricing: { basePrice: 85, currency: "INR", moq: 200 },
+        media: { images: [{ url: "https://images.pexels.com/photos/2280571/pexels-photo-2280571.jpeg?w=600", isPrimary: true }] },
+        specs: { "Purity": "99.5% Min", "Appearance": "Clear liquid", "Packaging": "200 Litre Drum" },
+        inventory: { inStock: true, stockQuantity: 50000 },
+        metrics: { views: 600, inquiries: 40, rating: 4.4 },
+        manufacturer: { isVerified: true }
+    },
+
+    // ========== AGRICULTURE ==========
+    {
+        _id: "p12",
+        manufacturerId: "m7",
+        manufacturerName: "AgroFresh Foods",
+        basicInfo: {
+            name: "Dehydrated Onion Flakes - Export Quality",
+            slug: "dehydrated-onion-flakes",
+            shortDescription: "Export quality white onion flakes. Moisture < 6%.",
+            fullDescription: "Premium dehydrated white onion flakes processed from fresh onions.",
+            category: { level1: "Agriculture", level2: "Spices", level3: "Dehydrated" },
+            tags: ["onion", "dehydrated", "food", "export"]
+        },
+        pricing: { basePrice: 180, currency: "INR", moq: 100 },
+        media: { images: [{ url: "https://images.pexels.com/photos/2165669/pexels-photo-2165669.jpeg?w=600", isPrimary: true }] },
+        specs: { "Moisture": "< 6%", "Color": "White to Light Cream", "Size": "8-18 mm" },
+        inventory: { inStock: true, stockQuantity: 10000 },
+        metrics: { views: 900, inquiries: 60, rating: 4.3 },
+        manufacturer: { isVerified: true }
+    },
+    {
+        _id: "p13",
+        manufacturerId: "m7",
+        manufacturerName: "AgroFresh Foods",
+        basicInfo: {
+            name: "Organic Turmeric Powder - Curcumin 5%",
+            slug: "organic-turmeric-powder",
+            shortDescription: "USDA certified organic turmeric with 5% curcumin content.",
+            fullDescription: "Premium quality organic turmeric powder from Maharashtra.",
+            category: { level1: "Agriculture", level2: "Spices", level3: "Ground Spices" },
+            tags: ["turmeric", "organic", "spice", "curcumin"]
+        },
+        pricing: { basePrice: 320, currency: "INR", moq: 50 },
+        media: { images: [{ url: "https://images.pexels.com/photos/4198714/pexels-photo-4198714.jpeg?w=600", isPrimary: true }] },
+        specs: { "Curcumin": "5% Min", "Certification": "USDA Organic", "Origin": "Maharashtra" },
+        inventory: { inStock: true, stockQuantity: 5000 },
+        metrics: { views: 1100, inquiries: 55, rating: 4.7 },
+        manufacturer: { isVerified: true }
+    },
+
+    // ========== MACHINERY ==========
+    {
+        _id: "p14",
+        manufacturerId: "m8",
+        manufacturerName: "SteelCraft Industries",
+        basicInfo: {
+            name: "Stainless Steel Storage Tank 5000L - SS 304",
+            slug: "ss-storage-tank-5000l",
+            shortDescription: "SS 304 vertical storage tank for food and pharma industries.",
+            fullDescription: "Custom fabricated 5000 Litre stainless steel tank.",
+            category: { level1: "Machinery", level2: "Industrial Tanks", level3: "Storage" },
+            tags: ["tank", "stainless-steel", "industrial", "fabrication"]
+        },
+        pricing: { basePrice: 250000, currency: "INR", moq: 1 },
+        media: { images: [{ url: "https://images.pexels.com/photos/4483610/pexels-photo-4483610.jpeg?w=600", isPrimary: true }] },
+        specs: { "Capacity": "5000 Litres", "Material": "SS 304", "Thickness": "4mm Shell" },
+        inventory: { inStock: false, stockQuantity: 0 },
+        metrics: { views: 1500, inquiries: 15, rating: 4.6 },
+        manufacturer: { isVerified: true }
+    },
+    {
+        _id: "p15",
+        manufacturerId: "m8",
+        manufacturerName: "SteelCraft Industries",
+        basicInfo: {
+            name: "Industrial Conveyor Belt System - 5 Meter",
+            slug: "industrial-conveyor-belt",
+            shortDescription: "Heavy duty PVC conveyor belt system for material handling.",
+            fullDescription: "Modular conveyor belt system with variable speed motor.",
+            category: { level1: "Machinery", level2: "Material Handling", level3: "Conveyors" },
+            tags: ["conveyor", "industrial", "automation", "handling"]
+        },
+        pricing: { basePrice: 85000, currency: "INR", moq: 1 },
+        media: { images: [{ url: "https://images.pexels.com/photos/2760241/pexels-photo-2760241.jpeg?w=600", isPrimary: true }] },
+        specs: { "Length": "5 Meters", "Belt Width": "600mm", "Motor": "1.5 HP VFD" },
+        inventory: { inStock: true, stockQuantity: 5 },
+        metrics: { views: 980, inquiries: 22, rating: 4.5 },
+        manufacturer: { isVerified: true }
+    },
+
+    // ========== MORE PRODUCTS ==========
+    {
+        _id: "p16",
+        manufacturerId: "m1",
+        manufacturerName: "TexFab India Pvt Ltd",
+        basicInfo: {
+            name: "Terry Cotton Bath Towels - 400 GSM",
+            slug: "terry-cotton-bath-towels",
+            shortDescription: "Premium quality 100% cotton terry towels for hotels and retail.",
+            fullDescription: "Soft and absorbent terry cotton bath towels.",
+            category: { level1: "Textiles & Apparel", level2: "Home Textiles", level3: "Towels" },
+            tags: ["towels", "cotton", "terry", "hotel"]
+        },
+        pricing: { basePrice: 180, currency: "INR", moq: 200 },
+        media: { images: [{ url: "https://images.pexels.com/photos/5561389/pexels-photo-5561389.jpeg?w=600", isPrimary: true }] },
+        specs: { "Material": "100% Cotton", "GSM": "400", "Size": "70x140 cm" },
+        inventory: { inStock: true, stockQuantity: 15000 },
+        metrics: { views: 1400, inquiries: 70, rating: 4.6 },
+        manufacturer: { isVerified: true }
+    },
+    {
+        _id: "p17",
+        manufacturerId: "m4",
+        manufacturerName: "VoltMax Electronics",
+        basicInfo: {
+            name: "Solar Charge Controller 30A MPPT",
+            slug: "solar-charge-controller-mppt",
+            shortDescription: "30A MPPT solar charge controller with LCD display.",
+            fullDescription: "High efficiency MPPT charge controller for solar power systems.",
+            category: { level1: "Electronics", level2: "Solar Products", level3: "Controllers" },
+            tags: ["solar", "mppt", "charge controller", "renewable"]
+        },
+        pricing: { basePrice: 2200, currency: "INR", moq: 25 },
+        media: { images: [{ url: "https://images.pexels.com/photos/433308/pexels-photo-433308.jpeg?w=600", isPrimary: true }] },
+        specs: { "Current": "30A", "Type": "MPPT", "Voltage": "12V/24V Auto" },
+        inventory: { inStock: true, stockQuantity: 800 },
+        metrics: { views: 1250, inquiries: 48, rating: 4.7 },
+        manufacturer: { isVerified: true }
+    },
+    {
+        _id: "p18",
+        manufacturerId: "m3",
+        manufacturerName: "GreenEarth Packaging Solutions",
+        basicInfo: {
+            name: "Corrugated Shipping Boxes - 3 Ply",
+            slug: "corrugated-shipping-boxes",
+            shortDescription: "3-ply corrugated boxes for e-commerce and shipping.",
+            fullDescription: "Sturdy corrugated boxes made from recycled material.",
+            category: { level1: "Packaging", level2: "Boxes", level3: "Corrugated" },
+            tags: ["corrugated", "boxes", "shipping", "ecommerce"]
+        },
+        pricing: { basePrice: 18, currency: "INR", moq: 500 },
+        media: { images: [{ url: "https://images.pexels.com/photos/4553177/pexels-photo-4553177.jpeg?w=600", isPrimary: true }] },
+        specs: { "Ply": "3", "Material": "Recycled Paper", "Size": "12x10x8 inches" },
+        inventory: { inStock: true, stockQuantity: 50000 },
+        metrics: { views: 2100, inquiries: 95, rating: 4.5 },
+        manufacturer: { isVerified: true }
+    },
+    {
+        _id: "p19",
+        manufacturerId: "m5",
+        manufacturerName: "Royal Ceramics & Tiles",
+        basicInfo: {
+            name: "Outdoor Paving Tiles 400x400mm - Anti-Slip",
+            slug: "outdoor-paving-tiles",
+            shortDescription: "Anti-slip outdoor paving tiles for gardens and driveways.",
+            fullDescription: "Heavy duty paving tiles with anti-slip surface.",
+            category: { level1: "Construction", level2: "Tiles", level3: "Outdoor" },
+            tags: ["outdoor", "paving", "anti-slip", "garden"]
+        },
+        pricing: { basePrice: 85, currency: "INR", moq: 500 },
+        media: { images: [{ url: "https://images.pexels.com/photos/1457841/pexels-photo-1457841.jpeg?w=600", isPrimary: true }] },
+        specs: { "Size": "400x400mm", "Thickness": "20mm", "Surface": "Anti-Slip" },
+        inventory: { inStock: true, stockQuantity: 30000 },
+        metrics: { views: 920, inquiries: 38, rating: 4.4 },
+        manufacturer: { isVerified: true }
+    },
+    {
+        _id: "p20",
+        manufacturerId: "m2",
+        manufacturerName: "Precision Auto Components",
+        basicInfo: {
+            name: "Engine Mount Bracket - Die Cast Aluminum",
+            slug: "engine-mount-bracket",
+            shortDescription: "Die cast aluminum engine mount bracket for passenger vehicles.",
+            fullDescription: "High strength die cast aluminum bracket for engine mounting.",
+            category: { level1: "Automotive", level2: "Components", level3: "Engine Parts" },
+            tags: ["engine", "mount", "aluminum", "die-cast"]
+        },
+        pricing: { basePrice: 650, currency: "INR", moq: 50 },
+        media: { images: [{ url: "https://images.pexels.com/photos/2244746/pexels-photo-2244746.jpeg?w=600", isPrimary: true }] },
+        specs: { "Material": "A380 Aluminum", "Process": "Die Casting", "Finish": "Machined" },
+        inventory: { inStock: true, stockQuantity: 1500 },
+        metrics: { views: 720, inquiries: 28, rating: 4.8 },
+        manufacturer: { isVerified: true }
+    }
+];
