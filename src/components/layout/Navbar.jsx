@@ -10,6 +10,7 @@ const Navbar = () => {
     const navigate = useNavigate();
     const [searchQuery, setSearchQuery] = useState('');
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+    const [isCategoryOpen, setIsCategoryOpen] = useState(false);
 
     // Mock/Placeholder State (Fixing ReferenceError)
     const user = null;
@@ -107,23 +108,32 @@ const Navbar = () => {
             {/* Bottom Nav - Categories & Quick Links */}
             <div className="hidden md:flex items-center gap-8 px-4 lg:px-8 bg-zinc-950 border-t border-zinc-900 h-10 shadow-lg relative z-40">
                 {/* Mega Menu Trigger */}
-                <div className="group relative h-full flex items-center">
-                    <button className="flex items-center gap-3 text-white font-semibold text-sm px-2 hover:text-blue-400 transition-colors h-full">
+                <div
+                    className="relative h-full flex items-center"
+                    onMouseEnter={() => setIsCategoryOpen(true)}
+                    onMouseLeave={() => setIsCategoryOpen(false)}
+                >
+                    <button className={`flex items-center gap-3 font-semibold text-sm px-2 transition-colors h-full ${isCategoryOpen ? 'text-blue-400' : 'text-white hover:text-blue-400'}`}>
                         <Menu className="w-4 h-4" />
                         <span className="tracking-wide text-[13px]">All Categories</span>
-                        <ChevronDown className="w-3 h-3 group-hover:rotate-180 transition-transform duration-300" />
+                        <ChevronDown className={`w-3 h-3 transition-transform duration-300 ${isCategoryOpen ? 'rotate-180' : ''}`} />
                     </button>
                     {/* Integrated Dropdown */}
-                    <div className="hidden group-hover:block absolute top-full left-0 z-50 pt-2 animate-in fade-in slide-in-from-top-1 duration-200">
-                        <CategoryDropdown />
-                    </div>
+                    {isCategoryOpen && (
+                        <div className="absolute top-full left-0 z-50 pt-1">
+                            <CategoryDropdown
+                                onMouseEnter={() => setIsCategoryOpen(true)}
+                                onMouseLeave={() => setIsCategoryOpen(false)}
+                            />
+                        </div>
+                    )}
                 </div>
 
                 <div className="h-4 w-px bg-zinc-800 mx-2"></div>
 
                 <div className="flex items-center gap-8">
-                    <Link to="/products" className="text-zinc-300 hover:text-white transition-colors text-[13px] font-medium tracking-wide hover:underline decoration-blue-500 decoration-2 underline-offset-4">Featured Selection</Link>
-                    <Link to="/products?verified=true" className="text-zinc-300 hover:text-white transition-colors text-[13px] font-medium tracking-wide flex items-center gap-1 hover:underline decoration-blue-500 decoration-2 underline-offset-4">
+                    <Link to="/featured" className="text-zinc-300 hover:text-white transition-colors text-[13px] font-medium tracking-wide hover:underline decoration-blue-500 decoration-2 underline-offset-4">Featured Selection</Link>
+                    <Link to="/trade-assurance" className="text-zinc-300 hover:text-white transition-colors text-[13px] font-medium tracking-wide flex items-center gap-1 hover:underline decoration-blue-500 decoration-2 underline-offset-4">
                         Trade Assurance
                         <span className="px-1.5 py-0.5 bg-yellow-500/10 text-yellow-500 text-[10px] rounded border border-yellow-500/20 font-bold ml-1">PROTECT</span>
                     </Link>
@@ -133,7 +143,7 @@ const Navbar = () => {
                     <div className="flex-1"></div>
 
                     <div className="flex items-center gap-4 text-[13px] font-medium text-zinc-400 ml-auto">
-                        <span className="hover:text-white cursor-pointer transition-colors">Get the app</span>
+                        <Link to="/app" className="hover:text-white cursor-pointer transition-colors -ml-10">Get the app</Link>
                         <span className="w-px h-3 bg-zinc-700"></span>
                         <span className="hover:text-white cursor-pointer transition-colors">English - INR</span>
                         <span className="w-px h-3 bg-zinc-700"></span>

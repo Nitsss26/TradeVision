@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import {
     Package, FileText, ShoppingCart, TrendingUp, Bell, Settings,
-    Plus, Eye, Clock, CheckCircle, AlertCircle, ChevronRight, LogOut
+    Plus, Eye, Clock, CircleCheck, CircleAlert, ChevronRight, LogOut
 } from 'lucide-react';
 import MainLayout from '../layouts/MainLayout';
 import { logout } from '../store/slices/authSlice';
@@ -82,9 +82,9 @@ const DashboardPage = () => {
                             <div key={idx} className="bg-zinc-900 border border-zinc-800 rounded-xl p-5">
                                 <div className="flex items-center justify-between mb-3">
                                     <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${stat.color === 'blue' ? 'bg-blue-500/10 text-blue-500' :
-                                            stat.color === 'green' ? 'bg-green-500/10 text-green-500' :
-                                                stat.color === 'purple' ? 'bg-purple-500/10 text-purple-500' :
-                                                    'bg-orange-500/10 text-orange-500'
+                                        stat.color === 'green' ? 'bg-green-500/10 text-green-500' :
+                                            stat.color === 'purple' ? 'bg-purple-500/10 text-purple-500' :
+                                                'bg-orange-500/10 text-orange-500'
                                         }`}>
                                         <stat.icon className="w-5 h-5" />
                                     </div>
@@ -103,8 +103,8 @@ const DashboardPage = () => {
                                 key={tab}
                                 onClick={() => setActiveTab(tab)}
                                 className={`pb-4 font-medium capitalize transition-colors ${activeTab === tab
-                                        ? 'text-blue-500 border-b-2 border-blue-500'
-                                        : 'text-zinc-500 hover:text-white'
+                                    ? 'text-blue-500 border-b-2 border-blue-500'
+                                    : 'text-zinc-500 hover:text-white'
                                     }`}
                             >
                                 {tab}

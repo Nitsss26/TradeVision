@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useSearchParams } from 'react-router-dom';
-import { Filter, Search, Grid, List, ChevronDown, CheckCircle, X } from 'lucide-react';
+import { Filter, Search, Grid, List, ChevronDown, CircleCheck, X } from 'lucide-react';
 import MainLayout from '../layouts/MainLayout';
 import { fetchProducts, setFilters, clearFilters } from '../store/slices/productSlice';
 import PremiumProductCard from '../components/common/PremiumProductCard';

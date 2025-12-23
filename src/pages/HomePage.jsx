@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import {
     ShieldCheck, TrendingUp, Package, Users, ArrowRight,
     Star, Play, ChevronRight, Truck, Globe, Award, DollarSign,
-    Zap, Gem, Activity
+    Zap, Gem, Activity, MessageSquare
 } from 'lucide-react';
 import MainLayout from '../layouts/MainLayout';
 import { productService } from '../services/mock/productService';
@@ -81,8 +81,8 @@ const HeroSection = () => {
                                         <Users className="w-6 h-6 text-zinc-400" />
                                     </div>
                                     <div>
-                                        <p className="text-zinc-400 text-xs font-semibold uppercase tracking-wider">Welcome back</p>
-                                        <h4 className="text-white font-bold text-lg">Guest User</h4>
+                                        <p className="text-zinc-400 text-xs font-semibold uppercase tracking-wider">Welcome</p>
+                                        <h6 className="text-white font-bold text-lg">Become a verified manufacturer</h6>
                                     </div>
                                 </div>
                                 <div className="space-y-3">
@@ -181,44 +181,60 @@ const ProductCard = ({ product }) => (
 );
 
 const MfrCard = ({ mfr }) => (
-    <Link to={`/manufacturers/${mfr._id}`} className="bg-zinc-900 border border-zinc-800 rounded-xl p-5 hover:border-blue-500 hover:shadow-lg hover:shadow-blue-500/10 transition-all group">
-        <div className="flex items-center gap-4 mb-4">
-            <div className="w-14 h-14 bg-white rounded-lg flex items-center justify-center p-1.5 overflow-hidden border border-zinc-700">
+    <Link to={`/manufacturers/${mfr._id}`} className="group relative bg-zinc-900 border border-zinc-800 rounded-xl p-5 hover:border-blue-500/50 hover:shadow-xl hover:shadow-blue-900/10 transition-all duration-300 block overflow-hidden">
+        {/* Hover Overlay with Smaller Actions */}
+        <div className="absolute inset-0 bg-black/80 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 transition-opacity z-20 flex flex-col items-center justify-center gap-3">
+            <button className="px-5 py-2.5 bg-white text-black font-bold text-xs rounded-full hover:scale-105 transition-transform flex items-center gap-2">
+                View Details <ArrowRight className="w-3 h-3" />
+            </button>
+            <button className="px-5 py-2.5 bg-blue-600 text-white font-bold text-xs rounded-full hover:scale-105 transition-transform flex items-center gap-2">
+                <MessageSquare className="w-3 h-3" /> Chat Now
+            </button>
+        </div>
+
+        <div className="flex items-start gap-4 mb-4">
+            <div className="w-14 h-14 rounded-lg bg-white p-1 shrink-0 overflow-hidden border border-zinc-700">
                 <img
-                    src={`https://ui-avatars.com/api/?name=${mfr.companyName || 'Manufacturer'}&background=random&color=fff&size=64&bold=true`}
+                    src={`https://ui-avatars.com/api/?name=${mfr.companyName}&background=0D8ABC&color=fff&size=128&bold=true`}
                     alt={mfr.companyName}
                     className="w-full h-full object-cover rounded"
                 />
             </div>
-            <div>
-                <h4 className="text-white font-bold leading-tight group-hover:text-blue-400 transition-colors">
-                    {mfr.companyName}
-                </h4>
-                <div className="flex items-center gap-2 mt-1">
-                    <span className="text-xs text-zinc-500 flex items-center gap-1">
-                        <Flag country="IN" className="w-3 h-3" /> India
+            <div className="flex-1 min-w-0">
+                <h3 className="font-bold text-white text-base truncate pr-2" title={mfr.companyName}>{mfr.companyName}</h3>
+                <div className="flex flex-wrap gap-2 mt-2">
+                    <span className="text-[10px] font-bold bg-gradient-to-r from-blue-500/10 to-blue-400/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded flex items-center gap-1">
+                        <ShieldCheck className="w-3 h-3" /> Verified Pro
                     </span>
-                    <span className="text-xs text-blue-400 bg-blue-400/10 px-1.5 py-0.5 rounded border border-blue-400/20">
-                        {mfr.businessDetails?.yearEstablished ? `${new Date().getFullYear() - mfr.businessDetails.yearEstablished} Yrs` : '10+ Yrs'}
+                    <span className="text-[10px] font-bold bg-gradient-to-r from-orange-500/10 to-yellow-500/10 text-orange-400 border border-orange-500/20 px-2 py-0.5 rounded">
+                        {mfr.businessDetails?.yearEstablished ? `${new Date().getFullYear() - mfr.businessDetails.yearEstablished} Yrs` : '10 Yrs'}
                     </span>
                 </div>
             </div>
         </div>
 
         <div className="grid grid-cols-3 gap-2 mb-4">
-            {[1, 2, 3].map((_, i) => (
-                <div key={i} className="aspect-square bg-zinc-800 rounded-md overflow-hidden relative">
-                    <img src={`https://source.unsplash.com/random/100x100?factory,${i}`} className="w-full h-full object-cover opacity-60" alt="" />
+            {[
+                'https://images.pexels.com/photos/3735641/pexels-photo-3735641.jpeg?auto=compress&cs=tinysrgb&w=200',
+                'https://images.pexels.com/photos/3846508/pexels-photo-3846508.jpeg?auto=compress&cs=tinysrgb&w=200',
+                'https://images.pexels.com/photos/163100/circuit-circuit-board-resistor-computer-163100.jpeg?auto=compress&cs=tinysrgb&w=200'
+            ].map((imgUrl, i) => (
+                <div key={i} className="aspect-square bg-zinc-800 rounded-md overflow-hidden relative border border-zinc-700/50 group-hover:border-zinc-600 transition-colors">
+                    <img
+                        src={imgUrl}
+                        className="w-full h-full object-cover hover:scale-110 transition-transform duration-500"
+                        alt="Product"
+                    />
                 </div>
             ))}
         </div>
 
-        <div className="flex items-center justify-between text-xs text-zinc-500 pt-3 border-t border-zinc-800">
-            <span className="flex items-center gap-1 text-green-500 font-medium">
+        <div className="flex items-center justify-between text-[11px] text-zinc-500 pt-3 border-t border-zinc-800">
+            <span className="flex items-center gap-1.5 text-emerald-400 font-bold bg-emerald-400/5 px-2 py-0.5 rounded">
                 <Activity className="w-3 h-3" /> 98% Response
             </span>
-            <span className="flex items-center gap-1">
-                <Star className="w-3 h-3 text-orange-400 fill-current" /> {mfr.metrics?.rating || 4.5}
+            <span className="flex items-center gap-1 font-semibold text-zinc-400">
+                <Star className="w-3 h-3 text-orange-500 fill-current" /> {mfr.metrics?.rating || 4.8}
             </span>
         </div>
     </Link>

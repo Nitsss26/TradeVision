@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import {
     Star, ShieldCheck, MapPin, MessageSquare, ShoppingCart,
-    Truck, Clock, ChevronRight, CheckCircle, Package, Heart, Share2,
+    Truck, Clock, ChevronRight, CircleCheck, Package, Heart, Share2,
     Calendar, CreditCard, Award, Factory, Flag, Play, ThumbsUp, User
 } from 'lucide-react';
 import PremiumProductCard from '../components/common/PremiumProductCard';
@@ -143,7 +143,7 @@ const ProductDetailPage = () => {
                                     <span className="text-zinc-400">/ {product.pricing?.minOrderUnit || 'piece'}</span>
                                 </div>
                                 <div className="flex items-center gap-2 text-sm text-green-400 mb-6">
-                                    <CheckCircle className="w-4 h-4" /> In Stock & Ready to Ship
+                                    <CircleCheck className="w-4 h-4" /> In Stock & Ready to Ship
                                 </div>
 
                                 <div className="space-y-4">
@@ -238,198 +238,310 @@ const ProductDetailPage = () => {
                                     </div>
                                 </div>
 
-                                <div className="space-y-3">
-                                    <button className="w-full py-3 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-lg shadow-lg shadow-blue-900/20 active:translate-y-0.5 transition-all flex items-center justify-center gap-2">
-                                        <MessageSquare className="w-4 h-4" /> Chat Now
-                                    </button>
-                                    <Link to={`/manufacturers/${product.manufacturerId}`} className="block w-full py-3 bg-zinc-800 hover:bg-zinc-700 text-zinc-200 font-bold rounded-lg border border-zinc-600 hover:border-zinc-500 active:translate-y-0.5 transition-all text-center">
-                                        View Profile
-                                    </Link>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Stacked Content Sections (Dark Cards, Full Width) */}
-                    <div className="mt-12 space-y-8">
-
-                        {/* 1. Product Details & Specs */}
-                        <div className="bg-zinc-900 rounded-2xl p-8 shadow-2xl border border-zinc-800 ring-1 ring-white/5 relative overflow-hidden group">
-                            <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/5 rounded-full blur-3xl -z-0"></div>
-
-                            <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-2 relative z-10">
-                                <span className="p-2 bg-blue-500/10 rounded-lg"><Package className="w-5 h-5 text-blue-500" /></span>
-                                Product Details
-                            </h3>
-                            <div className="prose prose-invert max-w-none mb-10 relative z-10">
-                                <p className="text-zinc-300 leading-relaxed text-[15px]">
-                                    {product.basicInfo?.fullDescription || "This premium product is manufactured to the highest standards, ensuring durability and reliability for all industrial applications. High-count organic cotton poplin fabric suitable for shirting, dresses, and home textiles."}
-                                </p>
                             </div>
 
-                            <h4 className="text-sm font-bold text-zinc-400 uppercase tracking-widest mb-5 border-l-2 border-blue-500 pl-3">Key Specifications</h4>
-                            {/* Changed to grid-cols-4 for single row layout */}
-                            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 relative z-10">
-                                {Object.entries(product.specs || { "Material": "Premium Grade", "Warranty": "2 Years", "Certifications": "ISO 9001", "Origin": "India" }).map(([key, val], idx) => (
-                                    <div key={idx} className="flex flex-col p-4 bg-gradient-to-br from-zinc-800/50 to-zinc-900/50 rounded-xl border border-zinc-700/50 hover:border-blue-500/30 transition-colors group/item">
-                                        <span className="text-zinc-500 text-[11px] font-bold uppercase tracking-wider mb-1 group-hover/item:text-blue-400 transition-colors">{key}</span>
-                                        <span className="text-white font-bold text-sm truncate" title={val}>{val}</span>
+                            {/* Seller Contact Details (New) */}
+                            <div className="pt-4 border-t border-zinc-800">
+                                <p className="text-xs text-zinc-500 uppercase font-bold tracking-wider mb-3">Seller Contact Details</p>
+                                <div className="flex items-start gap-3 mb-3">
+                                    <div className="w-8 h-8 rounded-full bg-zinc-800 flex items-center justify-center shrink-0">
+                                        <User className="w-4 h-4 text-zinc-400" />
                                     </div>
-                                ))}
-                            </div>
-                        </div>
-
-                        {/* 2. Company Profile */}
-                        <div className="bg-zinc-900 rounded-2xl p-8 shadow-2xl border border-zinc-800 ring-1 ring-white/5 bg-gradient-to-b from-zinc-900 to-black/80">
-                            <div className="flex items-center justify-between mb-8 border-b border-zinc-800 pb-6">
-                                <h3 className="text-xl font-bold text-white flex items-center gap-2">
-                                    <span className="p-2 bg-purple-500/10 rounded-lg"><Factory className="w-5 h-5 text-purple-500" /></span>
-                                    Company Profile
-                                </h3>
-                                <Link to={`/manufacturers/${product.manufacturerId}`} className="text-blue-400 font-bold text-sm hover:text-blue-300 transition-colors flex items-center gap-1 group">
-                                    Visit Store <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                                </Link>
-                            </div>
-
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mb-10">
-                                <div>
-                                    <h4 className="font-bold text-2xl text-white mb-3">{product.manufacturerName || "TexFab India Pvt Ltd"}</h4>
-                                    <p className="text-zinc-400 text-sm mb-6 leading-relaxed">
-                                        Leading manufacturer of high-quality textiles and garments with over 15 years of experience in export markets.
-                                        We specialize in organic cotton and sustainable fabrics.
-                                    </p>
-                                    <div className="flex flex-wrap gap-2 text-xs font-semibold text-zinc-500">
-                                        <span className="px-3 py-1.5 bg-zinc-800/80 rounded-full border border-zinc-700">Established 2010</span>
-                                        <span className="px-3 py-1.5 bg-zinc-800/80 rounded-full border border-zinc-700">500+ Employees</span>
-                                        <span className="px-3 py-1.5 bg-zinc-800/80 rounded-full border border-zinc-700">ISO 9001:2015</span>
+                                    <div>
+                                        <p className="text-sm font-bold text-white">Sunil Dhawan</p>
+                                        <p className="text-xs text-zinc-500">Sales Manager</p>
                                     </div>
                                 </div>
-                                <div className="bg-zinc-800/30 p-6 rounded-2xl border border-dashed border-zinc-700 text-sm space-y-4">
-                                    <div className="flex justify-between items-center group">
-                                        <span className="text-zinc-500 group-hover:text-zinc-400 transition-colors">Main Products</span>
-                                        <span className="font-bold text-zinc-200">Cotton, Silk, Denim</span>
+                                <div className="flex items-start gap-3 mb-4">
+                                    <div className="w-8 h-8 rounded-full bg-zinc-800 flex items-center justify-center shrink-0">
+                                        <MapPin className="w-4 h-4 text-zinc-400" />
                                     </div>
-                                    <div className="flex justify-between items-center group">
-                                        <span className="text-zinc-500 group-hover:text-zinc-400 transition-colors">Total Revenue</span>
-                                        <span className="font-bold text-zinc-200">₹ 40 Cr - 80 Cr</span>
-                                    </div>
-                                    <div className="flex justify-between items-center group">
-                                        <span className="text-zinc-500 group-hover:text-zinc-400 transition-colors">Top 3 Markets</span>
-                                        <span className="font-bold text-zinc-200 text-right">North America, Europe, Asia</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <h4 className="font-bold text-zinc-300 mb-6 text-sm uppercase tracking-widest pl-2">More from this Manufacturer</h4>
-                            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                                {[
-                                    { id: 1, title: "Linen Blend", price: 350 },
-                                    { id: 2, title: "Velvet Touch", price: 890 },
-                                    { id: 3, title: "Pure Silk", price: 1200 },
-                                    { id: 4, title: "Denim Raw", price: 550 }
-                                ].map((item, index) => (
-                                    <div key={index} className="group cursor-pointer bg-zinc-800/30 p-2 rounded-xl hover:bg-zinc-800/80 transition-all border border-transparent hover:border-zinc-700">
-                                        <div className="aspect-square rounded-lg bg-zinc-800 overflow-hidden mb-3 relative border border-zinc-700">
-                                            <img
-                                                src={`https://source.unsplash.com/random/300x300?fabric,${item.title.split(' ')[0]}&sig=${index}`}
-                                                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                                                alt={item.title}
-                                                onError={(e) => {
-                                                    e.target.onerror = null;
-                                                    e.target.src = "https://placehold.co/300x300/27272a/FFF?text=Textile";
-                                                }}
-                                            />
-                                        </div>
-                                        <p className="text-sm text-white font-semibold truncate group-hover:text-blue-400 transition-colors px-1">{item.title}</p>
-                                        <p className="text-xs text-zinc-500 px-1 mt-0.5">₹{item.price} / meter</p>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-
-                        {/* 3. Ratings & Reviews */}
-                        <div className="bg-zinc-900 rounded-2xl p-8 shadow-2xl border border-zinc-800 ring-1 ring-white/5 bg-gradient-to-br from-zinc-900 via-zinc-900 to-zinc-800/30">
-                            <h3 className="text-xl font-bold text-white mb-8 flex items-center gap-2">
-                                <span className="p-2 bg-orange-500/10 rounded-lg"><MessageSquare className="w-5 h-5 text-orange-500" /></span>
-                                Ratings & Reviews
-                            </h3>
-
-                            <div className="flex flex-col md:flex-row gap-8 items-center border-b border-zinc-800 pb-8 mb-8">
-                                <div className="text-center min-w-[150px]">
-                                    <div className="text-5xl font-bold text-white">{product.metrics?.rating || 4.5}</div>
-                                    <div className="flex justify-center gap-1 my-2">
-                                        {[1, 2, 3, 4, 5].map(star => (
-                                            <Star key={star} className={`w-4 h-4 ${star <= 4 ? 'text-orange-500 fill-current' : 'text-zinc-700 fill-current'}`} />
-                                        ))}
-                                    </div>
-                                    <div className="text-sm text-zinc-500">{product.metrics?.reviews || 24} Verified Reviews</div>
-                                </div>
-
-                                <div className="flex-1 w-full space-y-2">
-                                    {[5, 4, 3, 2, 1].map((rating, i) => (
-                                        <div key={rating} className="flex items-center gap-3 text-xs">
-                                            <span className="w-3 font-bold text-zinc-500">{rating}</span>
-                                            <div className="flex-1 h-2 bg-zinc-800 rounded-full overflow-hidden">
-                                                <div className="h-full bg-orange-500 rounded-full" style={{ width: `${[60, 25, 10, 3, 2][i]}%` }}></div>
-                                            </div>
-                                            <span className="w-8 text-right text-zinc-500">{[60, 25, 10, 3, 2][i]}%</span>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-
-                            <div className="space-y-6">
-                                {[
-                                    { user: "Rahul Sharma", date: "2 days ago", rating: 5, text: "Excellent quality fabric, exactly as described. Shipping was faster than expected.", country: "India" },
-                                    { user: "Sarah Jenkins", date: "1 week ago", rating: 4, text: "Good material, slight color difference but acceptable. Will order again.", country: "USA" }
-                                ].map((review, i) => (
-                                    <div key={i} className="border-b border-zinc-800 pb-6 last:border-0 last:pb-0">
-                                        <div className="flex items-center justify-between mb-2">
-                                            <div className="flex items-center gap-2">
-                                                <div className="w-8 h-8 rounded-full bg-zinc-800 text-blue-400 flex items-center justify-center font-bold text-xs ring-1 ring-zinc-700">{review.user[0]}</div>
-                                                <div>
-                                                    <h5 className="font-bold text-sm text-white">{review.user}</h5>
-                                                    <div className="flex items-center gap-1">
-                                                        <div className="flex gap-0.5">
-                                                            {[...Array(review.rating)].map((_, s) => (
-                                                                <Star key={s} className="w-3 h-3 text-orange-500 fill-current" />
-                                                            ))}
-                                                        </div>
-                                                        <span className="text-xs text-zinc-500">• {review.country}</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <span className="text-xs text-zinc-500">{review.date}</span>
-                                        </div>
-                                        <p className="text-sm text-zinc-400 leading-relaxed">{review.text}</p>
-                                        <div className="mt-3 flex gap-4">
-                                            <button className="flex items-center gap-1 text-xs text-zinc-500 hover:text-white transition-colors">
-                                                <ThumbsUp className="w-3 h-3" /> Helpful
+                                    <div>
+                                        <p className="text-xs text-zinc-400 leading-relaxed">
+                                            968/8, Shan Gali, Chowk Moni, Amritsar - 143001, Punjab, India
+                                        </p>
+                                        <div className="flex gap-3 mt-2">
+                                            <button className="text-[10px] font-bold text-blue-400 hover:text-blue-300 flex items-center gap-1">
+                                                Get Directions <Share2 className="w-2.5 h-2.5" />
+                                            </button>
+                                            <button className="text-[10px] font-bold text-blue-400 hover:text-blue-300">
+                                                View Mobile No.
                                             </button>
                                         </div>
                                     </div>
-                                ))}
+                                </div>
                             </div>
-                            <button className="w-full mt-6 py-3 border border-zinc-700 text-zinc-400 font-bold rounded-lg hover:bg-zinc-800 hover:text-white transition-colors text-sm">
-                                View All Reviews
-                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Stacked Content Sections (Dark Cards, Full Width) */}
+                <div className="mt-12 space-y-8">
+
+                    {/* 0. Shipping Information (New) */}
+                    <div className="bg-zinc-900 rounded-2xl p-6 shadow-xl border border-zinc-800 ring-1 ring-white/5 relative overflow-hidden">
+                        <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                            <span className="p-1.5 bg-blue-500/10 rounded-lg"><Truck className="w-4 h-4 text-blue-500" /></span>
+                            Shipping Information
+                        </h3>
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
+                            <div className="bg-zinc-800/50 p-4 rounded-xl border border-zinc-700/50">
+                                <span className="text-zinc-500 block text-xs font-bold uppercase tracking-wider mb-1">Price</span>
+                                <span className="text-white font-medium">Excluding all taxes</span>
+                            </div>
+                            <div className="bg-zinc-800/50 p-4 rounded-xl border border-zinc-700/50">
+                                <span className="text-zinc-500 block text-xs font-bold uppercase tracking-wider mb-1">Ships From</span>
+                                <span className="text-white font-medium">Surat, Gujarat, India</span>
+                            </div>
+                            <div className="bg-zinc-800/50 p-4 rounded-xl border border-zinc-700/50">
+                                <span className="text-zinc-500 block text-xs font-bold uppercase tracking-wider mb-1">Shipping Terms</span>
+                                <span className="text-white font-medium">As per delivery location</span>
+                            </div>
                         </div>
                     </div>
 
-                    {/* 4. Related Products (Outside Cards, on Dark Background) */}
-                    <div className="mt-16 pt-8 border-t border-zinc-800">
-                        <h2 className="text-2xl font-bold text-white mb-8">Related Products</h2>
-                        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
-                            {[...Array(5)].map((_, idx) => (
-                                <div key={idx} className="h-full">
-                                    <PremiumProductCard product={{ ...product, _id: product._id + '_r' + idx, basicInfo: { ...product.basicInfo, name: `Related Industrial Item ${idx + 1}` } }} />
+                    {/* 1. Product Details & Specs */}
+                    <div className="bg-zinc-900 rounded-2xl p-8 shadow-2xl border border-zinc-800 ring-1 ring-white/5 relative overflow-hidden group">
+                        <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/5 rounded-full blur-3xl -z-0"></div>
+
+                        <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-2 relative z-10">
+                            <span className="p-2 bg-blue-500/10 rounded-lg"><Package className="w-5 h-5 text-blue-500" /></span>
+                            Product Details
+                        </h3>
+                        <div className="prose prose-invert max-w-none mb-10 relative z-10">
+                            <p className="text-zinc-300 leading-relaxed text-[15px]">
+                                {product.basicInfo?.fullDescription || "This premium product is manufactured to the highest standards, ensuring durability and reliability for all industrial applications. High-count organic cotton poplin fabric suitable for shirting, dresses, and home textiles."}
+                            </p>
+                        </div>
+
+                        <h4 className="text-sm font-bold text-zinc-400 uppercase tracking-widest mb-5 border-l-2 border-blue-500 pl-3">Key Specifications</h4>
+                        {/* Changed to grid-cols-4 for single row layout */}
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 relative z-10">
+                            {Object.entries(product.specs || { "Material": "Premium Grade", "Warranty": "2 Years", "Certifications": "ISO 9001", "Origin": "India" }).map(([key, val], idx) => (
+                                <div key={idx} className="flex flex-col p-4 bg-gradient-to-br from-zinc-800/50 to-zinc-900/50 rounded-xl border border-zinc-700/50 hover:border-blue-500/30 transition-colors group/item">
+                                    <span className="text-zinc-500 text-[11px] font-bold uppercase tracking-wider mb-1 group-hover/item:text-blue-400 transition-colors">{key}</span>
+                                    <span className="text-white font-bold text-sm truncate" title={val}>{val}</span>
                                 </div>
                             ))}
                         </div>
                     </div>
+
+                    {/* 2. Company Profile */}
+                    <div className="bg-zinc-900 rounded-2xl p-8 shadow-2xl border border-zinc-800 ring-1 ring-white/5 bg-gradient-to-b from-zinc-900 to-black/80">
+                        <div className="flex items-center justify-between mb-8 border-b border-zinc-800 pb-6">
+                            <h3 className="text-xl font-bold text-white flex items-center gap-2">
+                                <span className="p-2 bg-purple-500/10 rounded-lg"><Factory className="w-5 h-5 text-purple-500" /></span>
+                                Company Profile
+                            </h3>
+                            <Link to={`/manufacturers/${product.manufacturerId}`} className="text-blue-400 font-bold text-sm hover:text-blue-300 transition-colors flex items-center gap-1 group">
+                                Visit Store <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                            </Link>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mb-10">
+                            <div>
+                                <h4 className="font-bold text-2xl text-white mb-3">{product.manufacturerName || "TexFab India Pvt Ltd"}</h4>
+                                <p className="text-zinc-400 text-sm mb-6 leading-relaxed">
+                                    Leading manufacturer of high-quality textiles and garments with over 15 years of experience in export markets.
+                                    We specialize in organic cotton and sustainable fabrics.
+                                </p>
+                                <div className="flex flex-wrap gap-2 text-xs font-semibold text-zinc-500">
+                                    <span className="px-3 py-1.5 bg-zinc-800/80 rounded-full border border-zinc-700">Established 2010</span>
+                                    <span className="px-3 py-1.5 bg-zinc-800/80 rounded-full border border-zinc-700">500+ Employees</span>
+                                    <span className="px-3 py-1.5 bg-zinc-800/80 rounded-full border border-zinc-700">ISO 9001:2015</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Extended Company Details Table (New) */}
+                        <div className="mt-8 mb-10 overflow-hidden rounded-xl border border-zinc-800">
+                            <table className="w-full text-sm text-left">
+                                <tbody className="divide-y divide-zinc-800">
+                                    {[
+                                        { label: "GST Registration Date", value: "17-08-2017" },
+                                        { label: "Legal Status of Firm", value: "Proprietorship" },
+                                        { label: "Nature of Business", value: "Manufacturer - Retailer" },
+                                        { label: "Number of Employees", value: "50-100 People" },
+                                        { label: "Annual Turnover", value: "₹ 40 Cr - 80 Cr" },
+                                        { label: "TradeVision Member Since", value: "June 2018" },
+                                        { label: "GST No.", value: "03BUWPD4037P1Z6" },
+                                        { label: "Import Export Code (IEC)", value: "BUWPD*****" },
+                                        { label: "Exports to", value: "North America, Europe, UAE" }
+                                    ].map((row, idx) => (
+                                        <tr key={idx} className="group hover:bg-zinc-800/30 transition-colors">
+                                            <td className="py-3 px-4 text-zinc-500 font-medium w-1/3 border-r border-zinc-800 bg-zinc-900/50">{row.label}</td>
+                                            <td className="py-3 px-4 text-zinc-200 font-semibold">{row.value}</td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <h4 className="font-bold text-zinc-300 mb-6 text-sm uppercase tracking-widest pl-2">More from this Manufacturer</h4>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        {[
+                            { id: 1, title: "Linen Blend", price: 350, image: "https://images.pexels.com/photos/4792078/pexels-photo-4792078.jpeg?auto=compress&cs=tinysrgb&w=300" },
+                            { id: 2, title: "Velvet Touch", price: 890, image: "https://images.pexels.com/photos/3270223/pexels-photo-3270223.jpeg?auto=compress&cs=tinysrgb&w=300" },
+                            { id: 3, title: "Pure Silk", price: 1200, image: "https://images.pexels.com/photos/4210866/pexels-photo-4210866.jpeg?auto=compress&cs=tinysrgb&w=300" },
+                            { id: 4, title: "Denim Raw", price: 550, image: "https://images.pexels.com/photos/4210857/pexels-photo-4210857.jpeg?auto=compress&cs=tinysrgb&w=300" }
+                        ].map((item, index) => (
+                            <div key={index} className="group cursor-pointer bg-zinc-800/30 p-2 rounded-xl hover:bg-zinc-800/80 transition-all border border-transparent hover:border-zinc-700">
+                                <div className="aspect-square rounded-lg bg-zinc-800 overflow-hidden mb-3 relative border border-zinc-700">
+                                    <img
+                                        src={item.image}
+                                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                        alt={item.title}
+                                    />
+                                    <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors"></div>
+                                </div>
+                                <p className="text-sm text-white font-semibold truncate group-hover:text-blue-400 transition-colors px-1">{item.title}</p>
+                                <p className="text-xs text-zinc-500 px-1 mt-0.5">₹{item.price} / meter</p>
+                            </div>
+                        ))}
+                    </div>
                 </div>
-            </div>
-        </MainLayout>
+
+                {/* 3. Ratings & Reviews */}
+                <div className="bg-zinc-900 rounded-2xl p-8 shadow-2xl border border-zinc-800 ring-1 ring-white/5 bg-gradient-to-br from-zinc-900 via-zinc-900 to-zinc-800/30">
+                    <h3 className="text-xl font-bold text-white mb-8 flex items-center gap-2">
+                        <span className="p-2 bg-orange-500/10 rounded-lg"><MessageSquare className="w-5 h-5 text-orange-500" /></span>
+                        Ratings & Reviews
+                    </h3>
+
+                    <div className="flex flex-col md:flex-row gap-8 items-center border-b border-zinc-800 pb-8 mb-8">
+                        <div className="text-center min-w-[150px]">
+                            <div className="text-5xl font-bold text-white">{product.metrics?.rating || 4.5}</div>
+                            <div className="flex justify-center gap-1 my-2">
+                                {[1, 2, 3, 4, 5].map(star => (
+                                    <Star key={star} className={`w-4 h-4 ${star <= 4 ? 'text-orange-500 fill-current' : 'text-zinc-700 fill-current'}`} />
+                                ))}
+                            </div>
+                            <div className="text-sm text-zinc-500">{product.metrics?.reviews || 24} Verified Reviews</div>
+                        </div>
+
+                        <div className="flex-1 w-full space-y-2">
+                            {[5, 4, 3, 2, 1].map((rating, i) => (
+                                <div key={rating} className="flex items-center gap-3 text-xs">
+                                    <span className="w-3 font-bold text-zinc-500">{rating}</span>
+                                    <div className="flex-1 h-2 bg-zinc-800 rounded-full overflow-hidden">
+                                        <div className="h-full bg-orange-500 rounded-full" style={{ width: `${[60, 25, 10, 3, 2][i]}%` }}></div>
+                                    </div>
+                                    <span className="w-8 text-right text-zinc-500">{[60, 25, 10, 3, 2][i]}%</span>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    <div className="space-y-6">
+                        {[
+                            { user: "Rahul Sharma", date: "2 days ago", rating: 5, text: "Excellent quality fabric, exactly as described. Shipping was faster than expected.", country: "India" },
+                            { user: "Sarah Jenkins", date: "1 week ago", rating: 4, text: "Good material, slight color difference but acceptable. Will order again.", country: "USA" }
+                        ].map((review, i) => (
+                            <div key={i} className="border-b border-zinc-800 pb-6 last:border-0 last:pb-0">
+                                <div className="flex items-center justify-between mb-2">
+                                    <div className="flex items-center gap-2">
+                                        <div className="w-8 h-8 rounded-full bg-zinc-800 text-blue-400 flex items-center justify-center font-bold text-xs ring-1 ring-zinc-700">{review.user[0]}</div>
+                                        <div>
+                                            <h5 className="font-bold text-sm text-white">{review.user}</h5>
+                                            <div className="flex items-center gap-1">
+                                                <div className="flex gap-0.5">
+                                                    {[...Array(review.rating)].map((_, s) => (
+                                                        <Star key={s} className="w-3 h-3 text-orange-500 fill-current" />
+                                                    ))}
+                                                </div>
+                                                <span className="text-xs text-zinc-500">• {review.country}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <span className="text-xs text-zinc-500">{review.date}</span>
+                                </div>
+                                <p className="text-sm text-zinc-400 leading-relaxed">{review.text}</p>
+                                <div className="mt-3 flex gap-4">
+                                    <button className="flex items-center gap-1 text-xs text-zinc-500 hover:text-white transition-colors">
+                                        <ThumbsUp className="w-3 h-3" /> Helpful
+                                    </button>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                    <button className="w-full mt-6 py-3 border border-zinc-700 text-zinc-400 font-bold rounded-lg hover:bg-zinc-800 hover:text-white transition-colors text-sm">
+                        View All Reviews
+                    </button>
+                </div>
+
+                {/* 4. Related Products (Outside Cards, on Dark Background) */}
+                <div className="mt-16 pt-8 border-t border-zinc-800">
+                    <h2 className="text-2xl font-bold text-white mb-8">Related Products</h2>
+                    <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
+                        {[...Array(5)].map((_, idx) => (
+                            <div key={idx} className="h-full">
+                                <PremiumProductCard product={{ ...product, _id: product._id + '_r' + idx, basicInfo: { ...product.basicInfo, name: `Related Industrial Item ${idx + 1}` } }} />
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+                {/* Sponsored Products Section (New) */}
+                <div className="max-w-[1400px] mx-auto px-4 lg:px-6 mb-16 mt-20 border-t border-zinc-900 pt-12">
+                    <div className="flex items-center gap-2 mb-8">
+                        <span className="text-[10px] font-bold text-zinc-400 bg-zinc-800/50 px-2 py-1 rounded border border-zinc-700 tracking-wider">SPONSORED</span>
+                        <h2 className="text-xl font-bold text-white">Featured Premium Suppliers</h2>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        {[
+                            { title: "Cotton Polo 220GSM TShirt", subtitle: "Starting from ₹49", supplier: "CottonWorld Inc.", image: "https://images.pexels.com/photos/5325885/pexels-photo-5325885.jpeg?auto=compress&cs=tinysrgb&w=150" },
+                            { title: "Polyester T-shirts Bulk", subtitle: "Starting from ₹49", supplier: "PolyFabrics Ltd.", image: "https://images.pexels.com/photos/6311652/pexels-photo-6311652.jpeg?auto=compress&cs=tinysrgb&w=150" },
+                            { title: "Oversized Cotton Tees", subtitle: "Starting from ₹49", supplier: "Oversize Masters", image: "https://images.pexels.com/photos/6311475/pexels-photo-6311475.jpeg?auto=compress&cs=tinysrgb&w=150" },
+                            { title: "Dot Knit 150 GSM TShirts", subtitle: "Starting from ₹49", supplier: "KnitWear Pro", image: "https://images.pexels.com/photos/6311623/pexels-photo-6311623.jpeg?auto=compress&cs=tinysrgb&w=150" }
+                        ].map((item, idx) => (
+                            <div key={idx} className="bg-zinc-900 p-4 rounded-xl border border-zinc-800 hover:border-blue-500/40 hover:shadow-lg hover:shadow-blue-900/10 transition-all cursor-pointer group flex gap-4 items-center">
+                                <div className="w-20 h-20 bg-zinc-800 rounded-lg overflow-hidden shrink-0 border border-zinc-700/50 group-hover:border-zinc-600 transition-colors">
+                                    <img
+                                        src={item.image}
+                                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                        alt={item.title}
+                                    />
+                                </div>
+                                <div className="min-w-0">
+                                    <h3 className="text-white font-bold text-sm mb-1 line-clamp-2 leading-tight group-hover:text-blue-400 transition-colors">{item.title}</h3>
+                                    <p className="text-zinc-500 text-xs mb-2 font-medium">{item.subtitle}</p>
+                                    <span className="text-[10px] text-zinc-400 bg-zinc-800 px-2 py-0.5 rounded border border-zinc-700 inline-block truncate max-w-full">
+                                        by {item.supplier}
+                                    </span>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+                {/* Related Categories (New) */}
+                <div className="max-w-[1400px] mx-auto px-4 lg:px-6 pb-12 border-t border-zinc-900 pt-8">
+                    <h2 className="text-lg font-bold text-white mb-6">Find related categories near Amritsar</h2>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        {[
+                            { name: "Plain T Shirt", price: "Get Quote", image: "https://images.pexels.com/photos/5325885/pexels-photo-5325885.jpeg?auto=compress&cs=tinysrgb&w=100" },
+                            { name: "Printed T Shirts", price: "Get Quote", image: "https://images.pexels.com/photos/6311652/pexels-photo-6311652.jpeg?auto=compress&cs=tinysrgb&w=100" },
+                            { name: "Round Neck T Shirt", price: "Get Quote", image: "https://images.pexels.com/photos/6311475/pexels-photo-6311475.jpeg?auto=compress&cs=tinysrgb&w=100" },
+                            { name: "Half Sleeves T-shirt", price: "Get Quote", image: "https://images.pexels.com/photos/6311623/pexels-photo-6311623.jpeg?auto=compress&cs=tinysrgb&w=100" }
+                        ].map((cat, i) => (
+                            <div key={i} className="flex gap-4 p-4 bg-zinc-900 border border-zinc-800 rounded-xl hover:border-zinc-700 transition-colors group cursor-pointer">
+                                <div className="w-16 h-16 bg-zinc-800 rounded-lg overflow-hidden shrink-0">
+                                    <img src={cat.image} className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" alt={cat.name} />
+                                </div>
+                                <div>
+                                    <h4 className="font-bold text-white text-sm mb-1">{cat.name}</h4>
+                                    <p className="text-xs text-zinc-500 mb-2">in Amritsar</p>
+                                    <span className="text-blue-500 text-xs font-bold flex items-center gap-0.5 group-hover:translate-x-1 transition-transform">
+                                        {cat.price} <ChevronRight className="w-3 h-3" />
+                                    </span>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </div >
+        </MainLayout >
     );
 };
 

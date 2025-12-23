@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { X, Send, AlertCircle } from 'lucide-react';
+import { X, Send, CircleAlert } from 'lucide-react';
 import Button from '../atoms/Button';
 import Input from '../atoms/Input';
 import { createRFQ, resetRFQStatus } from '../../store/slices/rfqSlice';
@@ -72,7 +72,7 @@ const RFQModal = ({ product, onClose }) => {
                 <div className="p-6">
                     {error && (
                         <div className="mb-4 p-3 bg-[var(--color-error)]/10 border border-[var(--color-error)]/20 rounded flex items-start text-[var(--color-error)] text-sm">
-                            <AlertCircle className="w-4 h-4 mr-2 mt-0.5 flex-shrink-0" />
+                            <CircleAlert className="w-4 h-4 mr-2 mt-0.5 flex-shrink-0" />
                             <span>{error}</span>
                         </div>
                     )}

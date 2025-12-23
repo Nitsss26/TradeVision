@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
-    ShoppingCart, Clock, CheckCircle, Truck, Package,
-    AlertCircle, ChevronRight, MapPin, Calendar
+    ShoppingCart, Clock, CircleCheck, Truck, Package,
+    CircleAlert, ChevronRight, MapPin, Calendar
 } from 'lucide-react';
 import MainLayout from '../layouts/MainLayout';
 
@@ -62,9 +62,9 @@ const OrdersPage = () => {
             case 'shipped':
                 return { icon: Truck, color: 'text-purple-500', bg: 'bg-purple-500/10', label: 'Shipped' };
             case 'delivered':
-                return { icon: CheckCircle, color: 'text-green-500', bg: 'bg-green-500/10', label: 'Delivered' };
+                return { icon: CircleCheck, color: 'text-green-500', bg: 'bg-green-500/10', label: 'Delivered' };
             default:
-                return { icon: AlertCircle, color: 'text-zinc-500', bg: 'bg-zinc-500/10', label: 'Unknown' };
+                return { icon: CircleAlert, color: 'text-zinc-500', bg: 'bg-zinc-500/10', label: 'Unknown' };
         }
     };
 
@@ -91,8 +91,8 @@ const OrdersPage = () => {
                                 key={tab}
                                 onClick={() => setActiveTab(tab)}
                                 className={`px-4 py-2 rounded-lg font-medium capitalize whitespace-nowrap transition-colors ${activeTab === tab
-                                        ? 'bg-blue-600 text-white'
-                                        : 'bg-zinc-900 text-zinc-400 hover:text-white'
+                                    ? 'bg-blue-600 text-white'
+                                    : 'bg-zinc-900 text-zinc-400 hover:text-white'
                                     }`}
                             >
                                 {tab}

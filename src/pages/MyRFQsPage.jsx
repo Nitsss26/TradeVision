@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
-    FileText, Clock, CheckCircle, AlertCircle, XCircle,
+    FileText, Clock, CircleCheck, CircleAlert, CircleX,
     Plus, Filter, ChevronRight, MessageCircle, Package
 } from 'lucide-react';
 import MainLayout from '../layouts/MainLayout';
@@ -56,11 +56,11 @@ const MyRFQsPage = () => {
             case 'quoted':
                 return { icon: MessageCircle, color: 'text-blue-500', bg: 'bg-blue-500/10', label: 'Quoted' };
             case 'accepted':
-                return { icon: CheckCircle, color: 'text-green-500', bg: 'bg-green-500/10', label: 'Accepted' };
+                return { icon: CircleCheck, color: 'text-green-500', bg: 'bg-green-500/10', label: 'Accepted' };
             case 'rejected':
-                return { icon: XCircle, color: 'text-red-500', bg: 'bg-red-500/10', label: 'Rejected' };
+                return { icon: CircleX, color: 'text-red-500', bg: 'bg-red-500/10', label: 'Rejected' };
             default:
-                return { icon: AlertCircle, color: 'text-zinc-500', bg: 'bg-zinc-500/10', label: 'Unknown' };
+                return { icon: CircleAlert, color: 'text-zinc-500', bg: 'bg-zinc-500/10', label: 'Unknown' };
         }
     };
 
@@ -93,8 +93,8 @@ const MyRFQsPage = () => {
                                 key={tab}
                                 onClick={() => setActiveTab(tab)}
                                 className={`px-4 py-2 rounded-lg font-medium capitalize whitespace-nowrap transition-colors ${activeTab === tab
-                                        ? 'bg-blue-600 text-white'
-                                        : 'bg-zinc-900 text-zinc-400 hover:text-white'
+                                    ? 'bg-blue-600 text-white'
+                                    : 'bg-zinc-900 text-zinc-400 hover:text-white'
                                     }`}
                             >
                                 {tab}
