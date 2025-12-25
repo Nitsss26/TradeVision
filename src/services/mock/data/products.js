@@ -1,4 +1,122 @@
 export const products = [
+    // --- REAL DATA START (Jasch Industries) ---
+    {
+        _id: "p21",
+        manufacturerId: "m9",
+        manufacturerName: "Jasch Industries Ltd.",
+        basicInfo: {
+            name: "Jasch BTG 3000 KR-85 Plastic Thickness Gauge",
+            slug: "jasch-btg-3000-kr-85",
+            shortDescription: "Precision plastic thickness gauge for film extrusion, sheet, and co-extrusion.",
+            fullDescription: "Jasch has provided leading measurement innovation for over 45 years in the Plastics market. The range of Jasch products sets a new standard in terms of quality assurance and process optimization for film extrusion, sheet, and co-extrusion.",
+            category: { level1: "Machinery", level2: "Quality Control", level3: "Thickness Gauges" },
+            tags: ["thickness gauge", "plastic", "extrusion", "quality control", "industrial"]
+        },
+        pricing: { basePrice: 500000, currency: "INR", moq: 1, priceModel: "request_quote" },
+        media: {
+            images: [
+                { url: "https://5.imimg.com/data5/XO/KX/EN/SELLER-6265195/plastic-thickness-gauge-btg-3000-1000x1000.jpg", isPrimary: true },
+                { url: "https://5.imimg.com/data5/XO/KX/EN/SELLER-6265195/plastic-thickness-gauge-btg-3000-500x500.jpg" }
+            ]
+        },
+        specs: {
+            "Model Name/Number": "BTG 3000 (KR-85)",
+            "Brand": "Jasch",
+            "Operating Temperature": "0-50 Degree Celsius",
+            "Radioactive Source": "Krypton 85, 200 mCi",
+            "Accuracy": "Tolerance 0.25% or 0.25 GSM",
+            "Measurement Range": "0-1200 GSM"
+        },
+        inventory: { inStock: true, stockQuantity: 10 },
+        metrics: { views: 450, inquiries: 15, rating: 5.0 },
+        manufacturer: { isVerified: true }
+    },
+    {
+        _id: "p22",
+        manufacturerId: "m9",
+        manufacturerName: "Jasch Industries Ltd.",
+        basicInfo: {
+            name: "Jasch XRT 3000 X-Ray Plastic Thickness Gauge",
+            slug: "jasch-xrt-3000-x-ray",
+            shortDescription: "X-ray based thickness and profile control for calendered plastic films.",
+            fullDescription: "Achieves thickness and profile control of calendered plastic films by dividing the scanned profile into three zones for precise nip adjustment and quality consistency.",
+            category: { level1: "Machinery", level2: "Quality Control", level3: "Thickness Gauges" },
+            tags: ["x-ray", "thickness gauge", "calendered film", "industrial"]
+        },
+        pricing: { basePrice: 1200000, currency: "INR", moq: 1, priceModel: "request_quote" },
+        media: {
+            images: [
+                { url: "https://5.imimg.com/data5/XV/QR/OT/SELLER-6265195/jasch-xrt-3000-x-ray-plastic-thickness-gauge-500x500.png", isPrimary: true }
+            ]
+        },
+        specs: {
+            "Model Name/Number": "XRT 3000 X-ray",
+            "Brand": "Jasch",
+            "Source": "X-Ray (Selectable energy and power)",
+            "Accuracy": "Tolerance 1% or 0.1 GSM",
+            "Range": "0-10000 GSM"
+        },
+        inventory: { inStock: true, stockQuantity: 5 },
+        metrics: { views: 320, inquiries: 8, rating: 4.8 },
+        manufacturer: { isVerified: true }
+    },
+    {
+        _id: "p23",
+        manufacturerId: "m9",
+        manufacturerName: "Jasch Industries Ltd.",
+        basicInfo: {
+            name: "Jasch BTG 3000 Online Paint Coating Measurement",
+            slug: "jasch-btg-3000-paint",
+            shortDescription: "Online measurement system for paint coating thickness on metal strips.",
+            fullDescription: "Online measurement system for paint coating thickness on metal strips, providing real-time data for process optimization in galvanizing and painting lines.",
+            category: { level1: "Machinery", level2: "Quality Control", level3: "Coating Measurement" },
+            tags: ["paint coating", "measurement", "galvanizing", "online system"]
+        },
+        pricing: { basePrice: 850000, currency: "INR", moq: 1, priceModel: "request_quote" },
+        media: {
+            images: [
+                { url: "https://5.imimg.com/data5/HA/YG/FE/SELLER-6265195/jasch-btg-3000-online-paint-coating-measurement-system-250x250.png", isPrimary: true }
+            ]
+        },
+        specs: {
+            "System Type": "Online Coating Measurement",
+            "Model": "BTG-3000 Paint",
+            "Brand": "Jasch",
+            "Application": "Metal Strip Coating"
+        },
+        inventory: { inStock: true, stockQuantity: 8 },
+        metrics: { views: 280, inquiries: 12, rating: 4.9 },
+        manufacturer: { isVerified: true }
+    },
+    {
+        _id: "p24",
+        manufacturerId: "m9",
+        manufacturerName: "Jasch Industries Ltd.",
+        basicInfo: {
+            name: "Jasch BTG 3000PP Basis Weight Sensor",
+            slug: "jasch-btg-3000pp",
+            shortDescription: "High-performance basis weight sensor for Paper, Board, and Tissue.",
+            fullDescription: "High-performance basis weight sensor designed for Paper, Board, and Tissue quality control systems to ensure uniformity in web processes.",
+            category: { level1: "Machinery", level2: "Quality Control", level3: "Paper Industry" },
+            tags: ["basis weight", "sensor", "paper industry", "quality control"]
+        },
+        pricing: { basePrice: 350000, currency: "INR", moq: 1, priceModel: "request_quote" },
+        media: {
+            images: [
+                { url: "https://5.imimg.com/data5/CY/UR/HK/SELLER-6265195/jasch-basis-weight-sensor-500x500.png", isPrimary: true }
+            ]
+        },
+        specs: {
+            "Brand": "Jasch",
+            "Series": "BTG 3000PP",
+            "Application": "Paper & Tissue Industry"
+        },
+        inventory: { inStock: true, stockQuantity: 20 },
+        metrics: { views: 210, inquiries: 9, rating: 4.7 },
+        manufacturer: { isVerified: true }
+    },
+    // --- REAL DATA END ---
+
     // ========== TEXTILES & APPAREL ==========
     {
         _id: "p1",
@@ -395,5 +513,7 @@ export const products = [
         inventory: { inStock: true, stockQuantity: 1500 },
         metrics: { views: 720, inquiries: 28, rating: 4.8 },
         manufacturer: { isVerified: true }
-    }
+    },
+
+    // --- REAL DATA MOVED TO TOP ---
 ];

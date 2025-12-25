@@ -14,6 +14,12 @@ import HelpPage from './pages/HelpPage'
 import AppDownloadPage from './pages/AppDownloadPage'
 import FeaturedSelectionPage from './pages/FeaturedSelectionPage'
 import TradeAssurancePage from './pages/TradeAssurancePage'
+import ManufacturerDashboardPage from './pages/manufacturer/ManufacturerDashboardPage'
+import ProductListPage from './pages/manufacturer/ProductListPage'
+import ProductEditorPage from './pages/manufacturer/ProductEditorPage'
+import AnalyticsPage from './pages/manufacturer/AnalyticsPage'
+import CompanySettingsPage from './pages/manufacturer/CompanySettingsPage'
+import ManufacturerChatPage from './pages/manufacturer/ManufacturerChatPage';
 
 function App() {
   return (
@@ -32,6 +38,15 @@ function App() {
       <Route path="/orders" element={<OrdersPage />} />
       <Route path="/help" element={<HelpPage />} />
       <Route path="/app" element={<AppDownloadPage />} />
+
+      {/* Manufacturer Portal Routes */}
+      <Route path="/manufacturer/dashboard" element={<ManufacturerDashboardPage />} />
+      <Route path="/manufacturer/products" element={<ProductListPage />} />
+      <Route path="/manufacturer/products/new" element={<ProductEditorPage />} />
+      <Route path="/manufacturer/products/edit/:id" element={<ProductEditorPage />} />
+      <Route path="/manufacturer/analytics" element={<AnalyticsPage />} />
+      <Route path="/manufacturer/settings" element={<CompanySettingsPage />} />
+      <Route path="/manufacturer/messages" element={<ManufacturerChatPage />} />
     </Routes>
   )
 }

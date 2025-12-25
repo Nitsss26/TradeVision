@@ -21,6 +21,22 @@ const LoginPage = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        // Manufacturer Portal Bypass
+        if (formData.email === 'analytics@gmail.com' && formData.password === '123') {
+            const dummyToken = 'manufacturer-token';
+            const dummyUser = {
+                id: 'mfr_001',
+                name: 'Tech Solutions Ltd.',
+                email: 'analytics@gmail.com',
+                role: 'manufacturer'
+            };
+            // Note: In a real app we'd dispatch(setUser) here, but for now we'll just redirect
+            // and let the layout handle any auth checks if needed, or just rely on local state
+            navigate('/manufacturer/dashboard');
+            return;
+        }
+
         const result = await dispatch(login(formData));
         if (result.meta.requestStatus === 'fulfilled') {
             navigate('/dashboard');

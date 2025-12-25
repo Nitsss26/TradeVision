@@ -4,15 +4,8 @@ import { manufacturers } from './data/manufacturers';
 const getAllManufacturers = async () => {
     return new Promise((resolve) => {
         setTimeout(() => {
-            // Try localStorage first
-            const stored = localStorage.getItem('tradevision_manufacturers');
-            if (stored) {
-                resolve(JSON.parse(stored));
-            } else {
-                // Initialize from static data
-                localStorage.setItem('tradevision_manufacturers', JSON.stringify(manufacturers));
-                resolve(manufacturers);
-            }
+            // Force use of static data for development/demo to ensure new added data shows up
+            resolve(manufacturers);
         }, 100);
     });
 };
@@ -21,9 +14,7 @@ const getAllManufacturers = async () => {
 const getManufacturerById = async (id) => {
     return new Promise((resolve) => {
         setTimeout(() => {
-            const stored = localStorage.getItem('tradevision_manufacturers');
-            const data = stored ? JSON.parse(stored) : manufacturers;
-            const manufacturer = data.find(m => m._id === id);
+            const manufacturer = manufacturers.find(m => m._id === id);
             resolve(manufacturer || null);
         }, 100);
     });
@@ -33,9 +24,7 @@ const getManufacturerById = async (id) => {
 const getVerifiedManufacturers = async () => {
     return new Promise((resolve) => {
         setTimeout(() => {
-            const stored = localStorage.getItem('tradevision_manufacturers');
-            const data = stored ? JSON.parse(stored) : manufacturers;
-            resolve(data.filter(m => m.isVerified));
+            resolve(manufacturers.filter(m => m.isVerified));
         }, 100);
     });
 };

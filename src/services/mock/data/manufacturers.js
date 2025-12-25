@@ -1,4 +1,26 @@
 export const manufacturers = [
+    // --- REAL DATA START ---
+    {
+        _id: "m9",
+        companyName: "Jasch Industries Ltd.",
+        description: "JASCH is the Industrial Automation market leader in areas such as Aluminum/Rolled steel /Galvanized/Paint coated metal/Paper/Plastic films and will continue to extend that lead by delivering compelling business solutions, business-focused hardware and software products, robust service and support, and above all cost effective solutions.",
+        location: { city: "Sonipat", state: "Haryana", country: "India" },
+        isVerified: true,
+        businessDetails: {
+            yearEstablished: 1985,
+            employeeCount: "500+",
+            annualRevenue: "100+ Cr"
+        },
+        metrics: { rating: 4.7, reviews: 215, productCount: 50 },
+        capabilities: ["Sheet Thickness Measurement", "Coat Weight Measurement", "Paint Coating Measurement", "Industrial Automation"],
+        images: [
+            "https://5.imimg.com/data5/XO/KX/EN/SELLER-6265195/plastic-thickness-gauge-btg-3000-500x500.jpg",
+            "https://5.imimg.com/data5/OM/TB/JO/SELLER-6265195/plastic-thickness-gauge-btg-3000-500x500.jpg"
+        ],
+        logo: "https://5.imimg.com/data5/IE/RG/YW/SELLER-6265195/logo-120x120.png"
+    },
+    // --- REAL DATA END ---
+
     {
         _id: "m1",
         companyName: "TexFab India Pvt Ltd",
@@ -110,5 +132,7 @@ export const manufacturers = [
         },
         metrics: { rating: 4.6, reviews: 78, productCount: 42 },
         capabilities: ["SS Fabrication", "Custom Engineering", "Installation", "Maintenance"]
-    }
+    },
+
+    // --- REAL DATA MOVED TO TOP ---
 ];
