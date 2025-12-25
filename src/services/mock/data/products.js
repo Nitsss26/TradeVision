@@ -1,4 +1,189 @@
 export const products = [
+    // --- REAL DATA START (Giriraj Coated Fab) ---
+    {
+        _id: "p30",
+        manufacturerId: "m10",
+        manufacturerName: "Giriraj Coated Fab Pvt. Ltd.",
+        basicInfo: {
+            name: "Anti Wrinkle Synthetic Leather",
+            slug: "anti-wrinkle-synthetic-leather",
+            shortDescription: "High-quality anti-wrinkle synthetic leather suitable for footwear and upholstery.",
+            fullDescription: "Premium quality anti-wrinkle synthetic leather manufactured for durability and aesthetic appeal. Ideal for footwear lining, upholstery, and bag manufacturing.",
+            category: { level1: "Textiles", level2: "Synthetic Leather", level3: "Rexine" },
+            tags: ["synthetic leather", "rexine", "anti-wrinkle", "footwear", "upholstery"]
+        },
+        pricing: { basePrice: 150, currency: "INR", moq: 100, priceModel: "per_unit" },
+        media: {
+            images: [
+                { url: "https://5.imimg.com/data5/WE/UQ/MY-5635866/anti-wrinkle-synthetic-leather-500x500.jpg", isPrimary: true }
+            ]
+        },
+        specs: { "Material": "Synthetic / PU", "Pattern": "Anti-wrinkle", "Usage": "Footwear, Bags", "Origin": "India" },
+        inventory: { inStock: true, stockQuantity: 5000 },
+        metrics: { views: 320, inquiries: 45, rating: 4.6 },
+        manufacturer: { isVerified: true }
+    },
+    {
+        _id: "p31",
+        manufacturerId: "m10",
+        manufacturerName: "Giriraj Coated Fab Pvt. Ltd.",
+        basicInfo: {
+            name: "Synthetic Shoes Leather",
+            slug: "synthetic-shoes-leather",
+            shortDescription: "Durable synthetic leather specifically designed for shoe manufacturing.",
+            fullDescription: "High-grade synthetic leather with excellent tear resistance and flexibility, specifically engineered for the footwear industry.",
+            category: { level1: "Textiles", level2: "Synthetic Leather", level3: "Footwear Material" },
+            tags: ["shoes leather", "synthetic", "footwear", "durable"]
+        },
+        pricing: { basePrice: 150, currency: "INR", moq: 100, priceModel: "per_unit" },
+        media: {
+            images: [
+                { url: "https://5.imimg.com/data5/GT/MT/MY-5635866/synthetic-shoes-leather-500x500.jpg", isPrimary: true }
+            ]
+        },
+        specs: { "Material": "Synthetic", "Application": "Shoe Making", "Thickness": "0.8mm - 1.2mm", "Color": "Various" },
+        inventory: { inStock: true, stockQuantity: 4500 },
+        metrics: { views: 280, inquiries: 30, rating: 4.5 },
+        manufacturer: { isVerified: true }
+    },
+    {
+        _id: "p32",
+        manufacturerId: "m10",
+        manufacturerName: "Giriraj Coated Fab Pvt. Ltd.",
+        basicInfo: {
+            name: "PVC Synthetic Leather",
+            slug: "pvc-synthetic-leather",
+            shortDescription: "Versatile PVC synthetic leather available in multiple colors and textures.",
+            fullDescription: "Polyvinyl Chloride (PVC) synthetic leather is a cost-effective and durable alternative to real leather, widely used in furniture, automotive interiors, and accessories.",
+            category: { level1: "Textiles", level2: "Synthetic Leather", level3: "PVC Leather" },
+            tags: ["pvc", "synthetic leather", "upholstery", "automotive"]
+        },
+        pricing: { basePrice: 150, currency: "INR", moq: 200, priceModel: "per_unit" },
+        media: {
+            images: [
+                { url: "https://5.imimg.com/data5/JD/CV/MY-5635866/pvc-synthetic-leather-500x500.jpg", isPrimary: true }
+            ]
+        },
+        specs: { "Material": "PVC", "Width": "54 inches", "Pattern": "Plain/Textured", "Features": "Waterproof" },
+        inventory: { inStock: true, stockQuantity: 10000 },
+        metrics: { views: 410, inquiries: 55, rating: 4.7 },
+        manufacturer: { isVerified: true }
+    },
+    {
+        _id: "p33",
+        manufacturerId: "m10",
+        manufacturerName: "Giriraj Coated Fab Pvt. Ltd.",
+        basicInfo: {
+            name: "Synthetic Footwear Leather",
+            slug: "synthetic-footwear-leather",
+            shortDescription: "Premium synthetic leather optimized for long-lasting footwear products.",
+            fullDescription: "Specially formulated synthetic leather composition that offers superior breathability and comfort for daily wear footwear.",
+            category: { level1: "Textiles", level2: "Synthetic Leather", level3: "Footwear Material" },
+            tags: ["footwear", "premium", "synthetic", "breathable"]
+        },
+        pricing: { basePrice: 150, currency: "INR", moq: 150, priceModel: "per_unit" },
+        media: {
+            images: [
+                { url: "https://5.imimg.com/data5/PA/PR/MY-5635866/synthetic-footwear-leather-500x500.jpg", isPrimary: true }
+            ]
+        },
+        specs: { "Material": "Synthetic", "Finish": "Matte/Glossy", "Durability": "High", "GSM": "300-400" },
+        inventory: { inStock: true, stockQuantity: 3000 },
+        metrics: { views: 250, inquiries: 25, rating: 4.4 },
+        manufacturer: { isVerified: true }
+    },
+    {
+        _id: "p34",
+        manufacturerId: "m10",
+        manufacturerName: "Giriraj Coated Fab Pvt. Ltd.",
+        basicInfo: {
+            name: "Black Synthetic Leather",
+            slug: "black-synthetic-leather",
+            shortDescription: "High-grade black synthetic leather for industrial and commercial use.",
+            fullDescription: "Classic black finish synthetic leather, essential for formal footwear, belts, and professional upholstery.",
+            category: { level1: "Textiles", level2: "Synthetic Leather", level3: "General Purpose" },
+            tags: ["black", "synthetic leather", "formal", "belts"]
+        },
+        pricing: { basePrice: 150, currency: "INR", moq: 100, priceModel: "per_unit" },
+        media: {
+            images: [
+                { url: "https://5.imimg.com/data5/TX/AA/MY-5635866/synthetic-leather-500x500.jpg", isPrimary: true }
+            ]
+        },
+        specs: { "Color": "Black", "Material": "Synthetic", "Thickness": "1.0mm", "Texture": "Smooth" },
+        inventory: { inStock: true, stockQuantity: 8000 },
+        metrics: { views: 380, inquiries: 40, rating: 4.8 },
+        manufacturer: { isVerified: true }
+    },
+    {
+        _id: "p35",
+        manufacturerId: "m10",
+        manufacturerName: "Giriraj Coated Fab Pvt. Ltd.",
+        basicInfo: {
+            name: "Plain Rexine Leather",
+            slug: "plain-rexine-leather",
+            shortDescription: "Classic plain rexine leather for furniture and accessory manufacturing.",
+            fullDescription: "Versatile plain Rexine fabric suitable for sofa covers, seat upholstery, and general furnishing needs.",
+            category: { level1: "Textiles", level2: "Rexine", level3: "Furnishing" },
+            tags: ["rexine", "plain", "furniture", "upholstery"]
+        },
+        pricing: { basePrice: 140, currency: "INR", moq: 250, priceModel: "request_quote" },
+        media: {
+            images: [
+                { url: "https://5.imimg.com/data5/LR/QE/MY-5635866/embossed-leather-rexine-fabric-500x500.jpg", isPrimary: true }
+            ]
+        },
+        specs: { "Material": "Rexine", "Design": "Plain", "Width": "54 inches", "Roll Size": "30 Meters" },
+        inventory: { inStock: true, stockQuantity: 6000 },
+        metrics: { views: 300, inquiries: 35, rating: 4.3 },
+        manufacturer: { isVerified: true }
+    },
+    {
+        _id: "p36",
+        manufacturerId: "m10",
+        manufacturerName: "Giriraj Coated Fab Pvt. Ltd.",
+        basicInfo: {
+            name: "Rexine Shoes Leather",
+            slug: "rexine-shoes-leather",
+            shortDescription: "Specialized rexine leather for cost-effective and durable footwear.",
+            fullDescription: "Economical yet durable rexine material specifically treated for shoe upper manufacturing.",
+            category: { level1: "Textiles", level2: "Rexine", level3: "Footwear" },
+            tags: ["rexine", "shoes", "economical", "footwear"]
+        },
+        pricing: { basePrice: 130, currency: "INR", moq: 500, priceModel: "request_quote" },
+        media: {
+            images: [
+                { url: "https://5.imimg.com/data5/GD/QL/MY-5635866/rexine-shoes-leather-500x500.jpg", isPrimary: true }
+            ]
+        },
+        specs: { "Material": "Rexine", "Application": "Shoe Uppers", "Durability": "Medium", "Cost": "Low" },
+        inventory: { inStock: true, stockQuantity: 15000 },
+        metrics: { views: 220, inquiries: 20, rating: 4.2 },
+        manufacturer: { isVerified: true }
+    },
+    {
+        _id: "p37",
+        manufacturerId: "m10",
+        manufacturerName: "Giriraj Coated Fab Pvt. Ltd.",
+        basicInfo: {
+            name: "PU Synthetic Leather",
+            slug: "pu-synthetic-leather",
+            shortDescription: "Premium PU leather with a soft feel and excellent durability.",
+            fullDescription: "Polyurethane (PU) synthetic leather offering a softer hand feel closer to genuine leather, ideal for high-end bags and apparels.",
+            category: { level1: "Textiles", level2: "Synthetic Leather", level3: "High End" },
+            tags: ["pu", "polyurethane", "soft feel", "bags", "apparel"]
+        },
+        pricing: { basePrice: 150, currency: "INR", moq: 100, priceModel: "per_unit" },
+        media: {
+            images: [
+                { url: "https://5.imimg.com/data5/ED/RX/MY-5635866/pu-synthetic-leather-500x500.jpg", isPrimary: true }
+            ]
+        },
+        specs: { "Material": "PU (Polyurethane)", "Feel": "Soft", "Eco-friendly": "Yes", "Thickness": "0.9mm" },
+        inventory: { inStock: true, stockQuantity: 4000 },
+        metrics: { views: 500, inquiries: 60, rating: 4.9 },
+        manufacturer: { isVerified: true }
+    },
     // --- REAL DATA START (Jasch Industries) ---
     {
         _id: "p21",

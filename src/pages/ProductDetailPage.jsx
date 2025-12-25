@@ -200,7 +200,11 @@ const ProductDetailPage = () => {
                             <div className="bg-zinc-900 rounded-2xl p-6 shadow-xl sticky top-24 border border-zinc-800 ring-1 ring-white/5 bg-gradient-to-b from-zinc-800/50 to-zinc-900">
                                 <div className="flex items-center gap-4 mb-5">
                                     <div className="w-16 h-16 bg-white rounded-lg flex items-center justify-center p-2 border border-zinc-700 overflow-hidden shadow-lg shadow-black/50">
-                                        <img src="https://ui-avatars.com/api/?name=Tex+Fab&background=0D8ABC&color=fff&size=128&bold=true" alt="Company Logo" className="w-full h-full object-cover rounded" />
+                                        <img
+                                            src={product.manufacturer?.logo || `https://ui-avatars.com/api/?name=${product.manufacturerName}&background=0D8ABC&color=fff&size=128&bold=true`}
+                                            alt={product.manufacturerName}
+                                            className="w-full h-full object-contain rounded"
+                                        />
                                     </div>
                                     <div className="flex-1 min-w-0">
                                         <h3 className="font-bold text-lg text-white truncate tracking-tight" title={product.manufacturerName}>

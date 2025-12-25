@@ -24,7 +24,10 @@ const ManufacturerProfileUI = ({ manufacturer, products, activeTab, setActiveTab
         'https://images.pexels.com/photos/2381463/pexels-photo-2381463.jpeg?auto=compress&cs=tinysrgb&w=400',
     ];
 
-    const galleryImages = propsGalleryImages && propsGalleryImages.length > 0 ? propsGalleryImages : defaultGalleryImages;
+    // Use manufacturer images for gallery if available
+    const galleryImages = manufacturer?.images?.length > 0
+        ? manufacturer.images
+        : (propsGalleryImages && propsGalleryImages.length > 0 ? propsGalleryImages : defaultGalleryImages);
     const productImages = defaultProductImages; // Keep product fallback internal for now
 
     if (!manufacturer) return null;
@@ -51,11 +54,11 @@ const ManufacturerProfileUI = ({ manufacturer, products, activeTab, setActiveTab
                         <div className="flex-1">
                             <div className="flex items-start gap-6">
                                 {/* Company Logo */}
-                                <div className="w-28 h-28 bg-white rounded-2xl flex items-center justify-center shadow-2xl shadow-blue-500/20 border border-blue-500/20 overflow-hidden flex-shrink-0">
+                                <div className="w-28 h-28 bg-white rounded-2xl flex items-center justify-center shadow-2xl shadow-blue-500/20 border border-blue-500/20 overflow-hidden flex-shrink-0 p-2">
                                     <img
-                                        src={`https://ui-avatars.com/api/?name=${manufacturer.companyName}&background=2563eb&color=fff&size=128&bold=true&format=svg`}
+                                        src={manufacturer.logo || `https://ui-avatars.com/api/?name=${manufacturer.companyName}&background=2563eb&color=fff&size=128&bold=true&format=svg`}
                                         alt={manufacturer.companyName}
-                                        className="w-full h-full object-cover"
+                                        className="w-full h-full object-contain"
                                     />
                                 </div>
 
@@ -164,9 +167,10 @@ const ManufacturerProfileUI = ({ manufacturer, products, activeTab, setActiveTab
                         {activeTab === 'products' && (
                             <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                                 {products.map((product, idx) => (
-                                    <div
+                                    <Link
                                         key={product._id || idx}
-                                        className="bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden group hover:border-blue-500/50 hover:shadow-xl hover:shadow-blue-500/5 transition-all cursor-pointer relative"
+                                        to={`/products/${product._id}`}
+                                        className="bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden group hover:border-blue-500/50 hover:shadow-xl hover:shadow-blue-500/5 transition-all cursor-pointer relative block"
                                     >
                                         <div className="relative aspect-square bg-zinc-800 overflow-hidden">
                                             <img
@@ -189,7 +193,7 @@ const ManufacturerProfileUI = ({ manufacturer, products, activeTab, setActiveTab
                                                 ₹{product.pricing?.basePrice?.toLocaleString() || '299'}
                                             </div>
                                         </div>
-                                    </div>
+                                    </Link>
                                 ))}
                                 {isPreview && (
                                     <div className="bg-zinc-900/50 border-2 border-dashed border-zinc-700 rounded-xl flex flex-col items-center justify-center p-6 hover:border-blue-500 hover:bg-blue-500/10 transition-all cursor-pointer group">

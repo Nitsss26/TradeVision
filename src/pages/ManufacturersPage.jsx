@@ -109,14 +109,14 @@ const ManufacturersPage = () => {
                                 >
                                     {/* Cover Image/Gallery Preview */}
                                     <div className="relative h-40 bg-zinc-800/50 border-b border-zinc-800 p-1 grid grid-cols-3 gap-1">
-                                        {[
+                                        {(mfr.images && mfr.images.length > 0 ? mfr.images.slice(0, 3) : [
                                             'https://images.pexels.com/photos/3735641/pexels-photo-3735641.jpeg?auto=compress&cs=tinysrgb&w=200',
                                             'https://images.pexels.com/photos/3846508/pexels-photo-3846508.jpeg?auto=compress&cs=tinysrgb&w=200',
                                             'https://images.pexels.com/photos/163100/circuit-circuit-board-resistor-computer-163100.jpeg?auto=compress&cs=tinysrgb&w=200'
-                                        ].map((imgUrl, i) => (
+                                        ]).map((imgUrl, i) => (
                                             <div key={i} className="relative h-full overflow-hidden first:rounded-l-xl last:rounded-r-xl">
                                                 <img
-                                                    src={imgUrl}
+                                                    src={typeof imgUrl === 'string' ? imgUrl : imgUrl?.url || imgUrl}
                                                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-60 group-hover:opacity-100"
                                                     alt=""
                                                 />
@@ -125,10 +125,10 @@ const ManufacturersPage = () => {
                                         <div className="absolute inset-0 bg-gradient-to-t from-zinc-900 via-transparent to-transparent"></div>
 
                                         {/* Logo Overlay */}
-                                        <div className="absolute -bottom-6 left-6 w-16 h-16 rounded-xl border-4 border-zinc-900 bg-white shadow-xl overflow-hidden z-20">
+                                        <div className="absolute -bottom-6 left-6 w-16 h-16 rounded-xl border-4 border-zinc-900 bg-white shadow-xl overflow-hidden z-20 p-1">
                                             <img
-                                                src={`https://ui-avatars.com/api/?name=${mfr.companyName}&background=0D8ABC&color=fff&size=128&bold=true`}
-                                                className="w-full h-full object-cover"
+                                                src={mfr.logo || `https://ui-avatars.com/api/?name=${mfr.companyName}&background=0D8ABC&color=fff&size=128&bold=true`}
+                                                className="w-full h-full object-contain"
                                                 alt={mfr.companyName}
                                             />
                                         </div>

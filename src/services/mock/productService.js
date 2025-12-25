@@ -2,6 +2,7 @@ import { delay } from './delay';
 import { getFromStorage, STORAGE_KEYS } from './storage';
 
 import { products as staticProducts } from './data/products';
+import { manufacturers as staticManufacturers } from './data/manufacturers';
 
 export const productService = {
     getAllProducts: async () => {
@@ -45,13 +46,10 @@ export const mockProductService = {
     getProductById: async (id) => {
         await delay(400);
         const product = staticProducts.find(p => p._id === id);
-        // We can get manufacturer from static manufacturers if needed, or relying on what's in product
 
         if (product) {
-            // Mock joining
-            // const manufacturer = manufacturers.find... 
-            // For speed/demo, simply returning product is often enough if it has the name
-            return { success: true, data: product };
+            const manufacturer = staticManufacturers.find(m => m._id === product.manufacturerId);
+            return { success: true, data: { ...product, manufacturer } };
         }
         throw new Error('Product not found');
     },

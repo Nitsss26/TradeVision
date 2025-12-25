@@ -1,4 +1,27 @@
 export const manufacturers = [
+    // --- REAL DATA START (Giriraj Coated Fab) ---
+    {
+        _id: "m10",
+        companyName: "Giriraj Coated Fab Pvt. Ltd.",
+        description: "Established in 2008, Giriraj Coated Fab Private Limited is a leading manufacturer and wholesaler of Rexine Leather and Synthetic Leather. Known for prompt delivery and variety of payment modes under the leadership of Mr. Sat Narain Bansal.",
+        location: { city: "Bahadurgarh", state: "Haryana", country: "India" },
+        isVerified: true,
+        businessDetails: {
+            yearEstablished: 2008,
+            employeeCount: "50-100",
+            annualRevenue: "25-50 Cr"
+        },
+        metrics: { rating: 4.5, reviews: 156, productCount: 30 },
+        capabilities: ["Rexine Manufacturing", "Synthetic Leather", "PVC Coating", "Wholesale"],
+        images: [
+            "https://5.imimg.com/data5/WE/UQ/MY-5635866/anti-wrinkle-synthetic-leather-500x500.jpg",
+            "https://5.imimg.com/data5/GT/MT/MY-5635866/synthetic-shoes-leather-500x500.jpg",
+            "https://5.imimg.com/data5/JD/CV/MY-5635866/pvc-synthetic-leather-500x500.jpg",
+            "https://5.imimg.com/data5/PA/PR/MY-5635866/synthetic-footwear-leather-500x500.jpg"
+        ],
+        logo: "https://ui-avatars.com/api/?name=Giriraj+Coated+Fab&background=E11D48&color=fff&size=128&bold=true"
+    },
+    // --- REAL DATA END ---
     // --- REAL DATA START ---
     {
         _id: "m9",
@@ -15,7 +38,8 @@ export const manufacturers = [
         capabilities: ["Sheet Thickness Measurement", "Coat Weight Measurement", "Paint Coating Measurement", "Industrial Automation"],
         images: [
             "https://5.imimg.com/data5/XO/KX/EN/SELLER-6265195/plastic-thickness-gauge-btg-3000-500x500.jpg",
-            "https://5.imimg.com/data5/OM/TB/JO/SELLER-6265195/plastic-thickness-gauge-btg-3000-500x500.jpg"
+            "https://5.imimg.com/data5/XV/QR/OT/SELLER-6265195/jasch-xrt-3000-x-ray-plastic-thickness-gauge-500x500.png",
+            "https://5.imimg.com/data5/CY/UR/HK/SELLER-6265195/jasch-basis-weight-sensor-500x500.png"
         ],
         logo: "https://5.imimg.com/data5/IE/RG/YW/SELLER-6265195/logo-120x120.png"
     },
