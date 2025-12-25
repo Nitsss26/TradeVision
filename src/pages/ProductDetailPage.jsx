@@ -17,11 +17,19 @@ const ProductDetailPage = () => {
     const [showVideo, setShowVideo] = useState(false); // Video State
 
 
+    const [relatedProducts, setRelatedProducts] = useState([]);
+
     useEffect(() => {
         const loadProduct = async () => {
             const data = await productService.getProductById(id);
             // Handle case where service returns object with success/data keys or just data
-            setProduct(data.data || data);
+            const productData = data.data || data;
+            setProduct(productData);
+
+            if (productData?.manufacturerId) {
+                const related = await productService.getProductsByManufacturer(productData.manufacturerId);
+                setRelatedProducts(related.filter(p => p._id !== id).slice(0, 4));
+            }
         };
         loadProduct();
     }, [id]);
@@ -362,15 +370,15 @@ const ProductDetailPage = () => {
                             <table className="w-full text-sm text-left">
                                 <tbody className="divide-y divide-zinc-800">
                                     {[
-                                        { label: "GST Registration Date", value: "17-08-2017" },
-                                        { label: "Legal Status of Firm", value: "Proprietorship" },
-                                        { label: "Nature of Business", value: "Manufacturer - Retailer" },
-                                        { label: "Number of Employees", value: "50-100 People" },
-                                        { label: "Annual Turnover", value: "₹ 40 Cr - 80 Cr" },
-                                        { label: "TradeVision Member Since", value: "June 2018" },
-                                        { label: "GST No.", value: "03BUWPD4037P1Z6" },
-                                        { label: "Import Export Code (IEC)", value: "BUWPD*****" },
-                                        { label: "Exports to", value: "North America, Europe, UAE" }
+                                        { label: "GST Registration Date", value: "01-07-2017" }, // Fallback or dynamic if available? defaulting to generic verified date
+                                        { label: "Legal Status of Firm", value: product.manufacturer?.businessDetails?.legalStatus || "Limited Liability Partnership" },
+                                        { label: "Nature of Business", value: "Manufacturer" },
+                                        { label: "Number of Employees", value: product.manufacturer?.businessDetails?.employeeCount || "50-100 People" },
+                                        { label: "Annual Turnover", value: product.manufacturer?.businessDetails?.annualRevenue || "₹ 10 Cr - 50 Cr" },
+                                        { label: "TradeVision Member Since", value: `June ${product.manufacturer?.businessDetails?.yearEstablished ? product.manufacturer.businessDetails.yearEstablished + 2 : 2018}` },
+                                        { label: "GST No.", value: product.manufacturer?.businessDetails?.gstNo || "07AAAC..." },
+                                        { label: "Import Export Code (IEC)", value: product.manufacturer?.businessDetails?.iec || "Not Available" },
+                                        { label: "Registered Address", value: product.manufacturer?.businessDetails?.address || product.manufacturer?.location?.city + ", " + product.manufacturer?.location?.state }
                                     ].map((row, idx) => (
                                         <tr key={idx} className="group hover:bg-zinc-800/30 transition-colors">
                                             <td className="py-3 px-4 text-zinc-500 font-medium w-1/3 border-r border-zinc-800 bg-zinc-900/50">{row.label}</td>
@@ -384,30 +392,27 @@ const ProductDetailPage = () => {
 
                     <h4 className="font-bold text-zinc-300 mb-6 text-sm uppercase tracking-widest pl-2">More from this Manufacturer</h4>
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                        {[
-                            { id: 1, title: "Linen Blend", price: 350, image: "https://images.pexels.com/photos/4792078/pexels-photo-4792078.jpeg?auto=compress&cs=tinysrgb&w=300" },
-                            { id: 2, title: "Velvet Touch", price: 890, image: "https://images.pexels.com/photos/3270223/pexels-photo-3270223.jpeg?auto=compress&cs=tinysrgb&w=300" },
-                            { id: 3, title: "Pure Silk", price: 1200, image: "https://images.pexels.com/photos/4210866/pexels-photo-4210866.jpeg?auto=compress&cs=tinysrgb&w=300" },
-                            { id: 4, title: "Denim Raw", price: 550, image: "https://images.pexels.com/photos/4210857/pexels-photo-4210857.jpeg?auto=compress&cs=tinysrgb&w=300" }
-                        ].map((item, index) => (
-                            <div key={index} className="group cursor-pointer bg-zinc-800/30 p-2 rounded-xl hover:bg-zinc-800/80 transition-all border border-transparent hover:border-zinc-700">
+                        {relatedProducts.length > 0 ? relatedProducts.map((item, index) => (
+                            <Link key={index} to={`/products/${item._id}`} className="group cursor-pointer bg-zinc-800/30 p-2 rounded-xl hover:bg-zinc-800/80 transition-all border border-transparent hover:border-zinc-700 block">
                                 <div className="aspect-square rounded-lg bg-zinc-800 overflow-hidden mb-3 relative border border-zinc-700">
                                     <img
-                                        src={item.image}
+                                        src={item.media?.images?.[0]?.url || "https://interface.tradevision.org/placeholder.png"}
                                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                                        alt={item.title}
+                                        alt={item.basicInfo?.name}
                                     />
                                     <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors"></div>
                                 </div>
-                                <p className="text-sm text-white font-semibold truncate group-hover:text-blue-400 transition-colors px-1">{item.title}</p>
-                                <p className="text-xs text-zinc-500 px-1 mt-0.5">₹{item.price} / meter</p>
-                            </div>
-                        ))}
+                                <h5 className="text-white text-sm font-medium line-clamp-2 px-1 mb-1 group-hover:text-blue-400 transition-colors">{item.basicInfo?.name}</h5>
+                                <p className="text-zinc-500 text-xs px-1 font-bold">₹{item.pricing?.basePrice?.toLocaleString()}</p>
+                            </Link>
+                        )) : (
+                            <div className="col-span-4 text-zinc-500 text-sm italic py-4">No other products available.</div>
+                        )}
                     </div>
                 </div>
 
                 {/* 3. Ratings & Reviews */}
-                <div className="bg-zinc-900 rounded-2xl p-8 shadow-2xl border border-zinc-800 ring-1 ring-white/5 bg-gradient-to-br from-zinc-900 via-zinc-900 to-zinc-800/30">
+                < div className="bg-zinc-900 rounded-2xl p-8 shadow-2xl border border-zinc-800 ring-1 ring-white/5 bg-gradient-to-br from-zinc-900 via-zinc-900 to-zinc-800/30" >
                     <h3 className="text-xl font-bold text-white mb-8 flex items-center gap-2">
                         <span className="p-2 bg-orange-500/10 rounded-lg"><MessageSquare className="w-5 h-5 text-orange-500" /></span>
                         Ratings & Reviews
@@ -472,10 +477,10 @@ const ProductDetailPage = () => {
                     <button className="w-full mt-6 py-3 border border-zinc-700 text-zinc-400 font-bold rounded-lg hover:bg-zinc-800 hover:text-white transition-colors text-sm">
                         View All Reviews
                     </button>
-                </div>
+                </div >
 
                 {/* 4. Related Products (Outside Cards, on Dark Background) */}
-                <div className="mt-16 pt-8 border-t border-zinc-800">
+                < div className="mt-16 pt-8 border-t border-zinc-800" >
                     <h2 className="text-2xl font-bold text-white mb-8">Related Products</h2>
                     <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
                         {[...Array(5)].map((_, idx) => (
@@ -484,10 +489,10 @@ const ProductDetailPage = () => {
                             </div>
                         ))}
                     </div>
-                </div>
+                </div >
 
                 {/* Sponsored Products Section (New) */}
-                <div className="max-w-[1400px] mx-auto px-4 lg:px-6 mb-16 mt-20 border-t border-zinc-900 pt-12">
+                < div className="max-w-[1400px] mx-auto px-4 lg:px-6 mb-16 mt-20 border-t border-zinc-900 pt-12" >
                     <div className="flex items-center gap-2 mb-8">
                         <span className="text-[10px] font-bold text-zinc-400 bg-zinc-800/50 px-2 py-1 rounded border border-zinc-700 tracking-wider">SPONSORED</span>
                         <h2 className="text-xl font-bold text-white">Featured Premium Suppliers</h2>
@@ -517,10 +522,10 @@ const ProductDetailPage = () => {
                             </div>
                         ))}
                     </div>
-                </div>
+                </div >
 
                 {/* Related Categories (New) */}
-                <div className="max-w-[1400px] mx-auto px-4 lg:px-6 pb-12 border-t border-zinc-900 pt-8">
+                < div className="max-w-[1400px] mx-auto px-4 lg:px-6 pb-12 border-t border-zinc-900 pt-8" >
                     <h2 className="text-lg font-bold text-white mb-6">Find related categories near Amritsar</h2>
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                         {[
@@ -543,7 +548,7 @@ const ProductDetailPage = () => {
                             </div>
                         ))}
                     </div>
-                </div>
+                </div >
             </div >
         </MainLayout >
     );

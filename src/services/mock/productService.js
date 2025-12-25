@@ -9,7 +9,15 @@ export const productService = {
         return staticProducts;
     },
     getProductById: async (id) => {
-        return staticProducts.find(p => p._id === id) || null;
+        const product = staticProducts.find(p => p._id === id);
+        if (product) {
+            const manufacturer = staticManufacturers.find(m => m._id === product.manufacturerId);
+            return { ...product, manufacturer: { ...product.manufacturer, ...manufacturer } };
+        }
+        return null;
+    },
+    getProductsByManufacturer: async (manufacturerId) => {
+        return staticProducts.filter(p => p.manufacturerId === manufacturerId);
     }
 };
 

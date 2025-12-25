@@ -214,11 +214,11 @@ const MfrCard = ({ mfr }) => (
         </div>
 
         <div className="grid grid-cols-3 gap-2 mb-4">
-            {[
+            {(mfr.images && mfr.images.length > 0 ? mfr.images : [
                 'https://images.pexels.com/photos/3735641/pexels-photo-3735641.jpeg?auto=compress&cs=tinysrgb&w=200',
                 'https://images.pexels.com/photos/3846508/pexels-photo-3846508.jpeg?auto=compress&cs=tinysrgb&w=200',
                 'https://images.pexels.com/photos/163100/circuit-circuit-board-resistor-computer-163100.jpeg?auto=compress&cs=tinysrgb&w=200'
-            ].map((imgUrl, i) => (
+            ]).slice(0, 3).map((imgUrl, i) => (
                 <div key={i} className="aspect-square bg-zinc-800 rounded-md overflow-hidden relative border border-zinc-700/50 group-hover:border-zinc-600 transition-colors">
                     <img
                         src={imgUrl}

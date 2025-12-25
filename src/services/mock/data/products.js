@@ -192,27 +192,20 @@ export const products = [
         basicInfo: {
             name: "Jasch BTG 3000 KR-85 Plastic Thickness Gauge",
             slug: "jasch-btg-3000-kr-85",
-            shortDescription: "Precision plastic thickness gauge for film extrusion, sheet, and co-extrusion.",
-            fullDescription: "Jasch has provided leading measurement innovation for over 45 years in the Plastics market. The range of Jasch products sets a new standard in terms of quality assurance and process optimization for film extrusion, sheet, and co-extrusion.",
+            shortDescription: "Precision plastic thickness gauge using Krypton-85 source for film extrusion.",
+            fullDescription: "Jasch BTG 3000 (KR-85) sets a new standard in quality assurance for film extrusion. It provides non-contact measurement with high precision, ensuring consistent thickness and process optimization.",
             category: { level1: "Machinery", level2: "Quality Control", level3: "Thickness Gauges" },
-            tags: ["thickness gauge", "plastic", "extrusion", "quality control", "industrial"]
+            tags: ["thickness gauge", "plastic", "extrusion", "krypton-85", "industrial"]
         },
         pricing: { basePrice: 500000, currency: "INR", moq: 1, priceModel: "request_quote" },
         media: {
             images: [
                 { url: "https://5.imimg.com/data5/XO/KX/EN/SELLER-6265195/plastic-thickness-gauge-btg-3000-1000x1000.jpg", isPrimary: true },
-                { url: "https://5.imimg.com/data5/XO/KX/EN/SELLER-6265195/plastic-thickness-gauge-btg-3000-500x500.jpg" }
+                { url: "https://5.imimg.com/data5/OM/TB/JO/SELLER-6265195/plastic-thickness-gauge-btg-3000-500x500.jpg" }
             ]
         },
-        specs: {
-            "Model Name/Number": "BTG 3000 (KR-85)",
-            "Brand": "Jasch",
-            "Operating Temperature": "0-50 Degree Celsius",
-            "Radioactive Source": "Krypton 85, 200 mCi",
-            "Accuracy": "Tolerance 0.25% or 0.25 GSM",
-            "Measurement Range": "0-1200 GSM"
-        },
-        inventory: { inStock: true, stockQuantity: 10 },
+        specs: { "Model": "BTG 3000", "Source": "Kr-85 (Beta)", "Application": "Plastic Film/Sheet", "Accuracy": "+/- 0.25%" },
+        inventory: { inStock: true, stockQuantity: 5 },
         metrics: { views: 450, inquiries: 15, rating: 5.0 },
         manufacturer: { isVerified: true }
     },
@@ -223,9 +216,9 @@ export const products = [
         basicInfo: {
             name: "Jasch XRT 3000 X-Ray Plastic Thickness Gauge",
             slug: "jasch-xrt-3000-x-ray",
-            shortDescription: "X-ray based thickness and profile control for calendered plastic films.",
-            fullDescription: "Achieves thickness and profile control of calendered plastic films by dividing the scanned profile into three zones for precise nip adjustment and quality consistency.",
-            category: { level1: "Machinery", level2: "Quality Control", level3: "Thickness Gauges" },
+            shortDescription: "X-ray based thickness control for calendered plastic films.",
+            fullDescription: "The XRT 3000 uses X-Ray technology for precise thickness and profile control of calendered plastic films. It features 3-zone profile dividing for accurate nip adjustment.",
+            category: { level1: "Machinery", level2: "Quality Control", level3: "X-Ray Gauges" },
             tags: ["x-ray", "thickness gauge", "calendered film", "industrial"]
         },
         pricing: { basePrice: 1200000, currency: "INR", moq: 1, priceModel: "request_quote" },
@@ -234,15 +227,9 @@ export const products = [
                 { url: "https://5.imimg.com/data5/XV/QR/OT/SELLER-6265195/jasch-xrt-3000-x-ray-plastic-thickness-gauge-500x500.png", isPrimary: true }
             ]
         },
-        specs: {
-            "Model Name/Number": "XRT 3000 X-ray",
-            "Brand": "Jasch",
-            "Source": "X-Ray (Selectable energy and power)",
-            "Accuracy": "Tolerance 1% or 0.1 GSM",
-            "Range": "0-10000 GSM"
-        },
-        inventory: { inStock: true, stockQuantity: 5 },
-        metrics: { views: 320, inquiries: 8, rating: 4.8 },
+        specs: { "Technology": "X-Ray", "Application": "Calendered Film", "Feature": "Non-Nuclear", "Response": "Fast" },
+        inventory: { inStock: true, stockQuantity: 2 },
+        metrics: { views: 320, inquiries: 10, rating: 4.8 },
         manufacturer: { isVerified: true }
     },
     {
@@ -250,40 +237,12 @@ export const products = [
         manufacturerId: "m9",
         manufacturerName: "Jasch Industries Ltd.",
         basicInfo: {
-            name: "Jasch BTG 3000 Online Paint Coating Measurement",
-            slug: "jasch-btg-3000-paint",
-            shortDescription: "Online measurement system for paint coating thickness on metal strips.",
-            fullDescription: "Online measurement system for paint coating thickness on metal strips, providing real-time data for process optimization in galvanizing and painting lines.",
-            category: { level1: "Machinery", level2: "Quality Control", level3: "Coating Measurement" },
-            tags: ["paint coating", "measurement", "galvanizing", "online system"]
-        },
-        pricing: { basePrice: 850000, currency: "INR", moq: 1, priceModel: "request_quote" },
-        media: {
-            images: [
-                { url: "https://5.imimg.com/data5/HA/YG/FE/SELLER-6265195/jasch-btg-3000-online-paint-coating-measurement-system-250x250.png", isPrimary: true }
-            ]
-        },
-        specs: {
-            "System Type": "Online Coating Measurement",
-            "Model": "BTG-3000 Paint",
-            "Brand": "Jasch",
-            "Application": "Metal Strip Coating"
-        },
-        inventory: { inStock: true, stockQuantity: 8 },
-        metrics: { views: 280, inquiries: 12, rating: 4.9 },
-        manufacturer: { isVerified: true }
-    },
-    {
-        _id: "p24",
-        manufacturerId: "m9",
-        manufacturerName: "Jasch Industries Ltd.",
-        basicInfo: {
             name: "Jasch BTG 3000PP Basis Weight Sensor",
-            slug: "jasch-btg-3000pp",
-            shortDescription: "High-performance basis weight sensor for Paper, Board, and Tissue.",
-            fullDescription: "High-performance basis weight sensor designed for Paper, Board, and Tissue quality control systems to ensure uniformity in web processes.",
-            category: { level1: "Machinery", level2: "Quality Control", level3: "Paper Industry" },
-            tags: ["basis weight", "sensor", "paper industry", "quality control"]
+            slug: "jasch-btg-3000pp-sensor",
+            shortDescription: "Online basis weight measurement sensor for paper and coating applications.",
+            fullDescription: "The BTG 3000PP is designed for online measurement of basis weight (GSM) in paper, board, and coating industries. It ensures consistent product quality and material savings.",
+            category: { level1: "Machinery", level2: "Sensors", level3: "Weight Sensors" },
+            tags: ["gs sensor", "paper", "coating", "basis weight"]
         },
         pricing: { basePrice: 350000, currency: "INR", moq: 1, priceModel: "request_quote" },
         media: {
@@ -291,15 +250,58 @@ export const products = [
                 { url: "https://5.imimg.com/data5/CY/UR/HK/SELLER-6265195/jasch-basis-weight-sensor-500x500.png", isPrimary: true }
             ]
         },
-        specs: {
-            "Brand": "Jasch",
-            "Series": "BTG 3000PP",
-            "Application": "Paper & Tissue Industry"
-        },
-        inventory: { inStock: true, stockQuantity: 20 },
-        metrics: { views: 210, inquiries: 9, rating: 4.7 },
+        specs: { "Type": "Basis Weight", "Industry": "Paper/Coating", "Output": "Digital/Analog", "Range": "Customizable" },
+        inventory: { inStock: true, stockQuantity: 8 },
+        metrics: { views: 280, inquiries: 8, rating: 4.6 },
         manufacturer: { isVerified: true }
     },
+    {
+        _id: "p24",
+        manufacturerId: "m9",
+        manufacturerName: "Jasch Industries Ltd.",
+        basicInfo: {
+            name: "Jasch ITG-2000/XTG-2000 Thickness System",
+            slug: "jasch-itg-xtg-2000",
+            shortDescription: "Isotope and X-Ray strip thickness measurement for cold rolling mills.",
+            fullDescription: "A robust thickness measurement system for steel and metal strips in cold rolling mills. Available in both Isotope (ITG) and X-Ray (XTG) variants for versatile application.",
+            category: { level1: "Machinery", level2: "Metal Working", level3: "Rolling Mills" },
+            tags: ["rolling mill", "steel", "thickness measurement", "x-ray", "isotope"]
+        },
+        pricing: { basePrice: 1500000, currency: "INR", moq: 1, priceModel: "request_quote" },
+        media: {
+            images: [
+                { url: "https://5.imimg.com/data5/SELLER/Default/2021/3/KM/GQ/GZ/6265195/jasch-itg-2000-xtg-2000-isotope-and-x-ray-strip-thickness-measurement-system-500x500.jpg", isPrimary: true }
+            ]
+        },
+        specs: { "Application": "Cold Rolling Mills", "Variants": "ITG (Isotope) / XTG (X-Ray)", "Accuracy": "High", "Control": "Automatic" },
+        inventory: { inStock: true, stockQuantity: 1 },
+        metrics: { views: 500, inquiries: 20, rating: 4.9 },
+        manufacturer: { isVerified: true }
+    },
+    {
+        _id: "p25",
+        manufacturerId: "m9",
+        manufacturerName: "Jasch Industries Ltd.",
+        basicInfo: {
+            name: "Jasch XRF-3000 Online Coating Measurement",
+            slug: "jasch-xrf-3000-coating",
+            shortDescription: "Online coating weight measurement system using X-Ray Fluorescence.",
+            fullDescription: "The XRF-3000 utilizes X-Ray Fluorescence technology for precise, non-contact measurement of coating weights (e.g., Zinc on Steel) on process lines.",
+            category: { level1: "Machinery", level2: "Quality Control", level3: "Coating Measurement" },
+            tags: ["coating", "xrf", "galvanizing", "thickness"]
+        },
+        pricing: { basePrice: 1800000, currency: "INR", moq: 1, priceModel: "request_quote" },
+        media: {
+            images: [
+                { url: "https://5.imimg.com/data5/SELLER/Default/2021/3/XO/YP/DA/6265195/jasxh-xrf-3000-online-coating-measurement-system-500x500.jpg", isPrimary: true }
+            ]
+        },
+        specs: { "Method": "X-Ray Fluorescence", "Application": "Galvanizing/Coating", "Accuracy": "+/- 1%", "Display": "Digital" },
+        inventory: { inStock: true, stockQuantity: 1 },
+        metrics: { views: 350, inquiries: 12, rating: 4.8 },
+        manufacturer: { isVerified: true }
+    },
+    // --- REAL DATA END (Jasch) ---
     // --- REAL DATA END ---
 
     // ========== TEXTILES & APPAREL ==========

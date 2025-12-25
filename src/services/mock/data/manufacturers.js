@@ -3,47 +3,56 @@ export const manufacturers = [
     {
         _id: "m10",
         companyName: "Giriraj Coated Fab Pvt. Ltd.",
-        description: "Established in 2008, Giriraj Coated Fab Private Limited is a leading manufacturer and wholesaler of Rexine Leather and Synthetic Leather. Known for prompt delivery and variety of payment modes under the leadership of Mr. Sat Narain Bansal.",
+        description: "Established in 2008, Giriraj Coated Fab Private Limited is a leading manufacturer and wholesaler of Rexine Leather and Synthetic Leather. Known for prompt delivery and variety of payment modes. Backed by state-of-the-art infrastructure in Bahadurgarh.",
         location: { city: "Bahadurgarh", state: "Haryana", country: "India" },
         isVerified: true,
         businessDetails: {
             yearEstablished: 2008,
             employeeCount: "50-100",
-            annualRevenue: "25-50 Cr"
+            annualRevenue: "100-500 Cr",
+            gstNo: "06AADCG0492Q1Z8",
+            legalStatus: "Limited Company (LTD./PVT.LTD.)",
+            address: "P No. 179A, Sector 16, Indl. Estate HSIIDC, Bahadurgarh, Jhajjar-124507, Haryana, India"
         },
-        metrics: { rating: 4.5, reviews: 156, productCount: 30 },
-        capabilities: ["Rexine Manufacturing", "Synthetic Leather", "PVC Coating", "Wholesale"],
+        metrics: { rating: 4.6, reviews: 156, productCount: 45 },
+        capabilities: ["Rexine Manufacturing", "Synthetic Leather", "PVC Coating", "Artificial Leather"],
         images: [
             "https://5.imimg.com/data5/WE/UQ/MY-5635866/anti-wrinkle-synthetic-leather-500x500.jpg",
             "https://5.imimg.com/data5/GT/MT/MY-5635866/synthetic-shoes-leather-500x500.jpg",
             "https://5.imimg.com/data5/JD/CV/MY-5635866/pvc-synthetic-leather-500x500.jpg",
-            "https://5.imimg.com/data5/PA/PR/MY-5635866/synthetic-footwear-leather-500x500.jpg"
+            "https://5.imimg.com/data5/PA/PR/MY-5635866/synthetic-footwear-leather-500x500.jpg",
+            "https://5.imimg.com/data5/LR/QE/MY-5635866/embossed-leather-rexine-fabric-500x500.jpg"
         ],
         logo: "https://ui-avatars.com/api/?name=Giriraj+Coated+Fab&background=E11D48&color=fff&size=128&bold=true"
     },
-    // --- REAL DATA END ---
-    // --- REAL DATA START ---
+    // --- REAL DATA END (Giriraj) ---
+    // --- REAL DATA START (Jasch Industries) ---
     {
         _id: "m9",
         companyName: "Jasch Industries Ltd.",
-        description: "JASCH is the Industrial Automation market leader in areas such as Aluminum/Rolled steel /Galvanized/Paint coated metal/Paper/Plastic films and will continue to extend that lead by delivering compelling business solutions, business-focused hardware and software products, robust service and support, and above all cost effective solutions.",
+        description: "JASCH is the Industrial Automation market leader in areas such as Aluminum/Rolled steel/Galvanized/Paint coated metal/Paper/Plastic films. Delivering business-focused hardware and software products, robust service and support for over 45 years.",
         location: { city: "Sonipat", state: "Haryana", country: "India" },
         isVerified: true,
         businessDetails: {
             yearEstablished: 1985,
-            employeeCount: "500+",
-            annualRevenue: "100+ Cr"
+            employeeCount: "51-100",
+            annualRevenue: "100-500 Cr",
+            gstNo: "06AAACJ0766B2Z1",
+            legalStatus: "Limited Company",
+            address: "43/5, Bahalgarh Road, Sonipat-131021, Haryana, India"
         },
         metrics: { rating: 4.7, reviews: 215, productCount: 50 },
-        capabilities: ["Sheet Thickness Measurement", "Coat Weight Measurement", "Paint Coating Measurement", "Industrial Automation"],
+        capabilities: ["Thickness Gauging", "Online Coating Measurement", "Nucleonic Gauges", "X-Ray Gauges"],
         images: [
             "https://5.imimg.com/data5/XO/KX/EN/SELLER-6265195/plastic-thickness-gauge-btg-3000-500x500.jpg",
             "https://5.imimg.com/data5/XV/QR/OT/SELLER-6265195/jasch-xrt-3000-x-ray-plastic-thickness-gauge-500x500.png",
-            "https://5.imimg.com/data5/CY/UR/HK/SELLER-6265195/jasch-basis-weight-sensor-500x500.png"
+            "https://5.imimg.com/data5/CY/UR/HK/SELLER-6265195/jasch-basis-weight-sensor-500x500.png",
+            "https://5.imimg.com/data5/SELLER/Default/2021/3/KM/GQ/GZ/6265195/jasch-itg-2000-xtg-2000-isotope-and-x-ray-strip-thickness-measurement-system-500x500.jpg",
+            "https://5.imimg.com/data5/SELLER/Default/2021/3/XO/YP/DA/6265195/jasxh-xrf-3000-online-coating-measurement-system-500x500.jpg"
         ],
         logo: "https://5.imimg.com/data5/IE/RG/YW/SELLER-6265195/logo-120x120.png"
     },
-    // --- REAL DATA END ---
+    // --- REAL DATA END (Jasch) ---
 
     {
         _id: "m1",
