@@ -8,7 +8,7 @@ const ClearancePage = () => {
     const clearanceItems = [
         {
             id: 1,
-            name: "Industrial Heavy Duty Motor - Dead Stock",
+            name: "Industrial Heavy Duty Motor - Mega Sale",
             originalPrice: 45000,
             salePrice: 9000,
             image: "https://images.pexels.com/photos/190574/pexels-photo-190574.jpeg?auto=compress&cs=tinysrgb&w=600",
@@ -100,14 +100,14 @@ const ClearancePage = () => {
                             <div className="space-y-6 animate-in slide-in-from-left duration-700">
                                 <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-red-600 text-white font-bold rounded-full text-sm animate-pulse">
                                     <Flame className="w-4 h-4 fill-white" />
-                                    MEGA WAREHOUSE CLEARANCE
+                                    MEGA FLASH SALE
                                 </div>
                                 <h1 className="text-5xl md:text-7xl font-black text-white leading-tight">
                                     FLAT <span className="text-yellow-400">80% OFF</span><br />
-                                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-zinc-400">DEAD STOCK</span>
+                                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-zinc-400">MEGA SALE</span>
                                 </h1>
                                 <p className="text-lg text-red-200">
-                                    Factory surplus, end-of-season, and liquidation stock at rock-bottom prices.
+                                    Limited-time discounts on premium inventory at unbeatable prices.
                                     Verified functionality. No returns.
                                 </p>
 
@@ -244,8 +244,8 @@ const ClearancePage = () => {
                                 <div className="w-12 h-12 bg-red-500/10 rounded-full flex items-center justify-center mx-auto mb-4">
                                     <AlertCircle className="w-6 h-6 text-red-500" />
                                 </div>
-                                <h4 className="text-white font-bold text-lg mb-2">Dead Stock Clearance</h4>
-                                <p className="text-zinc-400 text-sm">Manufacturers liquidate surplus inventory to free up warehouse space. Note: Packaging might be slightly damaged.</p>
+                                <h4 className="text-white font-bold text-lg mb-2">Warehouse Clearance</h4>
+                                <p className="text-zinc-400 text-sm">Manufacturers offer massive discounts on surplus inventory. Quality guaranteed, incredible savings.</p>
                             </div>
                             <div className="p-4">
                                 <div className="w-12 h-12 bg-green-500/10 rounded-full flex items-center justify-center mx-auto mb-4">

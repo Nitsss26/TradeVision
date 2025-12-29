@@ -586,7 +586,6 @@ const HomePage = () => {
             <div className="min-h-screen bg-black text-white font-sans pb-20">
                 {/* Hero Section */}
                 <HeroSection onOpenInquiry={() => setIsInquiryOpen(true)} />
-                <SponsoredBrands />
 
                 {/* Best Selling & Hot Deals - New Section */}
                 <div className="max-w-[1400px] mx-auto px-4 lg:px-6 py-8 space-y-8">
@@ -654,7 +653,7 @@ const HomePage = () => {
                         ))}
                     </div>
 
-                    <div className="mb-16">
+                    {/* <div className="mb-16">
                         <div className="w-full h-32 md:h-40 bg-gradient-to-r from-blue-900 to-purple-900 rounded-2xl flex flex-col md:flex-row items-center justify-between px-6 md:px-12 py-6 relative overflow-hidden">
                             <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-20"></div>
                             <div className="relative z-10 text-center md:text-left mb-4 md:mb-0">
@@ -665,7 +664,7 @@ const HomePage = () => {
                                 Upgrade Now
                             </button>
                         </div>
-                    </div>
+                    </div> */}
 
                     <SectionHeader title="Verified Manufacturers" linkTo="/manufacturers" />
                     <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-6">
