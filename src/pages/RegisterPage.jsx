@@ -11,26 +11,49 @@ const RegisterPage = () => {
     const { loading, error } = useSelector(state => state.auth);
 
     const [accountType, setAccountType] = useState(searchParams.get('type') === 'manufacturer' ? 'manufacturer' : 'buyer');
+    const [step, setStep] = useState(1); // 1: Basic Info, 2: Company Details
+
     const [formData, setFormData] = useState({
         name: '',
         email: '',
         password: '',
         confirmPassword: '',
         phone: '',
-        companyName: ''
+        companyName: '',
+        // Step 2 Fields
+        gstNo: '',
+        turnover: '',
+        panNo: '',
+        employeeCount: '',
+        yearEstablished: '',
+        iecCode: '',
+        description: '',
+        address: ''
     });
+
     const [showPassword, setShowPassword] = useState(false);
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = async (e) => {
+    const handleNextStep = (e) => {
         e.preventDefault();
         if (formData.password !== formData.confirmPassword) {
             alert('Passwords do not match');
             return;
         }
+        setStep(2);
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        // For buyers, validation happens here as they only have Step 1
+        if (accountType === 'buyer' && formData.password !== formData.confirmPassword) {
+            alert('Passwords do not match');
+            return;
+        }
+
         const result = await dispatch(register({ ...formData, role: accountType }));
         if (result.meta.requestStatus === 'fulfilled') {
             navigate('/dashboard');
@@ -111,7 +134,7 @@ const RegisterPage = () => {
                     <div className="flex bg-zinc-900 border border-zinc-800 rounded-xl p-1 mb-8">
                         <button
                             type="button"
-                            onClick={() => setAccountType('buyer')}
+                            onClick={() => { setAccountType('buyer'); setStep(1); }}
                             className={`flex-1 py-3 rounded-lg font-bold text-sm transition-all shadow-sm ${accountType === 'buyer'
                                 ? 'bg-zinc-800 text-white shadow-lg border border-zinc-700'
                                 : 'text-zinc-500 hover:text-zinc-300'
@@ -121,7 +144,7 @@ const RegisterPage = () => {
                         </button>
                         <button
                             type="button"
-                            onClick={() => setAccountType('manufacturer')}
+                            onClick={() => { setAccountType('manufacturer'); setStep(1); }}
                             className={`flex-1 py-3 rounded-lg font-bold text-sm transition-all shadow-sm ${accountType === 'manufacturer'
                                 ? 'bg-blue-600 text-white shadow-lg shadow-blue-900/20'
                                 : 'text-zinc-500 hover:text-zinc-300'
@@ -137,114 +160,212 @@ const RegisterPage = () => {
                         </div>
                     )}
 
-                    <form onSubmit={handleSubmit} className="space-y-4">
-                        <div className="grid grid-cols-2 gap-4">
-                            <div className="space-y-1.5">
-                                <label className="text-xs font-bold text-zinc-300 ml-1">Full Name</label>
-                                <div className="relative group">
-                                    <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-500 group-focus-within:text-blue-500 transition-colors" />
-                                    <input
-                                        type="text"
-                                        name="name"
-                                        value={formData.name}
-                                        onChange={handleChange}
-                                        placeholder="Deepak Kumar"
-                                        className="w-full pl-10 pr-4 py-3 bg-zinc-900/50 border border-zinc-700 rounded-xl text-white placeholder-zinc-600 outline-none focus:border-blue-500 focus:bg-zinc-900 transition-all text-sm"
-                                        required
-                                    />
-                                </div>
-                            </div>
+                    <form onSubmit={accountType === 'manufacturer' && step === 1 ? handleNextStep : handleSubmit} className="space-y-4">
 
-                            <div className="space-y-1.5">
-                                <label className="text-xs font-bold text-zinc-300 ml-1">Phone</label>
-                                <div className="relative group">
-                                    <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-500 group-focus-within:text-blue-500 transition-colors" />
-                                    <input
-                                        type="tel"
-                                        name="phone"
-                                        value={formData.phone}
-                                        onChange={handleChange}
-                                        placeholder="+91 98..."
-                                        className="w-full pl-10 pr-4 py-3 bg-zinc-900/50 border border-zinc-700 rounded-xl text-white placeholder-zinc-600 outline-none focus:border-blue-500 focus:bg-zinc-900 transition-all text-sm"
-                                    />
-                                </div>
-                            </div>
-                        </div>
+                        {/* STEP 1: Basic Info */}
+                        {step === 1 && (
+                            <div className="space-y-4 animate-in slide-in-from-right">
+                                <div className="grid grid-cols-2 gap-4">
+                                    <div className="space-y-1.5">
+                                        <label className="text-xs font-bold text-zinc-300 ml-1">Full Name</label>
+                                        <div className="relative group">
+                                            <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-500 group-focus-within:text-blue-500 transition-colors" />
+                                            <input
+                                                type="text"
+                                                name="name"
+                                                value={formData.name}
+                                                onChange={handleChange}
+                                                placeholder="Deepak Kumar"
+                                                className="w-full pl-10 pr-4 py-3 bg-zinc-900/50 border border-zinc-700 rounded-xl text-white placeholder-zinc-600 outline-none focus:border-blue-500 focus:bg-zinc-900 transition-all text-sm"
+                                                required
+                                            />
+                                        </div>
+                                    </div>
 
-                        {accountType === 'manufacturer' && (
-                            <div className="space-y-1.5">
-                                <label className="text-xs font-bold text-zinc-300 ml-1">Company Name</label>
-                                <div className="relative group">
-                                    <Building2 className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-500 group-focus-within:text-blue-500 transition-colors" />
-                                    <input
-                                        type="text"
-                                        name="companyName"
-                                        value={formData.companyName}
-                                        onChange={handleChange}
-                                        placeholder="Your Factory Name"
-                                        className="w-full pl-10 pr-4 py-3 bg-zinc-900/50 border border-zinc-700 rounded-xl text-white placeholder-zinc-600 outline-none focus:border-blue-500 focus:bg-zinc-900 transition-all text-sm"
-                                        required
-                                    />
+                                    <div className="space-y-1.5">
+                                        <label className="text-xs font-bold text-zinc-300 ml-1">Phone</label>
+                                        <div className="relative group">
+                                            <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-500 group-focus-within:text-blue-500 transition-colors" />
+                                            <input
+                                                type="tel"
+                                                name="phone"
+                                                value={formData.phone}
+                                                onChange={handleChange}
+                                                placeholder="+91 98..."
+                                                className="w-full pl-10 pr-4 py-3 bg-zinc-900/50 border border-zinc-700 rounded-xl text-white placeholder-zinc-600 outline-none focus:border-blue-500 focus:bg-zinc-900 transition-all text-sm"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {accountType === 'manufacturer' && (
+                                    <div className="space-y-1.5">
+                                        <label className="text-xs font-bold text-zinc-300 ml-1">Company Name</label>
+                                        <div className="relative group">
+                                            <Building2 className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-500 group-focus-within:text-blue-500 transition-colors" />
+                                            <input
+                                                type="text"
+                                                name="companyName"
+                                                value={formData.companyName}
+                                                onChange={handleChange}
+                                                placeholder="Your Factory Name"
+                                                className="w-full pl-10 pr-4 py-3 bg-zinc-900/50 border border-zinc-700 rounded-xl text-white placeholder-zinc-600 outline-none focus:border-blue-500 focus:bg-zinc-900 transition-all text-sm"
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+                                )}
+
+                                <div className="space-y-1.5">
+                                    <label className="text-xs font-bold text-zinc-300 ml-1">Email Address</label>
+                                    <div className="relative group">
+                                        <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-500 group-focus-within:text-blue-500 transition-colors" />
+                                        <input
+                                            type="email"
+                                            name="email"
+                                            value={formData.email}
+                                            onChange={handleChange}
+                                            placeholder="you@company.com"
+                                            className="w-full pl-10 pr-4 py-3 bg-zinc-900/50 border border-zinc-700 rounded-xl text-white placeholder-zinc-600 outline-none focus:border-blue-500 focus:bg-zinc-900 transition-all text-sm"
+                                            required
+                                        />
+                                    </div>
+                                </div>
+
+                                <div className="grid grid-cols-2 gap-4">
+                                    <div className="space-y-1.5">
+                                        <label className="text-xs font-bold text-zinc-300 ml-1">Password</label>
+                                        <div className="relative group">
+                                            <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-500 group-focus-within:text-blue-500 transition-colors" />
+                                            <input
+                                                type={showPassword ? 'text' : 'password'}
+                                                name="password"
+                                                value={formData.password}
+                                                onChange={handleChange}
+                                                placeholder="••••••••"
+                                                className="w-full pl-10 pr-4 py-3 bg-zinc-900/50 border border-zinc-700 rounded-xl text-white placeholder-zinc-600 outline-none focus:border-blue-500 focus:bg-zinc-900 transition-all text-sm"
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <div className="space-y-1.5">
+                                        <label className="text-xs font-bold text-zinc-300 ml-1">Confirm</label>
+                                        <div className="relative group">
+                                            <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-500 group-focus-within:text-blue-500 transition-colors" />
+                                            <input
+                                                type={showPassword ? 'text' : 'password'}
+                                                name="confirmPassword"
+                                                value={formData.confirmPassword}
+                                                onChange={handleChange}
+                                                placeholder="••••••••"
+                                                className="w-full pl-10 pr-4 py-3 bg-zinc-900/50 border border-zinc-700 rounded-xl text-white placeholder-zinc-600 outline-none focus:border-blue-500 focus:bg-zinc-900 transition-all text-sm"
+                                                required
+                                            />
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         )}
 
-                        <div className="space-y-1.5">
-                            <label className="text-xs font-bold text-zinc-300 ml-1">Email Address</label>
-                            <div className="relative group">
-                                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-500 group-focus-within:text-blue-500 transition-colors" />
-                                <input
-                                    type="email"
-                                    name="email"
-                                    value={formData.email}
-                                    onChange={handleChange}
-                                    placeholder="you@company.com"
-                                    className="w-full pl-10 pr-4 py-3 bg-zinc-900/50 border border-zinc-700 rounded-xl text-white placeholder-zinc-600 outline-none focus:border-blue-500 focus:bg-zinc-900 transition-all text-sm"
-                                    required
-                                />
-                            </div>
-                        </div>
+                        {/* STEP 2: Company Details (Manufacturers Only) */}
+                        {step === 2 && accountType === 'manufacturer' && (
+                            <div className="space-y-4 animate-in slide-in-from-right">
+                                <div className="p-4 bg-blue-900/20 border border-blue-800/50 rounded-lg text-sm text-blue-200 mb-4">
+                                    <h4 className="font-bold flex items-center gap-2 mb-1"><Building2 className="w-4 h-4" /> Company Details</h4>
+                                    <p className="opacity-80">Help buyers trust you by providing business credentials.</p>
+                                </div>
 
-                        <div className="grid grid-cols-2 gap-4">
-                            <div className="space-y-1.5">
-                                <label className="text-xs font-bold text-zinc-300 ml-1">Password</label>
-                                <div className="relative group">
-                                    <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-500 group-focus-within:text-blue-500 transition-colors" />
-                                    <input
-                                        type={showPassword ? 'text' : 'password'}
-                                        name="password"
-                                        value={formData.password}
+                                <div className="grid grid-cols-2 gap-4">
+                                    <div className="space-y-1.5">
+                                        <label className="text-xs font-bold text-zinc-300 ml-1">GST Number</label>
+                                        <input
+                                            type="text"
+                                            name="gstNo"
+                                            value={formData.gstNo}
+                                            onChange={handleChange}
+                                            placeholder="27ABCDE..."
+                                            className="w-full px-4 py-3 bg-zinc-900/50 border border-zinc-700 rounded-xl text-white placeholder-zinc-600 outline-none focus:border-blue-500 focus:bg-zinc-900 transition-all text-sm"
+                                            required
+                                        />
+                                    </div>
+                                    <div className="space-y-1.5">
+                                        <label className="text-xs font-bold text-zinc-300 ml-1">PAN Number</label>
+                                        <input
+                                            type="text"
+                                            name="panNo"
+                                            value={formData.panNo}
+                                            onChange={handleChange}
+                                            placeholder="ABCDE1234F"
+                                            className="w-full px-4 py-3 bg-zinc-900/50 border border-zinc-700 rounded-xl text-white placeholder-zinc-600 outline-none focus:border-blue-500 focus:bg-zinc-900 transition-all text-sm"
+                                            required
+                                        />
+                                    </div>
+                                </div>
+
+                                <div className="grid grid-cols-2 gap-4">
+                                    <div className="space-y-1.5">
+                                        <label className="text-xs font-bold text-zinc-300 ml-1">Annual Turnover</label>
+                                        <select
+                                            name="turnover"
+                                            value={formData.turnover}
+                                            onChange={handleChange}
+                                            className="w-full px-4 py-3 bg-zinc-900/50 border border-zinc-700 rounded-xl text-white outline-none focus:border-blue-500 focus:bg-zinc-900 transition-all text-sm"
+                                        >
+                                            <option value="">Select Range</option>
+                                            <option value="0-1Cr">₹0 - ₹1 Cr</option>
+                                            <option value="1Cr-10Cr">₹1 Cr - ₹10 Cr</option>
+                                            <option value="10Cr-50Cr">₹10 Cr - ₹50 Cr</option>
+                                            <option value="50Cr+">₹50 Cr+</option>
+                                        </select>
+                                    </div>
+                                    <div className="space-y-1.5">
+                                        <label className="text-xs font-bold text-zinc-300 ml-1">Employees</label>
+                                        <select
+                                            name="employeeCount"
+                                            value={formData.employeeCount}
+                                            onChange={handleChange}
+                                            className="w-full px-4 py-3 bg-zinc-900/50 border border-zinc-700 rounded-xl text-white outline-none focus:border-blue-500 focus:bg-zinc-900 transition-all text-sm"
+                                        >
+                                            <option value="">Select Range</option>
+                                            <option value="1-10">1 - 10</option>
+                                            <option value="11-50">11 - 50</option>
+                                            <option value="51-200">51 - 200</option>
+                                            <option value="200+">200+</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div className="space-y-1.5">
+                                    <label className="text-xs font-bold text-zinc-300 ml-1">Address with Map Location</label>
+                                    <textarea
+                                        name="address"
+                                        value={formData.address}
                                         onChange={handleChange}
-                                        placeholder="••••••••"
-                                        className="w-full pl-10 pr-4 py-3 bg-zinc-900/50 border border-zinc-700 rounded-xl text-white placeholder-zinc-600 outline-none focus:border-blue-500 focus:bg-zinc-900 transition-all text-sm"
+                                        placeholder="Full factory address..."
+                                        className="w-full px-4 py-3 bg-zinc-900/50 border border-zinc-700 rounded-xl text-white placeholder-zinc-600 outline-none focus:border-blue-500 focus:bg-zinc-900 transition-all text-sm h-24 resize-none"
                                         required
                                     />
                                 </div>
-                            </div>
 
-                            <div className="space-y-1.5">
-                                <label className="text-xs font-bold text-zinc-300 ml-1">Confirm</label>
-                                <div className="relative group">
-                                    <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-500 group-focus-within:text-blue-500 transition-colors" />
-                                    <input
-                                        type={showPassword ? 'text' : 'password'}
-                                        name="confirmPassword"
-                                        value={formData.confirmPassword}
-                                        onChange={handleChange}
-                                        placeholder="••••••••"
-                                        className="w-full pl-10 pr-4 py-3 bg-zinc-900/50 border border-zinc-700 rounded-xl text-white placeholder-zinc-600 outline-none focus:border-blue-500 focus:bg-zinc-900 transition-all text-sm"
-                                        required
-                                    />
-                                </div>
+                                <button
+                                    type="button"
+                                    onClick={() => setStep(1)}
+                                    className="text-sm text-zinc-400 hover:text-white underline mr-4"
+                                >
+                                    Back to Basic Info
+                                </button>
                             </div>
-                        </div>
+                        )}
 
-                        <label className="flex items-start gap-3 p-3 rounded-lg hover:bg-zinc-900/30 cursor-pointer transition-colors border border-transparent hover:border-zinc-800">
-                            <input type="checkbox" className="mt-1 accent-blue-600 w-4 h-4" required />
-                            <span className="text-xs text-zinc-400">
-                                I agree to the <Link to="/terms" className="text-blue-400 hover:underline">Terms of Service</Link> and <Link to="/privacy" className="text-blue-400 hover:underline">Privacy Policy</Link>, and consent to receiving marketing communications.
-                            </span>
-                        </label>
+                        {step === 1 && (
+                            <label className="flex items-start gap-3 p-3 rounded-lg hover:bg-zinc-900/30 cursor-pointer transition-colors border border-transparent hover:border-zinc-800">
+                                <input type="checkbox" className="mt-1 accent-blue-600 w-4 h-4" required />
+                                <span className="text-xs text-zinc-400">
+                                    I agree to the <Link to="/terms" className="text-blue-400 hover:underline">Terms of Service</Link> and <Link to="/privacy" className="text-blue-400 hover:underline">Privacy Policy</Link>, and consent to receiving marketing communications.
+                                </span>
+                            </label>
+                        )}
 
                         <button
                             type="submit"
@@ -255,7 +376,8 @@ const RegisterPage = () => {
                                 <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
                             ) : (
                                 <>
-                                    Create Account <ArrowRight className="w-5 h-5" />
+                                    {accountType === 'manufacturer' && step === 1 ? 'Next Step' : 'Create Account'}
+                                    <ArrowRight className="w-5 h-5" />
                                 </>
                             )}
                         </button>

@@ -20,6 +20,7 @@ import ProductEditorPage from './pages/manufacturer/ProductEditorPage'
 import AnalyticsPage from './pages/manufacturer/AnalyticsPage'
 import CompanySettingsPage from './pages/manufacturer/CompanySettingsPage'
 import ManufacturerChatPage from './pages/manufacturer/ManufacturerChatPage';
+import ClearancePage from './pages/ClearancePage';
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
       <Route path="/featured" element={<FeaturedSelectionPage />} />
       <Route path="/trade-assurance" element={<TradeAssurancePage />} />
       <Route path="/manufacturers" element={<ManufacturersPage />} />
+      <Route path="/clearance" element={<ClearancePage />} />
       <Route path="/manufacturers/:id" element={<ManufacturerProfilePage />} />
       <Route path="/dashboard" element={<DashboardPage />} />
       <Route path="/my-rfqs" element={<MyRFQsPage />} />
