@@ -4,7 +4,7 @@ import {
     LayoutDashboard, Package, BarChart3, Settings,
     LogOut, ChevronLeft, ChevronRight, Bell, User, MessageSquare
 } from 'lucide-react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../store/slices/authSlice';
 
 const ManufacturerLayout = ({ children }) => {
@@ -12,6 +12,11 @@ const ManufacturerLayout = ({ children }) => {
     const location = useLocation();
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const { user } = useSelector(state => state.auth);
+
+    // Get company name from user profile
+    const companyName = user?.profile?.company || user?.profile?.firstName || 'My Company';
+    const initials = companyName.substring(0, 2).toUpperCase();
 
     const menuItems = [
         { icon: LayoutDashboard, label: 'Dashboard', path: '/manufacturer/dashboard' },
@@ -100,10 +105,10 @@ const ManufacturerLayout = ({ children }) => {
                         </button>
                         <div className="flex items-center gap-3 pl-4 border-l border-zinc-700">
                             <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center text-white font-bold text-sm">
-                                TS
+                                {initials}
                             </div>
                             <div className="hidden md:block">
-                                <p className="text-sm font-medium text-white">Tech Solutions Ltd.</p>
+                                <p className="text-sm font-medium text-white">{companyName}</p>
                                 <p className="text-xs text-zinc-500">Verified Manufacturer</p>
                             </div>
                         </div>

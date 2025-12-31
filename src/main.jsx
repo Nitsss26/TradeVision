@@ -8,7 +8,7 @@ import './index.css'
 import { seedMockData } from './services/mock/seeder'
 
 // Initialize Mock Data
-seedMockData();
+// seedMockData();
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>

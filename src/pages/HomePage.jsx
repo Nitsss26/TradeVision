@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import {
     ShieldCheck, TrendingUp, Package, Users, ArrowRight,
     Star, Play, ChevronRight, Truck, Globe, Award, DollarSign,
@@ -12,30 +13,31 @@ import PremiumProductCard from '../components/common/PremiumProductCard';
 import { manufacturerService } from '../services/mock/manufacturerService';
 import InquiryModal from '../components/common/InquiryModal';
 
-const HeroSection = ({ onOpenInquiry }) => {
+const HeroSection = ({ onOpenInquiry, user }) => {
+    const navigate = useNavigate();
     const [currentSlide, setCurrentSlide] = useState(0);
 
-    // Slide Data
+    // Slide Data - All using images for reliable backgrounds
     const slides = [
         {
-            type: 'video',
-            src: 'https://videos.pexels.com/video-files/6153676/6153676-hd_1920_1080_25fps.mp4', // Factory/Industrial Video
-            title: "Source Premium Product Inventory",
+            type: 'image',
+            src: 'https://images.pexels.com/photos/3735641/pexels-photo-3735641.jpeg?auto=compress&cs=tinysrgb&w=1920',
+            title: "Source Premium Product",
             subtitle: "Connect with top-rated verified manufacturers. Secure payments, quality inspections, and on-time delivery guaranteed.",
             cta: "Start Sourcing",
             ctaLink: "/products"
         },
         {
-            type: 'video',
-            src: 'https://cdn.coverr.co/videos/coverr-drone-shot-of-container-ship-5386/1080p.mp4',
-            title: "Source Premium Product Inventory",
+            type: 'image',
+            src: 'https://images.pexels.com/photos/906494/pexels-photo-906494.jpeg?auto=compress&cs=tinysrgb&w=1920',
+            title: "Global Shipping Solutions",
             subtitle: "Access thousands of verified manufacturers and factory-direct prices instantly.",
             cta: "Start Sourcing",
             ctaLink: "/products"
         },
         {
             type: 'image',
-            src: 'https://images.pexels.com/photos/1957478/pexels-photo-1957478.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+            src: 'https://images.pexels.com/photos/1957478/pexels-photo-1957478.jpeg?auto=compress&cs=tinysrgb&w=1920',
             title: "Global Supply Chain Solutions",
             subtitle: "Streamline your logistics with our end-to-end shipping and fulfillment services.",
             cta: "Explore Logistics",
@@ -43,11 +45,11 @@ const HeroSection = ({ onOpenInquiry }) => {
         },
         {
             type: 'image',
-            src: 'https://images.pexels.com/photos/8961023/pexels-photo-8961023.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-            title: "New Season Textiles",
-            subtitle: "Discover the latest fabrics and garment trends from India's top textile mills.",
-            cta: "View Collection",
-            ctaLink: "/products?category=apparel"
+            src: 'https://images.pexels.com/photos/4483610/pexels-photo-4483610.jpeg?auto=compress&cs=tinysrgb&w=1920',
+            title: "Industrial Manufacturing",
+            subtitle: "Discover the latest equipment and machinery from India's top manufacturers.",
+            cta: "View Products",
+            ctaLink: "/products?category=industrial"
         }
     ];
 
@@ -93,7 +95,7 @@ const HeroSection = ({ onOpenInquiry }) => {
                                             muted
                                             loop
                                             playsInline
-                                            className="w-full h-full object-cover opacity-60 scale-105"
+                                            className="w-full h-full object-cover opacity-80 scale-105"
                                         >
                                             <source src={slide.src} type="video/mp4" />
                                         </video>
@@ -101,34 +103,51 @@ const HeroSection = ({ onOpenInquiry }) => {
                                         <img
                                             src={slide.src}
                                             alt={slide.title}
-                                            className="w-full h-full object-cover opacity-60"
+                                            className="w-full h-full object-cover opacity-80"
                                         />
                                     )}
-                                    <div className="absolute inset-0 bg-gradient-to-r from-black via-black/60 to-transparent"></div>
+                                    <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/50 to-black/30"></div>
                                 </div>
 
                                 {/* Content */}
-                                <div className="relative h-full flex flex-col justify-center px-8 md:px-12 z-20 max-w-2xl">
-                                    <span className="inline-block py-1 px-3 rounded-full bg-blue-600/20 text-blue-400 text-xs font-bold border border-blue-500/30 mb-4 w-fit animate-fade-in">
-                                        FACTORY DIRECT
-                                    </span>
-                                    <h1 className="text-3xl md:text-5xl font-extrabold text-white mb-6 leading-tight tracking-tight drop-shadow-lg">
-                                        {slide.title}
-                                    </h1>
-                                    <p className="text-zinc-200 text-base md:text-lg mb-8 max-w-lg leading-relaxed drop-shadow-md">
-                                        {slide.subtitle}
-                                    </p>
-                                    <div className="flex gap-4">
-                                        <Link to={slide.ctaLink} className="px-8 py-3.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-full shadow-lg shadow-blue-600/20 transition-all hover:-translate-y-1 active:scale-95 flex items-center gap-2">
-                                            {slide.cta} <ArrowRight className="w-4 h-4" />
-                                        </Link>
+                                <div className="relative h-full flex flex-col justify-center px-8 md:px-12 z-20">
+                                    <div className="max-w-2xl">
+                                        <span className="inline-flex items-center gap-2 py-1.5 px-4 rounded-full bg-gradient-to-r from-blue-600/20 to-indigo-600/20 text-blue-400 text-xs font-bold border border-blue-500/30 mb-4 w-fit">
+                                            <ShieldCheck className="w-3 h-3" /> VERIFIED SUPPLIERS
+                                        </span>
+                                        <h1 className="text-3xl md:text-5xl font-extrabold text-white mb-6 leading-tight tracking-tight drop-shadow-lg">
+                                            {slide.title}
+                                        </h1>
+                                        <p className="text-zinc-300 text-base md:text-lg mb-6 leading-relaxed drop-shadow-md max-w-lg">
+                                            {slide.subtitle}
+                                        </p>
+                                        {/* Trust Badges */}
+                                        <div className="flex items-center gap-4 mb-8">
+                                            <div className="flex items-center gap-2 text-xs text-zinc-400">
+                                                <div className="w-6 h-6 rounded-full bg-blue-500/20 flex items-center justify-center">
+                                                    <ShieldCheck className="w-3 h-3 text-blue-400" />
+                                                </div>
+                                                Trade Assurance
+                                            </div>
+                                            <div className="flex items-center gap-2 text-xs text-zinc-400">
+                                                <div className="w-6 h-6 rounded-full bg-blue-500/20 flex items-center justify-center">
+                                                    <Globe className="w-3 h-3 text-blue-400" />
+                                                </div>
+                                                Global Shipping
+                                            </div>
+                                        </div>
+                                        <div className="flex gap-4">
+                                            <Link to={slide.ctaLink} className="px-8 py-3.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold rounded-full shadow-lg shadow-blue-600/30 transition-all hover:-translate-y-1 active:scale-95 flex items-center gap-2">
+                                                {slide.cta} <ArrowRight className="w-4 h-4" />
+                                            </Link>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         ))}
 
-                        {/* Slide Indicators */}
-                        <div className="absolute bottom-6 left-12 z-30 flex gap-2">
+                        {/* Slide Indicators - moved to right side */}
+                        <div className="absolute bottom-6 right-12 z-30 flex gap-2">
                             {slides.map((_, i) => (
                                 <button
                                     key={i}
@@ -141,27 +160,51 @@ const HeroSection = ({ onOpenInquiry }) => {
 
                     {/* RIGHT: User Widgets (Hidden on Mobile) */}
                     <div className="hidden lg:block col-span-3 xl:col-span-3 flex flex-col gap-6 h-full">
-                        {/* User Card */}
+                        {/* User Card - Auth Aware */}
                         <div className="flex-1 bg-zinc-900 rounded-2xl p-6 border border-zinc-800 shadow-xl relative overflow-hidden">
                             <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/10 rounded-full blur-3xl -mr-10 -mt-10"></div>
                             <div className="relative z-10">
-                                <div className="flex items-center gap-4 mb-6">
-                                    <div className="w-14 h-14 bg-zinc-800 rounded-full flex items-center justify-center border-2 border-zinc-700">
-                                        <Users className="w-6 h-6 text-zinc-400" />
-                                    </div>
-                                    <div>
-                                        <p className="text-zinc-400 text-xs font-semibold uppercase tracking-wider">Welcome</p>
-                                        <h6 className="text-white font-bold text-lg">Join Trade Vision</h6>
-                                    </div>
-                                </div>
-                                <div className="space-y-3">
-                                    <Link to="/login" className="block w-full py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-center font-bold rounded-lg transition-colors shadow-md">
-                                        Sign In
-                                    </Link>
-                                    <Link to="/register" className="block w-full py-2.5 bg-zinc-800 hover:bg-zinc-700 text-white text-center font-bold rounded-lg transition-colors border border-zinc-700">
-                                        Join for Free
-                                    </Link>
-                                </div>
+                                {user ? (
+                                    <>
+                                        <div className="flex items-center gap-4 mb-6">
+                                            <div className="w-14 h-14 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-full flex items-center justify-center border-2 border-blue-500/30">
+                                                <span className="text-white text-xl font-bold">{user.firstName?.[0] || user.name?.[0] || 'U'}</span>
+                                            </div>
+                                            <div>
+                                                <p className="text-zinc-400 text-xs font-semibold uppercase tracking-wider">Welcome back</p>
+                                                <h6 className="text-white font-bold text-lg">{user.firstName || user.name || 'User'}</h6>
+                                            </div>
+                                        </div>
+                                        <div className="space-y-3">
+                                            <Link to={user.role === 'manufacturer' ? '/manufacturer/dashboard' : '/dashboard'} className="block w-full py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-center font-bold rounded-lg transition-colors shadow-md">
+                                                Go to Dashboard
+                                            </Link>
+                                            <Link to="/orders" className="block w-full py-2.5 bg-zinc-800 hover:bg-zinc-700 text-white text-center font-bold rounded-lg transition-colors border border-zinc-700">
+                                                View Orders
+                                            </Link>
+                                        </div>
+                                    </>
+                                ) : (
+                                    <>
+                                        <div className="flex items-center gap-4 mb-6">
+                                            <div className="w-14 h-14 bg-zinc-800 rounded-full flex items-center justify-center border-2 border-zinc-700">
+                                                <Users className="w-6 h-6 text-zinc-400" />
+                                            </div>
+                                            <div>
+                                                <p className="text-zinc-400 text-xs font-semibold uppercase tracking-wider">Welcome</p>
+                                                <h6 className="text-white font-bold text-lg">Join Trade Vision</h6>
+                                            </div>
+                                        </div>
+                                        <div className="space-y-3">
+                                            <Link to="/login" className="block w-full py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-center font-bold rounded-lg transition-colors shadow-md">
+                                                Sign In
+                                            </Link>
+                                            <Link to="/register" className="block w-full py-2.5 bg-zinc-800 hover:bg-zinc-700 text-white text-center font-bold rounded-lg transition-colors border border-zinc-700">
+                                                Join for Free
+                                            </Link>
+                                        </div>
+                                    </>
+                                )}
                             </div>
                         </div>
 
@@ -229,61 +272,92 @@ const BannerGrid = () => (
     <div className="max-w-[1400px] mx-auto px-4 lg:px-6 py-12">
         <SectionHeader title="Exclusive Offers" linkText="View All Deals" />
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div className="bg-gradient-to-br from-purple-900 to-indigo-900 rounded-2xl p-8 relative overflow-hidden group cursor-pointer border border-white/5 min-h-[200px] flex flex-col justify-center">
-                <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-3xl"></div>
+            <div className="bg-gradient-to-br from-blue-950 via-indigo-950 to-zinc-900 rounded-2xl p-8 relative overflow-hidden group cursor-pointer border border-blue-900/50 min-h-[200px] flex flex-col justify-center">
+                <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10"></div>
+                <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/10 rounded-full blur-3xl"></div>
                 <div className="relative z-10">
-                    <span className="bg-white/20 text-white text-xs font-bold px-2 py-1 rounded mb-3 inline-block">NEW ARRIVALS</span>
+                    <span className="bg-blue-500/20 text-blue-400 text-xs font-bold px-2 py-1 rounded mb-3 inline-block border border-blue-500/30">NEW ARRIVALS</span>
                     <h3 className="text-2xl font-bold text-white mb-2">Smart Electronics</h3>
-                    <p className="text-purple-200 text-sm mb-4 max-w-[200px]">Latest gadgets from top Shenzhen manufacturers.</p>
-                    <button className="bg-white text-purple-900 px-4 py-2 rounded-lg font-bold text-sm hover:bg-purple-100 transition-colors">Shop Now</button>
+                    <p className="text-blue-200/80 text-sm mb-4 max-w-[200px]">Latest gadgets from top Shenzhen manufacturers.</p>
+                    <button className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-4 py-2 rounded-lg font-bold text-sm hover:from-blue-500 hover:to-indigo-500 transition-all shadow-lg shadow-blue-600/20">Shop Now</button>
                 </div>
-                <img src="https://images.pexels.com/photos/303383/pexels-photo-303383.jpeg?auto=compress&cs=tinysrgb&w=300" className="absolute -right-4 -bottom-4 w-32 h-32 object-contain group-hover:scale-110 transition-transform rotate-12" alt="Electronics" />
+                <img src="https://images.pexels.com/photos/303383/pexels-photo-303383.jpeg?auto=compress&cs=tinysrgb&w=300" className="absolute -right-4 -bottom-4 w-32 h-32 object-cover rounded-xl group-hover:scale-110 transition-transform rotate-6 opacity-70 border border-blue-500/30" alt="Electronics" />
             </div>
 
-            <div className="bg-gradient-to-br from-orange-900 to-red-900 rounded-2xl p-8 relative overflow-hidden group cursor-pointer border border-white/5 min-h-[200px] flex flex-col justify-center">
+            <div className="bg-gradient-to-br from-blue-950 via-indigo-950 to-zinc-900 rounded-2xl p-8 relative overflow-hidden group cursor-pointer border border-blue-900/50 min-h-[200px] flex flex-col justify-center">
+                <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10"></div>
+                <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/10 rounded-full blur-3xl"></div>
                 <div className="relative z-10">
-                    <span className="bg-white/20 text-white text-xs font-bold px-2 py-1 rounded mb-3 inline-block">HOT SELLER</span>
+                    <span className="bg-blue-500/20 text-blue-400 text-xs font-bold px-2 py-1 rounded mb-3 inline-block border border-blue-500/30">HOT SELLER</span>
                     <h3 className="text-2xl font-bold text-white mb-2">Industrial Tools</h3>
-                    <p className="text-orange-200 text-sm mb-4 max-w-[200px]">Heavy duty machinery at factory prices.</p>
-                    <button className="bg-white text-orange-900 px-4 py-2 rounded-lg font-bold text-sm hover:bg-orange-100 transition-colors">View Catalog</button>
+                    <p className="text-blue-200/80 text-sm mb-4 max-w-[200px]">Heavy duty machinery at factory prices.</p>
+                    <button className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-4 py-2 rounded-lg font-bold text-sm hover:from-blue-500 hover:to-indigo-500 transition-all shadow-lg shadow-blue-600/20">View Catalog</button>
                 </div>
-                <Zap className="absolute -right-4 -bottom-4 w-40 h-40 text-white/5 group-hover:scale-110 transition-transform rotate-12" />
+                <img src="https://images.pexels.com/photos/1109541/pexels-photo-1109541.jpeg?auto=compress&cs=tinysrgb&w=300" className="absolute -right-4 -bottom-4 w-32 h-32 object-cover rounded-xl group-hover:scale-110 transition-transform rotate-6 opacity-70 border border-blue-500/30" alt="Tools" />
             </div>
 
-            <div className="md:col-span-2 lg:col-span-1 bg-gradient-to-br from-green-900 to-emerald-900 rounded-2xl p-8 relative overflow-hidden group cursor-pointer border border-white/5 min-h-[200px] flex flex-col justify-center">
+            <div className="md:col-span-2 lg:col-span-1 bg-gradient-to-br from-blue-950 via-indigo-950 to-zinc-900 rounded-2xl p-8 relative overflow-hidden group cursor-pointer border border-blue-900/50 min-h-[200px] flex flex-col justify-center">
+                <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10"></div>
+                <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/10 rounded-full blur-3xl"></div>
                 <div className="relative z-10">
-                    <span className="bg-white/20 text-white text-xs font-bold px-2 py-1 rounded mb-3 inline-block">SUSTAINABLE</span>
+                    <span className="bg-blue-500/20 text-blue-400 text-xs font-bold px-2 py-1 rounded mb-3 inline-block border border-blue-500/30">PREMIUM</span>
                     <h3 className="text-2xl font-bold text-white mb-2">Eco Packaging</h3>
-                    <p className="text-green-200 text-sm mb-4 max-w-[200px]">Biodegradable solutions for your brand.</p>
-                    <button className="bg-white text-green-900 px-4 py-2 rounded-lg font-bold text-sm hover:bg-green-100 transition-colors">Go Green</button>
+                    <p className="text-blue-200/80 text-sm mb-4 max-w-[200px]">Biodegradable solutions for your brand.</p>
+                    <button className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-4 py-2 rounded-lg font-bold text-sm hover:from-blue-500 hover:to-indigo-500 transition-all shadow-lg shadow-blue-600/20">Explore</button>
                 </div>
-                <Gem className="absolute -right-4 -bottom-4 w-40 h-40 text-white/5 group-hover:scale-110 transition-transform rotate-12" />
+                <img src="https://images.pexels.com/photos/4498553/pexels-photo-4498553.jpeg?auto=compress&cs=tinysrgb&w=300" className="absolute -right-4 -bottom-4 w-32 h-32 object-cover rounded-xl group-hover:scale-110 transition-transform rotate-6 opacity-70 border border-blue-500/30" alt="Packaging" />
             </div>
         </div>
     </div>
 );
 
-// Featured Videos Section (TikTok-style) - Based on reference image 3
+// Featured Videos Section - Product Videos in 3:4 Vertical Format
 const FeaturedVideos = () => (
     <div className="max-w-[1400px] mx-auto px-4 lg:px-6 py-12">
-        <SectionHeader title="Featured in Videos" linkText="See what creators are sharing" />
+        <SectionHeader title="Featured Videos" linkText="Watch More" />
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {[
-                { img: "https://images.pexels.com/photos/5632399/pexels-photo-5632399.jpeg?auto=compress&cs=tinysrgb&w=400", creator: "@industryhub" },
-                { img: "https://images.pexels.com/photos/3771089/pexels-photo-3771089.jpeg?auto=compress&cs=tinysrgb&w=400", creator: "@textileguru" },
-                { img: "https://images.pexels.com/photos/5632402/pexels-photo-5632402.jpeg?auto=compress&cs=tinysrgb&w=400", creator: "@machinemaster" },
-                { img: "https://images.pexels.com/photos/4483608/pexels-photo-4483608.jpeg?auto=compress&cs=tinysrgb&w=400", creator: "@factorydirect" }
+                { title: "Industrial Motor Unit Demo", views: "15K", thumbnail: "https://images.pexels.com/photos/3912981/pexels-photo-3912981.jpeg?auto=compress&cs=tinysrgb&w=600", supplier: "TechMech Ind." },
+                { title: "Hydraulic Pump Testing", views: "28K", thumbnail: "https://images.pexels.com/photos/2760243/pexels-photo-2760243.jpeg?auto=compress&cs=tinysrgb&w=600", supplier: "HydraFlow" },
+                { title: "CNC Machine Precision Cut", views: "42K", thumbnail: "https://images.pexels.com/photos/3825582/pexels-photo-3825582.jpeg?auto=compress&cs=tinysrgb&w=600", supplier: "LaserCut Pro" },
+                { title: "Quality Inspection Process", views: "9K", thumbnail: "https://images.pexels.com/photos/3735641/pexels-photo-3735641.jpeg?auto=compress&cs=tinysrgb&w=600", supplier: "QC Masters" }
             ].map((video, i) => (
-                <div key={i} className="relative aspect-[9/16] rounded-2xl overflow-hidden group cursor-pointer">
-                    <img src={video.img} alt="Featured" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
-                    <div className="absolute bottom-0 left-0 right-0 p-4">
-                        <div className="flex items-center gap-2 mb-2">
-                            <div className="w-8 h-8 rounded-full bg-white/20 backdrop-blur flex items-center justify-center">
-                                <Play className="w-4 h-4 text-white fill-white" />
+                <div key={i} className="group cursor-pointer">
+                    {/* 3:4 Vertical Video Thumbnail */}
+                    <div className="relative aspect-[3/4] rounded-2xl overflow-hidden bg-zinc-900 border border-zinc-800 group-hover:border-blue-500/50 transition-all">
+                        <img src={video.thumbnail} alt={video.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+
+                        {/* Play Button - Center */}
+                        <div className="absolute inset-0 flex items-center justify-center">
+                            <div className="w-14 h-14 rounded-full bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center shadow-xl group-hover:scale-110 group-hover:bg-blue-600/80 transition-all">
+                                <Play className="w-6 h-6 text-white fill-white ml-1" />
                             </div>
                         </div>
-                        <span className="text-white text-sm font-medium">{video.creator}</span>
+
+                        {/* Views Badge - Top Right */}
+                        <div className="absolute top-3 right-3 px-2 py-1 bg-black/60 backdrop-blur rounded-full text-white text-xs font-bold flex items-center gap-1">
+                            <Play className="w-3 h-3 fill-white" /> {video.views}
+                        </div>
+
+                        {/* Live Badge (first one) */}
+                        {i === 0 && (
+                            <div className="absolute top-3 left-3 flex items-center gap-1 px-2 py-1 bg-red-600/90 backdrop-blur rounded-full">
+                                <span className="w-1.5 h-1.5 bg-white rounded-full animate-pulse"></span>
+                                <span className="text-[10px] font-bold text-white uppercase">Live</span>
+                            </div>
+                        )}
+
+                        {/* Bottom Content */}
+                        <div className="absolute bottom-0 left-0 right-0 p-4">
+                            <h4 className="text-white font-bold text-sm line-clamp-2 mb-2">{video.title}</h4>
+                            <div className="flex items-center gap-2">
+                                <div className="w-6 h-6 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 flex items-center justify-center">
+                                    <span className="text-[8px] font-bold text-white">{video.supplier.charAt(0)}</span>
+                                </div>
+                                <span className="text-zinc-400 text-xs">{video.supplier}</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             ))}
@@ -291,42 +365,56 @@ const FeaturedVideos = () => (
     </div>
 );
 
-// Category Showcase with Products (Based on reference image 2)
+// Category Showcase with Products (Premium Dark Theme)
 const CategoryShowcase = () => (
     <div className="max-w-[1400px] mx-auto px-4 lg:px-6 py-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            {/* Left: Large Banner */}
-            <div className="bg-gradient-to-br from-amber-100 to-orange-100 rounded-2xl p-8 relative overflow-hidden min-h-[400px] flex flex-col justify-center">
-                <span className="text-orange-800 font-bold text-xs uppercase mb-2">Trending in garden & patio</span>
-                <h2 className="text-4xl font-black text-zinc-900 mb-4">Industrial<br />Tools for<br />everyone</h2>
-                <button className="bg-black text-white px-6 py-2.5 rounded-full text-sm font-bold w-fit hover:bg-zinc-800 transition-colors">Shop all</button>
-                <div className="absolute bottom-0 right-0 text-zinc-900">
-                    <span className="text-xs font-medium">From</span>
-                    <div className="text-5xl font-black">₹13<span className="text-xl align-top">K</span></div>
+            {/* Left: Large Banner - Premium Dark */}
+            {/* Left: Large Banner - Premium Dark */}
+            <div className="relative rounded-2xl p-8 overflow-hidden min-h-[300px] flex flex-col justify-end group border border-blue-900/30">
+                {/* Background Image with Overlay */}
+                <img src="https://images.pexels.com/photos/1095601/pexels-photo-1095601.jpeg?auto=compress&cs=tinysrgb&w=800" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Industrial Background" />
+                <div className="absolute inset-0 bg-gradient-to-t from-blue-950/95 via-blue-950/70 to-transparent"></div>
+                <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-20"></div>
+
+                {/* Content */}
+                <div className="relative z-10">
+                    <span className="inline-flex items-center gap-2 bg-blue-600/20 backdrop-blur-md border border-blue-500/30 text-blue-300 font-bold text-xs uppercase px-3 py-1 rounded-full mb-4">
+                        <span className="w-1.5 h-1.5 bg-blue-400 rounded-full animate-pulse"></span> Trending
+                    </span>
+                    <h2 className="text-4xl md:text-5xl font-black text-white mb-4 leading-tight drop-shadow-lg">
+                        Premium Tools<br />
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">For Professionals</span>
+                    </h2>
+                    <p className="text-zinc-300 mb-6 max-w-sm font-medium drop-shadow-md">
+                        Equip your business with industry-standard machinery and tools verified for quality.
+                    </p>
+                    <button className="bg-white text-blue-950 px-8 py-3 rounded-full text-sm font-bold w-fit hover:bg-blue-50 transition-all shadow-lg hover:shadow-white/10 flex items-center gap-2">
+                        Shop Collection <ArrowRight className="w-4 h-4" />
+                    </button>
                 </div>
-                <img src="https://images.pexels.com/photos/1108101/pexels-photo-1108101.jpeg?auto=compress&cs=tinysrgb&w=500" alt="Tools" className="absolute right-4 bottom-4 w-48 h-48 object-cover rounded-lg opacity-80" />
             </div>
 
             {/* Right: Product Grid */}
             <div>
                 <div className="flex items-center justify-between mb-4">
                     <div>
-                        <h3 className="text-xl font-bold text-white">Slip in & stay productive</h3>
-                        <p className="text-zinc-400 text-sm">Top tools for your business needs.</p>
+                        <h3 className="text-xl font-bold text-white">Top Business Tools</h3>
+                        <p className="text-zinc-400 text-sm">Premium picks for your business needs.</p>
                     </div>
-                    <Link to="/products" className="text-blue-400 text-sm font-medium hover:underline">View all</Link>
+                    <Link to="/products" className="text-blue-400 text-sm font-medium hover:underline flex items-center gap-1">View all <ChevronRight className="w-4 h-4" /></Link>
                 </div>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                     {[
-                        { name: "Power Drill Set", price: "₹8,999", oldPrice: "₹12,999", img: "https://images.pexels.com/photos/1108117/pexels-photo-1108117.jpeg?auto=compress&cs=tinysrgb&w=300" },
-                        { name: "LED Work Light", price: "₹2,499", oldPrice: "₹4,500", img: "https://images.pexels.com/photos/3356416/pexels-photo-3356416.jpeg?auto=compress&cs=tinysrgb&w=300" },
-                        { name: "Safety Gloves Pack", price: "₹599", oldPrice: "₹999", img: "https://images.pexels.com/photos/5974386/pexels-photo-5974386.jpeg?auto=compress&cs=tinysrgb&w=300" },
-                        { name: "Tool Organizer Box", price: "₹1,799", oldPrice: "₹2,999", img: "https://images.pexels.com/photos/162553/tools-hammer-spanner-equipment-162553.jpeg?auto=compress&cs=tinysrgb&w=300" }
+                        { name: "Power Drill Set", price: "₹8,999", oldPrice: "₹12,999", img: "https://images.pexels.com/photos/1109541/pexels-photo-1109541.jpeg?auto=compress&cs=tinysrgb&w=300" },
+                        { name: "LED Work Light", price: "₹2,499", oldPrice: "₹4,500", img: "https://images.pexels.com/photos/257736/pexels-photo-257736.jpeg?auto=compress&cs=tinysrgb&w=300" },
+                        { name: "Safety Gloves Pack", price: "₹599", oldPrice: "₹999", img: "https://images.pexels.com/photos/4491881/pexels-photo-4491881.jpeg?auto=compress&cs=tinysrgb&w=300" },
+                        { name: "Tool Organizer Box", price: "₹1,799", oldPrice: "₹2,999", img: "https://images.pexels.com/photos/175039/pexels-photo-175039.jpeg?auto=compress&cs=tinysrgb&w=300" }
                     ].map((product, i) => (
-                        <div key={i} className="bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden hover:border-blue-500/50 transition-colors group cursor-pointer">
+                        <div key={i} className="bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden hover:border-blue-500/50 transition-colors group cursor-pointer mt-5">
                             <div className="aspect-square bg-zinc-800 relative overflow-hidden">
                                 <img src={product.img} alt={product.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
-                                <span className="absolute top-2 left-2 text-[10px] font-bold px-2 py-0.5 rounded bg-blue-500 text-white">reduced price</span>
+                                <span className="absolute top-2 left-2 text-[10px] font-bold px-2 py-0.5 rounded bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg">DEAL</span>
                             </div>
                             <div className="p-3">
                                 <div className="flex items-baseline gap-2 mb-1">
@@ -343,43 +431,73 @@ const CategoryShowcase = () => (
     </div>
 );
 
-// Goals/Wellness Section (Based on reference image 5)
+// Premium Categories Section (Dark Blue Theme)
 const GoalsSection = () => (
     <div className="max-w-[1400px] mx-auto px-4 lg:px-6 py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {/* Large Left Banner */}
-            <div className="md:col-span-1 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-2xl p-8 relative overflow-hidden min-h-[350px]">
-                <span className="text-blue-600 font-bold text-xs uppercase mb-2 block">You're in your goals era</span>
-                <h3 className="text-3xl font-black text-zinc-900 mb-3">All you need<br />to crush<br />2025</h3>
-                <button className="bg-black text-white px-6 py-2 rounded-full text-sm font-bold hover:bg-zinc-800 transition-colors">Shop now</button>
-                <img src="https://images.pexels.com/photos/3771074/pexels-photo-3771074.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Goals" className="absolute right-0 bottom-0 w-40 h-40 object-cover rounded-tl-2xl opacity-90" />
+            {/* Large Left Banner - Full Image Background */}
+            <div className="md:col-span-1 relative rounded-2xl overflow-hidden min-h-[350px] group border border-blue-900/30">
+                <img src="https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg?auto=compress&cs=tinysrgb&w=600" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Business Meeting" />
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-950/60 to-blue-950/90"></div>
+
+                <div className="absolute bottom-0 left-0 p-8 w-full z-10">
+                    <span className="inline-flex items-center gap-2 text-blue-300 font-bold text-xs uppercase mb-2">
+                        <Gem className="w-3 h-3" /> Premium Collection
+                    </span>
+                    <h3 className="text-3xl font-black text-white mb-4 leading-tight">Elevate Your<br />Business</h3>
+                    <button className="bg-white/10 backdrop-blur border border-white/20 text-white px-6 py-2 rounded-full text-sm font-bold hover:bg-white hover:text-blue-950 transition-all flex items-center gap-2">
+                        Explore <ArrowRight className="w-3 h-3" />
+                    </button>
+                </div>
             </div>
 
-            {/* Middle Grid */}
+            {/* Middle Grid - High Density Layout */}
             <div className="md:col-span-1 grid grid-rows-2 gap-4">
-                <div className="bg-gradient-to-r from-lime-100 to-green-100 rounded-2xl p-6 relative overflow-hidden">
-                    <h4 className="text-lg font-bold text-zinc-900 mb-1">Write, plan, journal</h4>
-                    <Link to="/products" className="text-green-700 text-sm font-medium underline">Shop now</Link>
-                    <img src="https://images.pexels.com/photos/4144923/pexels-photo-4144923.jpeg?auto=compress&cs=tinysrgb&w=200" alt="Journal" className="absolute right-2 bottom-2 w-24 h-24 object-contain" />
-                </div>
-                <div className="grid grid-cols-2 gap-4">
-                    <div className="bg-gradient-to-r from-pink-100 to-rose-100 rounded-2xl p-4 relative overflow-hidden">
-                        <h5 className="text-sm font-bold text-zinc-900 mb-1">Refresh your<br />skincare</h5>
-                        <Link to="/products" className="text-rose-700 text-xs font-medium underline">Shop now</Link>
+                {/* Office Essentials - Densified */}
+                <div className="relative rounded-2xl p-6 overflow-hidden border border-indigo-900/30 group">
+                    <img src="https://images.pexels.com/photos/1957478/pexels-photo-1957478.jpeg?auto=compress&cs=tinysrgb&w=400" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-60" alt="Office" />
+                    <div className="absolute inset-0 bg-gradient-to-r from-indigo-950 via-indigo-950/80 to-transparent"></div>
+
+                    <div className="relative z-10 h-full flex flex-col justify-center">
+                        <h4 className="text-xl font-black text-white mb-1">Office Essentials</h4>
+                        <p className="text-indigo-200 text-xs mb-3 font-medium">Desks • Chairs • Organizers</p>
+                        <Link to="/products" className="text-white text-sm font-bold flex items-center gap-1 hover:gap-2 transition-all">Shop Now <ChevronRight className="w-3 h-3" /></Link>
                     </div>
-                    <div className="bg-gradient-to-r from-purple-100 to-indigo-100 rounded-2xl p-4 relative overflow-hidden">
-                        <h5 className="text-sm font-bold text-zinc-900 mb-1">Digital detox,<br />activated</h5>
-                        <Link to="/products" className="text-indigo-700 text-xs font-medium underline">Shop now</Link>
+                </div>
+
+                {/* Small Cards - Full Image */}
+                <div className="grid grid-cols-2 gap-4">
+                    <div className="relative rounded-2xl overflow-hidden border border-blue-900/30 group min-h-[100px]">
+                        <img src="https://images.pexels.com/photos/3825527/pexels-photo-3825527.jpeg?auto=compress&cs=tinysrgb&w=300" className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" alt="Safety" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-blue-950 via-blue-950/40 to-transparent"></div>
+                        <div className="absolute bottom-3 left-3 z-10">
+                            <h5 className="text-sm font-bold text-white leading-tight">Safety<br />Gear</h5>
+                        </div>
+                    </div>
+                    <div className="relative rounded-2xl overflow-hidden border border-indigo-900/30 group min-h-[100px]">
+                        <img src="https://images.pexels.com/photos/392018/pexels-photo-392018.jpeg?auto=compress&cs=tinysrgb&w=300" className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" alt="Tech" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-indigo-950 via-indigo-950/40 to-transparent"></div>
+                        <div className="absolute bottom-3 left-3 z-10">
+                            <h5 className="text-sm font-bold text-white leading-tight">Smart<br />Tech</h5>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            {/* Right Banner */}
-            <div className="md:col-span-1 bg-gradient-to-br from-slate-100 to-zinc-200 rounded-2xl p-8 relative overflow-hidden min-h-[350px]">
-                <span className="text-zinc-500 font-bold text-xs uppercase mb-2 block">Fitness faves</span>
-                <h3 className="text-2xl font-black text-zinc-900 mb-2">Health tech</h3>
-                <Link to="/products" className="text-blue-600 text-sm font-medium underline">Shop now</Link>
-                <img src="https://images.pexels.com/photos/4498362/pexels-photo-4498362.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Health" className="absolute right-0 bottom-0 w-48 h-48 object-cover rounded-tl-2xl opacity-90" />
+            {/* Right Banner - Full Image Background */}
+            <div className="md:col-span-1 relative rounded-2xl overflow-hidden min-h-[350px] group border border-indigo-900/30">
+                <img src="https://images.pexels.com/photos/2569842/pexels-photo-2569842.jpeg?auto=compress&cs=tinysrgb&w=600" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Industrial Automation" />
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-indigo-950/60 to-indigo-950/90"></div>
+
+                <div className="absolute bottom-0 left-0 p-8 w-full z-10">
+                    <span className="inline-flex items-center gap-2 text-indigo-300 font-bold text-xs uppercase mb-2">
+                        <Award className="w-3 h-3" /> Top Rated
+                    </span>
+                    <h3 className="text-2xl font-black text-white mb-4 leading-tight">Industrial<br />Automation</h3>
+                    <Link to="/products" className="text-white text-sm font-bold flex items-center gap-1 hover:gap-2 transition-all">
+                        View Catalog <ChevronRight className="w-3 h-3" />
+                    </Link>
+                </div>
             </div>
         </div>
     </div>
@@ -402,112 +520,175 @@ const SectionHeader = ({ title, linkText = "View All", linkTo = "/products" }) =
     </div>
 );
 
+// Premium Product Card Matching User Request
 const ProductCard = ({ product }) => (
-    <Link to={`/products/${product._id}`} className="block bg-zinc-900 rounded-xl overflow-hidden border border-zinc-800 hover:border-blue-500/50 hover:shadow-xl hover:shadow-blue-500/10 transition-all duration-300 group h-full flex flex-col">
-        <div className="relative aspect-[4/3] overflow-hidden bg-zinc-800">
+    <Link to={`/products/${product._id}`} className="block bg-zinc-950 rounded-xl overflow-hidden border border-zinc-800/50 hover:border-blue-500/50 hover:shadow-2xl hover:shadow-blue-500/10 transition-all duration-300 group h-full flex flex-col relative w-full">
+        {/* Image Container */}
+        <div className="relative aspect-[4/3] overflow-hidden bg-zinc-900">
             <img
                 src={product.media?.images?.[0]?.url || 'https://via.placeholder.com/400'}
                 alt={product.basicInfo?.name}
                 className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
             />
-            {/* Overlay Badges */}
-            <div className="absolute top-2 left-2 flex flex-col gap-1">
+
+            {/* Top Badges overlay */}
+            <div className="absolute top-3 left-3 flex items-center gap-2 z-10">
                 {product.manufacturer?.isVerified && (
-                    <span className="px-2 py-1 bg-white/90 backdrop-blur text-blue-800 text-[10px] font-bold uppercase rounded flex items-center gap-1 shadow-sm">
-                        <ShieldCheck className="w-3 h-3" /> Verified Pro
+                    <span className="h-6 px-2 flex items-center gap-1 bg-blue-600/90 backdrop-blur-md text-white text-[10px] font-bold uppercase rounded-md shadow-lg border border-blue-400/20">
+                        <ShieldCheck className="w-3 h-3 text-white" /> VERIFIED
                     </span>
                 )}
-            </div>
-            {/* Quick Actions overlay on hover */}
-            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-[2px]">
-                <span className="px-4 py-2 bg-white text-black font-bold rounded-full transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                    View Details
+                <span className="h-6 px-2 flex items-center bg-orange-500/90 backdrop-blur-md text-white text-[10px] font-bold rounded-md shadow-lg border border-orange-400/20">
+                    {product.manufacturer?.years || "10+ Yrs"}
                 </span>
+            </div>
+
+            {/* Play Button Overlay */}
+            {product.media?.hasVideo && (
+                <div className="absolute top-3 right-3 w-8 h-8 rounded-full bg-black/60 backdrop-blur-sm flex items-center justify-center border border-white/10 z-10 group-hover:scale-110 transition-transform">
+                    <Play className="w-3.5 h-3.5 text-white fill-white ml-0.5" />
+                </div>
+            )}
+
+            {/* Quick Actions overlay on hover */}
+            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-[1px]">
+                <button className="px-5 py-2 bg-blue-600 text-white font-bold text-sm rounded-full transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 shadow-lg shadow-blue-600/30">
+                    Inquire Now
+                </button>
             </div>
         </div>
 
-        <div className="p-4 flex-1 flex flex-col">
-            <h3 className="text-white font-medium mb-2 line-clamp-2 leading-snug group-hover:text-blue-400 transition-colors">
+        {/* Content Section */}
+        <div className="p-4 flex-1 flex flex-col bg-zinc-950">
+            <h3 className="text-white font-bold text-base mb-3 leading-snug line-clamp-2 group-hover:text-blue-400 transition-colors">
                 {product.basicInfo?.name}
             </h3>
 
-            <div className="mt-auto">
-                <div className="flex items-baseline gap-2 mb-2">
-                    <span className="text-lg font-bold text-white">₹{product.pricing?.basePrice?.toLocaleString()}</span>
-                    <span className="text-zinc-500 text-xs">/ {product.pricing?.minOrderUnit || 'unit'}</span>
+            <div className="mt-auto space-y-3">
+                {/* Price Section */}
+                <div>
+                    <div className="flex items-baseline gap-1">
+                        <span className="text-xl font-bold text-white">₹{product.pricing?.basePrice?.toLocaleString()}</span>
+                        {product.pricing?.originalPrice && (
+                            <span className="text-zinc-500 text-xs line-through ml-1">₹{product.pricing.originalPrice.toLocaleString()}</span>
+                        )}
+                    </div>
+                    <p className="text-zinc-500 text-xs mt-0.5 font-medium">{product.pricing?.moq || 50} piece (Min. Order)</p>
                 </div>
 
-                <div className="flex items-center justify-between pt-3 border-t border-zinc-800">
-                    <div className="flex items-center gap-1 text-zinc-500 text-xs">
-                        <span className="text-orange-400 font-bold">{product.metrics?.rating || 4.5}</span>
-                        <Star className="w-3 h-3 fill-orange-400 text-orange-400" />
+                {/* Supplier Divider */}
+                <div className="h-px bg-zinc-800/50 w-full"></div>
+
+                {/* Supplier Info */}
+                <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2 max-w-[70%]">
+                        {/* Simulated Country Flag */}
+                        <div className="w-4 h-3 bg-gradient-to-b from-orange-500 via-white to-green-500 rounded-[1px] shadow-sm shrink-0"></div>
+                        <span className="text-zinc-400 text-xs truncate hover:text-white transition-colors">{product.manufacturer?.name || "Global Supplier"}</span>
                     </div>
-                    <span className="text-zinc-600 text-xs">{product.pricing?.moq || 100} min order</span>
+                    <div className="flex items-center gap-1">
+                        <Star className="w-3 h-3 text-orange-500 fill-orange-500" />
+                        <span className="text-zinc-300 text-xs font-bold">{product.metrics?.rating || 4.8}</span>
+                    </div>
                 </div>
             </div>
         </div>
     </Link>
 );
 
-const MfrCard = ({ mfr }) => (
-    <Link to={`/manufacturers/${mfr._id}`} className="group relative bg-zinc-900 border border-zinc-800 rounded-xl p-5 hover:border-blue-500/50 hover:shadow-xl hover:shadow-blue-900/10 transition-all duration-300 block overflow-hidden">
-        {/* Hover Overlay with Smaller Actions */}
-        <div className="absolute inset-0 bg-black/80 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 transition-opacity z-20 flex flex-col items-center justify-center gap-3">
-            <button className="px-5 py-2.5 bg-white text-black font-bold text-xs rounded-full hover:scale-105 transition-transform flex items-center gap-2">
-                View Details <ArrowRight className="w-3 h-3" />
-            </button>
-            <button className="px-5 py-2.5 bg-blue-600 text-white font-bold text-xs rounded-full hover:scale-105 transition-transform flex items-center gap-2">
-                <MessageSquare className="w-3 h-3" /> Chat Now
-            </button>
-        </div>
+const MfrCard = ({ mfr, index = 0 }) => {
+    // Unique fallback image sets for each manufacturer
+    const fallbackImageSets = [
+        [
+            'https://images.pexels.com/photos/236380/pexels-photo-236380.jpeg?auto=compress&cs=tinysrgb&w=300',
+            'https://images.pexels.com/photos/2536965/pexels-photo-2536965.jpeg?auto=compress&cs=tinysrgb&w=300',
+            'https://images.pexels.com/photos/1036857/pexels-photo-1036857.jpeg?auto=compress&cs=tinysrgb&w=300'
+        ],
+        [
+            'https://images.pexels.com/photos/3912981/pexels-photo-3912981.jpeg?auto=compress&cs=tinysrgb&w=300',
+            'https://images.pexels.com/photos/2760243/pexels-photo-2760243.jpeg?auto=compress&cs=tinysrgb&w=300',
+            'https://images.pexels.com/photos/257700/pexels-photo-257700.jpeg?auto=compress&cs=tinysrgb&w=300'
+        ],
+        [
+            'https://images.pexels.com/photos/3825582/pexels-photo-3825582.jpeg?auto=compress&cs=tinysrgb&w=300',
+            'https://images.pexels.com/photos/3735641/pexels-photo-3735641.jpeg?auto=compress&cs=tinysrgb&w=300',
+            'https://images.pexels.com/photos/1108101/pexels-photo-1108101.jpeg?auto=compress&cs=tinysrgb&w=300'
+        ],
+        [
+            'https://images.pexels.com/photos/416405/pexels-photo-416405.jpeg?auto=compress&cs=tinysrgb&w=300',
+            'https://images.pexels.com/photos/1267338/pexels-photo-1267338.jpeg?auto=compress&cs=tinysrgb&w=300',
+            'https://images.pexels.com/photos/2582937/pexels-photo-2582937.jpeg?auto=compress&cs=tinysrgb&w=300'
+        ],
+        [
+            'https://images.pexels.com/photos/4483610/pexels-photo-4483610.jpeg?auto=compress&cs=tinysrgb&w=300',
+            'https://images.pexels.com/photos/5726837/pexels-photo-5726837.jpeg?auto=compress&cs=tinysrgb&w=300',
+            'https://images.pexels.com/photos/3846508/pexels-photo-3846508.jpeg?auto=compress&cs=tinysrgb&w=300'
+        ],
+        [
+            'https://images.pexels.com/photos/163100/circuit-circuit-board-resistor-computer-163100.jpeg?auto=compress&cs=tinysrgb&w=300',
+            'https://images.pexels.com/photos/2036656/pexels-photo-2036656.jpeg?auto=compress&cs=tinysrgb&w=300',
+            'https://images.pexels.com/photos/1108117/pexels-photo-1108117.jpeg?auto=compress&cs=tinysrgb&w=300'
+        ]
+    ];
 
-        <div className="flex items-start gap-4 mb-4">
-            <div className="w-14 h-14 rounded-lg bg-white p-1 shrink-0 overflow-hidden border border-zinc-700">
-                <img
-                    src={`https://ui-avatars.com/api/?name=${mfr.companyName}&background=0D8ABC&color=fff&size=128&bold=true`}
-                    alt={mfr.companyName}
-                    className="w-full h-full object-cover rounded"
-                />
-            </div>
-            <div className="flex-1 min-w-0">
-                <h3 className="font-bold text-white text-base truncate pr-2" title={mfr.companyName}>{mfr.companyName}</h3>
-                <div className="flex flex-wrap gap-2 mt-2">
-                    <span className="text-[10px] font-bold bg-gradient-to-r from-blue-500/10 to-blue-400/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded flex items-center gap-1">
-                        <ShieldCheck className="w-3 h-3" /> Verified Pro
-                    </span>
-                    <span className="text-[10px] font-bold bg-gradient-to-r from-orange-500/10 to-yellow-500/10 text-orange-400 border border-orange-500/20 px-2 py-0.5 rounded">
-                        {mfr.businessDetails?.yearEstablished ? `${new Date().getFullYear() - mfr.businessDetails.yearEstablished} Yrs` : '10 Yrs'}
-                    </span>
-                </div>
-            </div>
-        </div>
+    const images = mfr.images && mfr.images.length > 0 ? mfr.images : fallbackImageSets[index % fallbackImageSets.length];
 
-        <div className="grid grid-cols-3 gap-2 mb-4">
-            {(mfr.images && mfr.images.length > 0 ? mfr.images : [
-                'https://images.pexels.com/photos/3735641/pexels-photo-3735641.jpeg?auto=compress&cs=tinysrgb&w=200',
-                'https://images.pexels.com/photos/3846508/pexels-photo-3846508.jpeg?auto=compress&cs=tinysrgb&w=200',
-                'https://images.pexels.com/photos/163100/circuit-circuit-board-resistor-computer-163100.jpeg?auto=compress&cs=tinysrgb&w=200'
-            ]).slice(0, 3).map((imgUrl, i) => (
-                <div key={i} className="aspect-square bg-zinc-800 rounded-md overflow-hidden relative border border-zinc-700/50 group-hover:border-zinc-600 transition-colors">
+    return (
+        <Link to={`/manufacturers/${mfr._id}`} className="group relative bg-zinc-900 border border-zinc-800 rounded-xl p-5 hover:border-blue-500/50 hover:shadow-xl hover:shadow-blue-900/10 transition-all duration-300 block overflow-hidden">
+            {/* Hover Overlay with Smaller Actions */}
+            <div className="absolute inset-0 bg-black/80 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 transition-opacity z-20 flex flex-col items-center justify-center gap-3">
+                <button className="px-5 py-2.5 bg-white text-black font-bold text-xs rounded-full hover:scale-105 transition-transform flex items-center gap-2">
+                    View Details <ArrowRight className="w-3 h-3" />
+                </button>
+                <button className="px-5 py-2.5 bg-blue-600 text-white font-bold text-xs rounded-full hover:scale-105 transition-transform flex items-center gap-2">
+                    <MessageSquare className="w-3 h-3" /> Chat Now
+                </button>
+            </div>
+
+            <div className="flex items-start gap-4 mb-4">
+                <div className="w-14 h-14 rounded-lg bg-white p-1 shrink-0 overflow-hidden border border-zinc-700">
                     <img
-                        src={imgUrl}
-                        className="w-full h-full object-cover hover:scale-110 transition-transform duration-500"
-                        alt="Product"
+                        src={`https://ui-avatars.com/api/?name=${mfr.companyName}&background=0D8ABC&color=fff&size=128&bold=true`}
+                        alt={mfr.companyName}
+                        className="w-full h-full object-cover rounded"
                     />
                 </div>
-            ))}
-        </div>
+                <div className="flex-1 min-w-0">
+                    <h3 className="font-bold text-white text-base truncate pr-2" title={mfr.companyName}>{mfr.companyName}</h3>
+                    <div className="flex flex-wrap gap-2 mt-2">
+                        <span className="text-[10px] font-bold bg-gradient-to-r from-blue-500/10 to-blue-400/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded flex items-center gap-1">
+                            <ShieldCheck className="w-3 h-3" /> Verified Pro
+                        </span>
+                        <span className="text-[10px] font-bold bg-gradient-to-r from-orange-500/10 to-yellow-500/10 text-orange-400 border border-orange-500/20 px-2 py-0.5 rounded">
+                            {mfr.businessDetails?.yearEstablished ? `${new Date().getFullYear() - mfr.businessDetails.yearEstablished} Yrs` : '10 Yrs'}
+                        </span>
+                    </div>
+                </div>
+            </div>
 
-        <div className="flex items-center justify-between text-[11px] text-zinc-500 pt-3 border-t border-zinc-800">
-            <span className="flex items-center gap-1.5 text-emerald-400 font-bold bg-emerald-400/5 px-2 py-0.5 rounded">
-                <Activity className="w-3 h-3" /> 98% Response
-            </span>
-            <span className="flex items-center gap-1 font-semibold text-zinc-400">
-                <Star className="w-3 h-3 text-orange-500 fill-current" /> {mfr.metrics?.rating || 4.8}
-            </span>
-        </div>
-    </Link>
-);
+            <div className="grid grid-cols-3 gap-2 mb-4">
+                {images.slice(0, 3).map((imgUrl, i) => (
+                    <div key={i} className="aspect-square bg-zinc-800 rounded-md overflow-hidden relative border border-zinc-700/50 group-hover:border-zinc-600 transition-colors">
+                        <img
+                            src={imgUrl}
+                            className="w-full h-full object-cover hover:scale-110 transition-transform duration-500"
+                            alt="Product"
+                        />
+                    </div>
+                ))}
+            </div>
+
+            <div className="flex items-center justify-between text-[11px] text-zinc-500 pt-3 border-t border-zinc-800">
+                <span className="flex items-center gap-1.5 text-emerald-400 font-bold bg-emerald-400/5 px-2 py-0.5 rounded">
+                    <Activity className="w-3 h-3" /> 98% Response
+                </span>
+                <span className="flex items-center gap-1 font-semibold text-zinc-400">
+                    <Star className="w-3 h-3 text-orange-500 fill-current" /> {mfr.metrics?.rating || 4.8}
+                </span>
+            </div>
+        </Link>
+    );
+};
 
 // Features/Trust Section
 const TrustSection = () => (
@@ -591,44 +772,68 @@ const HomePage = () => {
                 <div className="max-w-[1400px] mx-auto px-4 lg:px-6 py-8 space-y-8">
                     {/* Hot Offers Banner */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div className="bg-gradient-to-r from-pink-900 to-rose-900 rounded-2xl p-6 md:p-8 flex items-center relative overflow-hidden group min-h-[180px]">
-                            <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-20"></div>
+                        <div className="bg-gradient-to-r from-blue-950 via-indigo-950 to-zinc-900 rounded-2xl p-6 md:p-8 flex items-center relative overflow-hidden group min-h-[180px] border border-blue-900/50">
+                            <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10"></div>
+                            <div className="absolute top-0 right-0 w-40 h-40 bg-blue-500/10 rounded-full blur-3xl"></div>
                             <div className="relative z-10">
-                                <span className="text-rose-300 font-bold text-xs uppercase tracking-wider mb-2 block">Limited Time</span>
+                                <span className="text-blue-400 font-bold text-xs uppercase tracking-wider mb-2 flex items-center gap-2"><Zap className="w-3 h-3" /> Limited Time</span>
                                 <h3 className="text-xl md:text-2xl font-extrabold text-white mb-2">Electronic Components</h3>
-                                <p className="text-rose-100/80 text-sm mb-4 hidden sm:block">Up to 40% off on bulk orders.</p>
-                                <Link to="/products?cat=electronics" className="bg-white text-rose-900 px-4 md:px-6 py-2 rounded-full font-bold text-xs md:text-sm hover:bg-rose-50 transition-colors">Shop Now</Link>
+                                <p className="text-blue-200/80 text-sm mb-4 hidden sm:block">Up to 40% off on bulk orders.</p>
+                                <Link to="/products?cat=electronics" className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-4 md:px-6 py-2 rounded-full font-bold text-xs md:text-sm hover:from-blue-500 hover:to-indigo-500 transition-all shadow-lg shadow-blue-600/20">Shop Now</Link>
                             </div>
-                            <img src="https://images.pexels.com/photos/356056/pexels-photo-356056.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Electronics" className="absolute right-0 top-0 h-full w-1/3 md:w-1/2 object-cover opacity-60 md:opacity-80 group-hover:scale-105 transition-transform duration-700" />
+                            <img src="https://images.pexels.com/photos/356056/pexels-photo-356056.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Electronics" className="absolute right-0 top-0 h-full w-1/3 md:w-1/2 object-cover opacity-40 md:opacity-60 group-hover:scale-105 transition-transform duration-700" />
                         </div>
-                        <div className="bg-gradient-to-r from-emerald-900 to-teal-900 rounded-2xl p-6 md:p-8 flex items-center relative overflow-hidden group min-h-[180px]">
-                            <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-20"></div>
+                        <div className="bg-gradient-to-r from-indigo-950 via-blue-950 to-zinc-900 rounded-2xl p-6 md:p-8 flex items-center relative overflow-hidden group min-h-[180px] border border-indigo-900/50">
+                            <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10"></div>
+                            <div className="absolute top-0 right-0 w-40 h-40 bg-indigo-500/10 rounded-full blur-3xl"></div>
                             <div className="relative z-10">
-                                <span className="text-emerald-300 font-bold text-xs uppercase tracking-wider mb-2 block">New Arrivals</span>
+                                <span className="text-indigo-400 font-bold text-xs uppercase tracking-wider mb-2 flex items-center gap-2"><Star className="w-3 h-3" /> New Arrivals</span>
                                 <h3 className="text-xl md:text-2xl font-extrabold text-white mb-2">Eco-Friendly Packaging</h3>
-                                <p className="text-emerald-100/80 text-sm mb-4 hidden sm:block">Sustainable solutions for your brand.</p>
-                                <Link to="/products?cat=packaging" className="bg-white text-emerald-900 px-4 md:px-6 py-2 rounded-full font-bold text-xs md:text-sm hover:bg-emerald-50 transition-colors">Explore</Link>
+                                <p className="text-indigo-200/80 text-sm mb-4 hidden sm:block">Sustainable solutions for your brand.</p>
+                                <Link to="/products?cat=packaging" className="bg-gradient-to-r from-indigo-600 to-blue-600 text-white px-4 md:px-6 py-2 rounded-full font-bold text-xs md:text-sm hover:from-indigo-500 hover:to-blue-500 transition-all shadow-lg shadow-indigo-600/20">Explore</Link>
                             </div>
-                            <img src="https://images.pexels.com/photos/6567607/pexels-photo-6567607.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Packaging" className="absolute right-0 top-0 h-full w-1/3 md:w-1/2 object-cover opacity-60 md:opacity-80 group-hover:scale-105 transition-transform duration-700" />
+                            <img src="https://images.pexels.com/photos/6567607/pexels-photo-6567607.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Packaging" className="absolute right-0 top-0 h-full w-1/3 md:w-1/2 object-cover opacity-40 md:opacity-60 group-hover:scale-105 transition-transform duration-700" />
                         </div>
                     </div>
 
                     <SectionHeader title="Best Selling Products" linkTo="/products?sort=best_selling" />
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
-                        {[1, 2, 3, 4].map((i) => (
-                            <div key={i} className="bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden hover:border-blue-500/50 transition-colors group cursor-pointer">
-                                <div className="h-32 md:h-40 bg-zinc-800 relative overflow-hidden">
-                                    <img src={`https://picsum.photos/400/400?random=${i}`} alt="Product" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
-                                    <span className="absolute top-2 left-2 bg-yellow-500 text-black text-[9px] md:text-[10px] font-bold px-1.5 md:px-2 py-0.5 rounded">BEST SELLER</span>
-                                </div>
-                                <div className="p-2 md:p-3">
-                                    <h4 className="text-white font-medium text-xs md:text-sm truncate">Industrial Grade Motor Unit</h4>
-                                    <p className="text-zinc-500 text-[10px] md:text-xs mb-1 md:mb-2">By TechMech Ind.</p>
-                                    <div className="flex items-center justify-between">
-                                        <span className="text-blue-400 font-bold text-sm md:text-base">₹12,499</span>
-                                        <span className="text-[9px] md:text-[10px] text-zinc-500 hidden sm:inline">Min: 100 pcs</span>
-                                    </div>
-                                </div>
+                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+                        {[
+                            {
+                                _id: 'bs1',
+                                basicInfo: { name: "Industrial Grade Motor Unit" },
+                                pricing: { basePrice: 12499, minOrderUnit: 'unit', moq: 100, originalPrice: 15999 },
+                                manufacturer: { name: "TechMech Ind.", isVerified: true, years: "15 Yrs" },
+                                media: { images: [{ url: "https://images.pexels.com/photos/3846508/pexels-photo-3846508.jpeg?auto=compress&cs=tinysrgb&w=600" }] },
+                                metrics: { rating: 4.9 }
+                            },
+                            {
+                                _id: 'bs2',
+                                basicInfo: { name: "Heavy Duty Hydraulic Pump" },
+                                pricing: { basePrice: 28500, minOrderUnit: 'set', moq: 10, originalPrice: 32000 },
+                                manufacturer: { name: "HydraFlow Systems", isVerified: true, years: "8 Yrs" },
+                                media: { images: [{ url: "https://images.pexels.com/photos/1108101/pexels-photo-1108101.jpeg?auto=compress&cs=tinysrgb&w=600" }] },
+                                metrics: { rating: 4.7 }
+                            },
+                            {
+                                _id: 'bs3',
+                                basicInfo: { name: "Precision CNC Control Panel" },
+                                pricing: { basePrice: 45000, minOrderUnit: 'unit', moq: 5, originalPrice: 52000 },
+                                manufacturer: { name: "ControlTech Solutions", isVerified: true, years: "12 Yrs" },
+                                media: { hasVideo: true, images: [{ url: "https://images.pexels.com/photos/163100/circuit-circuit-board-resistor-computer-163100.jpeg?auto=compress&cs=tinysrgb&w=600" }] },
+                                metrics: { rating: 4.8 }
+                            },
+                            {
+                                _id: 'bs4',
+                                basicInfo: { name: "Industrial Copper Wire Roll" },
+                                pricing: { basePrice: 850, minOrderUnit: 'kg', moq: 500, originalPrice: 1200 },
+                                manufacturer: { name: "Metallo Corp", isVerified: true, years: "20 Yrs" },
+                                media: { images: [{ url: "https://images.pexels.com/photos/4483610/pexels-photo-4483610.jpeg?auto=compress&cs=tinysrgb&w=600" }] },
+                                metrics: { rating: 4.6 }
+                            }
+                        ].map((product) => (
+                            <div key={product._id} className="h-full">
+                                <ProductCard product={product} />
                             </div>
                         ))}
                     </div>
@@ -668,8 +873,8 @@ const HomePage = () => {
 
                     <SectionHeader title="Verified Manufacturers" linkTo="/manufacturers" />
                     <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-6">
-                        {manufacturers.slice(0, 6).map((mfr) => (
-                            <MfrCard key={mfr._id} mfr={mfr} />
+                        {manufacturers.slice(0, 6).map((mfr, index) => (
+                            <MfrCard key={mfr._id} mfr={mfr} index={index} />
                         ))}
                     </div>
                 </div>

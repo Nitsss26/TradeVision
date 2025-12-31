@@ -1,18 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import {
     Search, Menu, ChevronDown, MapPin, Globe, User,
-    ShoppingCart, X, ChevronRight, MessageSquare, Package, Tag, ShieldCheck
+    ShoppingCart, X, ChevronRight, MessageSquare, Package, Tag, ShieldCheck, LogOut, Settings, Bell
 } from 'lucide-react';
 import CategoryDropdown from './CategoryDropdown';
 
 const Navbar = () => {
     const navigate = useNavigate();
+    const { user } = useSelector(state => state.auth);
     const [searchQuery, setSearchQuery] = useState('');
-    const [searchType, setSearchType] = useState('Products'); // 'Products' or 'Manufacturers'
+    const [searchType, setSearchType] = useState('Products');
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [isCategoryOpen, setIsCategoryOpen] = useState(false);
     const [placeholderText, setPlaceholderText] = useState('Search for products...');
+    const [messagesOpen, setMessagesOpen] = useState(false);
+    const [userMenuOpen, setUserMenuOpen] = useState(false);
 
     // Auto-rotating placeholders
     useEffect(() => {
@@ -30,8 +34,6 @@ const Navbar = () => {
         return () => clearInterval(interval);
     }, []);
 
-    // Mock/Placeholder State (Fixing ReferenceError)
-    const user = null;
     const itemCount = 0;
 
     const handleSearch = (e) => {
@@ -85,14 +87,59 @@ const Navbar = () => {
 
                 {/* Right Actions */}
                 <div className="hidden md:flex items-center gap-6">
-                    <Link to="/messages" className="flex flex-col items-center gap-1 text-zinc-400 hover:text-white group">
-                        <MessageSquare className="w-5 h-5 group-hover:text-blue-500 transition-colors" />
-                        <span className="text-[10px] font-medium">Messages</span>
-                    </Link>
-                    <Link to="/orders" className="flex flex-col items-center gap-1 text-zinc-400 hover:text-white group">
+                    {/* Messages - With Popup */}
+                    <div className="relative">
+                        <button
+                            onClick={() => user ? setMessagesOpen(!messagesOpen) : navigate('/login')}
+                            className="flex flex-col items-center gap-1 text-zinc-400 hover:text-white group"
+                        >
+                            <div className="relative">
+                                <MessageSquare className="w-5 h-5 group-hover:text-blue-500 transition-colors" />
+                                {user && <span className="absolute -top-1 -right-1 w-2 h-2 bg-blue-500 rounded-full"></span>}
+                            </div>
+                            <span className="text-[10px] font-medium">Messages</span>
+                        </button>
+
+                        {/* Messages Popup */}
+                        {messagesOpen && user && (
+                            <div className="absolute top-full right-0 mt-2 w-80 bg-zinc-900 border border-zinc-800 rounded-xl shadow-2xl overflow-hidden z-50">
+                                <div className="p-4 border-b border-zinc-800 flex items-center justify-between">
+                                    <h3 className="font-bold text-white">Messages</h3>
+                                    <button onClick={() => setMessagesOpen(false)} className="text-zinc-500 hover:text-white">
+                                        <X className="w-4 h-4" />
+                                    </button>
+                                </div>
+                                <div className="max-h-80 overflow-y-auto">
+                                    {[1, 2, 3].map((_, i) => (
+                                        <div key={i} className="p-4 border-b border-zinc-800 hover:bg-zinc-800/50 cursor-pointer flex gap-3">
+                                            <div className="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold text-sm shrink-0">
+                                                S
+                                            </div>
+                                            <div className="flex-1 min-w-0">
+                                                <p className="text-white text-sm font-medium truncate">Supplier {i + 1}</p>
+                                                <p className="text-zinc-500 text-xs truncate">Thank you for your inquiry...</p>
+                                            </div>
+                                            <span className="text-zinc-600 text-xs">2h</span>
+                                        </div>
+                                    ))}
+                                </div>
+                                <Link to="/messages" onClick={() => setMessagesOpen(false)} className="block p-3 text-center text-blue-400 text-sm font-medium hover:bg-zinc-800/50">
+                                    View All Messages
+                                </Link>
+                            </div>
+                        )}
+                    </div>
+
+                    {/* Orders */}
+                    <button
+                        onClick={() => user ? navigate('/orders') : navigate('/login')}
+                        className="flex flex-col items-center gap-1 text-zinc-400 hover:text-white group"
+                    >
                         <Package className="w-5 h-5 group-hover:text-blue-500 transition-colors" />
                         <span className="text-[10px] font-medium">Orders</span>
-                    </Link>
+                    </button>
+
+                    {/* Cart */}
                     <Link to="/cart" className="flex flex-col items-center gap-1 text-zinc-400 hover:text-white group relative">
                         <ShoppingCart className="w-5 h-5 group-hover:text-blue-500 transition-colors" />
                         <span className="text-[10px] font-medium">Cart</span>
@@ -104,12 +151,51 @@ const Navbar = () => {
                     </Link>
 
                     {/* User Profile / Sign In */}
-                    <div className="flex items-center gap-3 ml-2 border-l border-zinc-800 pl-4">
+                    <div className="flex items-center gap-3 ml-2 border-l border-zinc-800 pl-4 relative">
                         {user ? (
-                            <div className="flex items-center gap-2 cursor-pointer">
-                                <div className="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold text-xs ring-2 ring-black">
-                                    {user.name?.[0] || 'U'}
-                                </div>
+                            <div className="relative">
+                                <button
+                                    onClick={() => setUserMenuOpen(!userMenuOpen)}
+                                    className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity"
+                                >
+                                    <div className="w-9 h-9 rounded-full bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center text-white font-bold text-sm ring-2 ring-blue-500/30">
+                                        {user.firstName?.[0] || user.name?.[0] || 'U'}
+                                    </div>
+                                    <div className="text-left hidden lg:block">
+                                        <p className="text-white text-sm font-semibold">{user.firstName || user.name || 'User'}</p>
+                                        <p className="text-zinc-500 text-[10px]">{user.role === 'manufacturer' ? 'Seller' : 'Buyer'}</p>
+                                    </div>
+                                    <ChevronDown className="w-3 h-3 text-zinc-500" />
+                                </button>
+
+                                {/* User Dropdown Menu */}
+                                {userMenuOpen && (
+                                    <div className="absolute top-full right-0 mt-2 w-56 bg-zinc-900 border border-zinc-800 rounded-xl shadow-2xl overflow-hidden z-50">
+                                        <div className="p-4 border-b border-zinc-800">
+                                            <p className="text-white font-bold">{user.firstName || user.name}</p>
+                                            <p className="text-zinc-500 text-sm">{user.email}</p>
+                                        </div>
+                                        <div className="p-2">
+                                            <Link to={user.role === 'manufacturer' ? '/manufacturer/dashboard' : '/dashboard'} onClick={() => setUserMenuOpen(false)} className="flex items-center gap-3 px-3 py-2 text-zinc-300 hover:bg-zinc-800 rounded-lg">
+                                                <User className="w-4 h-4" /> Dashboard
+                                            </Link>
+                                            <Link to="/orders" onClick={() => setUserMenuOpen(false)} className="flex items-center gap-3 px-3 py-2 text-zinc-300 hover:bg-zinc-800 rounded-lg">
+                                                <Package className="w-4 h-4" /> My Orders
+                                            </Link>
+                                            <Link to="/settings" onClick={() => setUserMenuOpen(false)} className="flex items-center gap-3 px-3 py-2 text-zinc-300 hover:bg-zinc-800 rounded-lg">
+                                                <Settings className="w-4 h-4" /> Settings
+                                            </Link>
+                                        </div>
+                                        <div className="p-2 border-t border-zinc-800">
+                                            <button
+                                                onClick={() => { localStorage.removeItem('user'); window.location.reload(); }}
+                                                className="flex items-center gap-3 px-3 py-2 text-red-400 hover:bg-zinc-800 rounded-lg w-full"
+                                            >
+                                                <LogOut className="w-4 h-4" /> Sign Out
+                                            </button>
+                                        </div>
+                                    </div>
+                                )}
                             </div>
                         ) : (
                             <div className="flex items-center gap-2">
@@ -164,13 +250,13 @@ const Navbar = () => {
                         Verified Manufacturers
                     </Link>
 
-                    {/* 3rd Place: Flat 80% Off Zone (New) */}
+                    {/* 3rd Place: Dead Stock (Clearance) */}
                     <Link to="/clearance" className="text-zinc-300 hover:text-white transition-colors text-[13px] font-bold tracking-wide flex items-center gap-1 group">
-                        <Tag className="w-3.5 h-3.5 text-amber-500 group-hover:rotate-12 transition-transform" />
-                        <span className="bg-gradient-to-r from-amber-400 to-orange-400 bg-clip-text text-transparent group-hover:from-amber-300 group-hover:to-orange-300">
-                            Flat 80% Off Zone
+                        <Tag className="w-3.5 h-3.5 text-red-500 group-hover:rotate-12 transition-transform" />
+                        <span className="bg-gradient-to-r from-red-400 to-orange-400 bg-clip-text text-transparent group-hover:from-red-300 group-hover:to-orange-300">
+                            Dead Stock
                         </span>
-                        <span className="px-1.5 py-0.5 bg-amber-500/10 text-amber-400 text-[9px] rounded border border-amber-500/20 font-bold ml-1 animate-pulse">LIVE</span>
+                        <span className="px-1.5 py-0.5 bg-red-500/10 text-red-400 text-[9px] rounded border border-red-500/20 font-bold ml-1 animate-pulse">SALE</span>
                     </Link>
 
                     {/* 4th Place: Trade Assurance */}
@@ -223,14 +309,37 @@ const Navbar = () => {
                             Verified Suppliers <ShieldCheck className="w-4 h-4 text-blue-500" />
                         </Link>
                         <Link to="/clearance" className="text-red-400 font-bold py-3 border-b border-zinc-800 flex justify-between items-center hover:bg-zinc-800/50 px-2 rounded">
-                            Flat 80% Off Zone <Tag className="w-4 h-4 text-red-500" />
+                            Dead Stock <Tag className="w-4 h-4 text-red-500" />
                         </Link>
                         <Link to="/trade-assurance" className="text-zinc-300 py-3 border-b border-zinc-800 flex justify-between items-center hover:bg-zinc-800/50 px-2 rounded">
                             Trade Assurance <ShieldCheck className="w-4 h-4 text-yellow-500" />
                         </Link>
-                        <Link to="/login" className="px-4 py-3 bg-gradient-to-r from-blue-600 to-blue-500 text-white rounded-lg text-center font-bold mt-6 shadow-lg shadow-blue-500/20 active:scale-95 transition-transform">
-                            Sign In / Join Free
-                        </Link>
+                        {user ? (
+                            <div className="mt-6 p-4 bg-zinc-800/50 rounded-lg">
+                                <div className="flex items-center gap-3 mb-3">
+                                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center text-white font-bold">
+                                        {user.firstName?.[0] || user.name?.[0] || 'U'}
+                                    </div>
+                                    <div>
+                                        <p className="text-white font-semibold">{user.firstName || user.name}</p>
+                                        <p className="text-zinc-500 text-sm">{user.email}</p>
+                                    </div>
+                                </div>
+                                <Link to={user.role === 'manufacturer' ? '/manufacturer/dashboard' : '/dashboard'} className="block w-full px-4 py-2 bg-blue-600 text-white rounded-lg text-center font-bold mb-2">
+                                    Dashboard
+                                </Link>
+                                <button
+                                    onClick={() => { localStorage.removeItem('user'); window.location.reload(); }}
+                                    className="w-full px-4 py-2 border border-zinc-700 text-zinc-300 rounded-lg text-center font-medium"
+                                >
+                                    Sign Out
+                                </button>
+                            </div>
+                        ) : (
+                            <Link to="/login" className="px-4 py-3 bg-gradient-to-r from-blue-600 to-blue-500 text-white rounded-lg text-center font-bold mt-6 shadow-lg shadow-blue-500/20 active:scale-95 transition-transform">
+                                Sign In / Join Free
+                            </Link>
+                        )}
                     </div>
                 </div>
             )}

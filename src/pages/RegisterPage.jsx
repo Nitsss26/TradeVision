@@ -3,6 +3,7 @@ import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Mail, Lock, Eye, EyeOff, User, Building2, Phone, ArrowRight, ShieldCheck, CircleCheck } from 'lucide-react';
 import { register } from '../store/slices/authSlice';
+import toast from 'react-hot-toast';
 
 const RegisterPage = () => {
     const navigate = useNavigate();
@@ -27,6 +28,8 @@ const RegisterPage = () => {
         employeeCount: '',
         yearEstablished: '',
         iecCode: '',
+        tanNo: '',
+        cinNo: '',
         description: '',
         address: ''
     });
@@ -40,7 +43,11 @@ const RegisterPage = () => {
     const handleNextStep = (e) => {
         e.preventDefault();
         if (formData.password !== formData.confirmPassword) {
-            alert('Passwords do not match');
+            toast.error('Passwords do not match!');
+            return;
+        }
+        if (formData.password.length < 6) {
+            toast.error('Password must be at least 6 characters!');
             return;
         }
         setStep(2);
@@ -50,18 +57,30 @@ const RegisterPage = () => {
         e.preventDefault();
         // For buyers, validation happens here as they only have Step 1
         if (accountType === 'buyer' && formData.password !== formData.confirmPassword) {
-            alert('Passwords do not match');
+            toast.error('Passwords do not match!');
+            return;
+        }
+        if (formData.password.length < 6) {
+            toast.error('Password must be at least 6 characters!');
             return;
         }
 
         const result = await dispatch(register({ ...formData, role: accountType }));
         if (result.meta.requestStatus === 'fulfilled') {
-            navigate('/dashboard');
+            toast.success('Account created successfully! Welcome aboard! 🎉');
+            if (accountType === 'manufacturer') {
+                navigate('/manufacturer/analytics');
+            } else {
+                navigate('/dashboard');
+            }
+        } else {
+            // Show error toast with the message from backend
+            toast.error(result.payload || 'Registration failed. Please try again.');
         }
     };
 
     return (
-        <div className="min-h-screen bg-black flex font-sans">
+        <div className="min-h-screen bg-black flex font-sans -mt-8">
             {/* Left Side - Premium Branding */}
             <div className="hidden lg:flex w-1/2 relative overflow-hidden bg-zinc-900 border-r border-zinc-800">
                 <div className="absolute inset-0 bg-gradient-to-br from-indigo-900 via-zinc-900 to-black opacity-90"></div>
@@ -71,8 +90,8 @@ const RegisterPage = () => {
                 <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-indigo-600/20 blur-[120px] rounded-full"></div>
                 <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-blue-600/10 blur-[120px] rounded-full"></div>
 
-                <div className="relative z-10 w-full p-20 flex flex-col justify-between h-full">
-                    <Link to="/" className="text-4xl font-bold text-white tracking-tight">
+                <div className="relative z-10 w-full p-20 flex flex-col h-full">
+                    <Link to="/" className="text-4xl font-bold text-white tracking-tight mb-24">
                         Trade<span className="text-blue-500">Vision</span>
                     </Link>
 
@@ -107,7 +126,7 @@ const RegisterPage = () => {
                         </div>
                     </div>
 
-                    <div className="flex gap-8 text-zinc-500 text-sm font-medium">
+                    <div className="mt-16 flex gap-8 text-zinc-500 text-sm font-medium">
                         <div className="flex items-center gap-2"><CircleCheck className="w-4 h-4 text-green-500" /> Verified Network</div>
                         <div className="flex items-center gap-2"><CircleCheck className="w-4 h-4 text-green-500" /> Secure Payments</div>
                     </div>
@@ -273,7 +292,7 @@ const RegisterPage = () => {
                             <div className="space-y-4 animate-in slide-in-from-right">
                                 <div className="p-4 bg-blue-900/20 border border-blue-800/50 rounded-lg text-sm text-blue-200 mb-4">
                                     <h4 className="font-bold flex items-center gap-2 mb-1"><Building2 className="w-4 h-4" /> Company Details</h4>
-                                    <p className="opacity-80">Help buyers trust you by providing business credentials.</p>
+                                    <p className="opacity-80">Help buyers trust you by providing business credentials. Please fill all details carefully.</p>
                                 </div>
 
                                 <div className="grid grid-cols-2 gap-4">
@@ -299,6 +318,42 @@ const RegisterPage = () => {
                                             placeholder="ABCDE1234F"
                                             className="w-full px-4 py-3 bg-zinc-900/50 border border-zinc-700 rounded-xl text-white placeholder-zinc-600 outline-none focus:border-blue-500 focus:bg-zinc-900 transition-all text-sm"
                                             required
+                                        />
+                                    </div>
+                                </div>
+
+                                <div className="grid grid-cols-3 gap-4">
+                                    <div className="space-y-1.5">
+                                        <label className="text-xs font-bold text-zinc-300 ml-1">IEC Code</label>
+                                        <input
+                                            type="text"
+                                            name="iecCode"
+                                            value={formData.iecCode}
+                                            onChange={handleChange}
+                                            placeholder="IEC123..."
+                                            className="w-full px-4 py-3 bg-zinc-900/50 border border-zinc-700 rounded-xl text-white placeholder-zinc-600 outline-none focus:border-blue-500 focus:bg-zinc-900 transition-all text-sm"
+                                        />
+                                    </div>
+                                    <div className="space-y-1.5">
+                                        <label className="text-xs font-bold text-zinc-300 ml-1">TAN No</label>
+                                        <input
+                                            type="text"
+                                            name="tanNo"
+                                            value={formData.tanNo}
+                                            onChange={handleChange}
+                                            placeholder="TAN..."
+                                            className="w-full px-4 py-3 bg-zinc-900/50 border border-zinc-700 rounded-xl text-white placeholder-zinc-600 outline-none focus:border-blue-500 focus:bg-zinc-900 transition-all text-sm"
+                                        />
+                                    </div>
+                                    <div className="space-y-1.5">
+                                        <label className="text-xs font-bold text-zinc-300 ml-1">CIN No</label>
+                                        <input
+                                            type="text"
+                                            name="cinNo"
+                                            value={formData.cinNo}
+                                            onChange={handleChange}
+                                            placeholder="CIN..."
+                                            className="w-full px-4 py-3 bg-zinc-900/50 border border-zinc-700 rounded-xl text-white placeholder-zinc-600 outline-none focus:border-blue-500 focus:bg-zinc-900 transition-all text-sm"
                                         />
                                     </div>
                                 </div>
@@ -334,6 +389,30 @@ const RegisterPage = () => {
                                             <option value="200+">200+</option>
                                         </select>
                                     </div>
+                                </div>
+
+                                <div className="space-y-1.5">
+                                    <label className="text-xs font-bold text-zinc-300 ml-1">Years in Service</label>
+                                    <input
+                                        type="number"
+                                        name="yearEstablished"
+                                        value={formData.yearEstablished}
+                                        onChange={handleChange}
+                                        placeholder="e.g. 5"
+                                        className="w-full px-4 py-3 bg-zinc-900/50 border border-zinc-700 rounded-xl text-white placeholder-zinc-600 outline-none focus:border-blue-500 focus:bg-zinc-900 transition-all text-sm"
+                                    />
+                                </div>
+
+                                <div className="space-y-1.5">
+                                    <label className="text-xs font-bold text-zinc-300 ml-1">Company Description</label>
+                                    <textarea
+                                        name="description"
+                                        value={formData.description}
+                                        onChange={handleChange}
+                                        placeholder="Tell us about your company, products, and expertise..."
+                                        className="w-full px-4 py-3 bg-zinc-900/50 border border-zinc-700 rounded-xl text-white placeholder-zinc-600 outline-none focus:border-blue-500 focus:bg-zinc-900 transition-all text-sm h-24 resize-none"
+                                        required
+                                    />
                                 </div>
 
                                 <div className="space-y-1.5">
@@ -383,8 +462,8 @@ const RegisterPage = () => {
                         </button>
                     </form>
                 </div>
-            </div>
-        </div>
+            </div >
+        </div >
     );
 };
 

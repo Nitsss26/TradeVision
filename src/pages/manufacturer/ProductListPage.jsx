@@ -1,14 +1,15 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import {
     Plus, Search, Filter, MoreVertical, Edit, Trash2, Eye,
-    CheckCircle2, AlertCircle, TrendingUp
+    CheckCircle2, AlertCircle, TrendingUp, Upload, FileSpreadsheet, X
 } from 'lucide-react';
 import ManufacturerLayout from '../../layouts/ManufacturerLayout';
+import toast from 'react-hot-toast';
 
 const ProductListPage = () => {
     // Mock Data
-    const [products, setProducts] = React.useState([
+    const [products, setProducts] = useState([
         { id: 1, name: 'Industrial Hydraulic Pump Series X', category: 'Industrial Machinery', price: '₹45,000', stock: 124, status: 'Active', views: '1.2k', rating: 4.8, image: 'https://images.pexels.com/photos/3735641/pexels-photo-3735641.jpeg?w=100' },
         { id: 2, name: 'CNC Machined Aluminum Parts', category: 'Mechanical Parts', price: '₹850', stock: 5000, status: 'Active', views: '8.5k', rating: 4.6, image: 'https://images.pexels.com/photos/3846508/pexels-photo-3846508.jpeg?w=100' },
         { id: 3, name: 'Safety Valves Set (High Pressure)', category: 'Industrial Safety', price: '₹2,400', stock: 45, status: 'Low Stock', views: '950', rating: 4.9, image: 'https://images.pexels.com/photos/163100/circuit-circuit-board-resistor-computer-163100.jpeg?w=100' },
@@ -16,7 +17,11 @@ const ProductListPage = () => {
         { id: 5, name: 'Heavy Duty Conveyor Belt', category: 'Material Handling', price: '₹12,500', stock: 20, status: 'Draft', views: '-', rating: '-', image: 'https://images.pexels.com/photos/2599869/pexels-photo-2599869.jpeg?w=100' },
     ]);
 
-    const [deleteId, setDeleteId] = React.useState(null);
+    const [deleteId, setDeleteId] = useState(null);
+    const [showBulkImport, setShowBulkImport] = useState(false);
+    const [selectedFile, setSelectedFile] = useState(null);
+    const [isUploading, setIsUploading] = useState(false);
+    const fileInputRef = useRef(null);
 
     const getStatusColor = (status) => {
         switch (status) {
@@ -32,6 +37,32 @@ const ProductListPage = () => {
         setDeleteId(null);
     };
 
+    const handleFileSelect = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            const validTypes = ['text/csv', 'application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'];
+            if (!validTypes.includes(file.type) && !file.name.endsWith('.csv') && !file.name.endsWith('.xlsx') && !file.name.endsWith('.xls')) {
+                toast.error('Please upload a CSV or Excel file');
+                return;
+            }
+            setSelectedFile(file);
+        }
+    };
+
+    const handleBulkImport = async () => {
+        if (!selectedFile) {
+            toast.error('Please select a file first');
+            return;
+        }
+        setIsUploading(true);
+        // Simulate upload
+        await new Promise(resolve => setTimeout(resolve, 2000));
+        toast.success(`Successfully imported products from ${selectedFile.name}!`);
+        setIsUploading(false);
+        setShowBulkImport(false);
+        setSelectedFile(null);
+    };
+
     return (
         <ManufacturerLayout>
             <div className="max-w-7xl mx-auto">
@@ -41,12 +72,20 @@ const ProductListPage = () => {
                         <h1 className="text-2xl font-bold text-white">Products</h1>
                         <p className="text-zinc-400 mt-1">Manage your product catalog and listings.</p>
                     </div>
-                    <Link
-                        to="/manufacturer/products/new"
-                        className="px-5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-medium rounded-lg flex items-center gap-2 transition-colors shadow-lg shadow-blue-500/20"
-                    >
-                        <Plus className="w-5 h-5" /> Add New Product
-                    </Link>
+                    <div className="flex items-center gap-3">
+                        <button
+                            onClick={() => setShowBulkImport(true)}
+                            className="px-5 py-2.5 bg-zinc-800 hover:bg-zinc-700 border border-zinc-700 text-white font-medium rounded-lg flex items-center gap-2 transition-colors"
+                        >
+                            <Upload className="w-5 h-5" /> Bulk Import
+                        </button>
+                        <Link
+                            to="/manufacturer/products/new"
+                            className="px-5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-medium rounded-lg flex items-center gap-2 transition-colors shadow-lg shadow-blue-500/20"
+                        >
+                            <Plus className="w-5 h-5" /> Add New Product
+                        </Link>
+                    </div>
                 </div>
 
                 {/* Filters & Search */}
@@ -187,6 +226,81 @@ const ProductListPage = () => {
                                     className="flex-1 py-2.5 bg-red-600 hover:bg-red-500 text-white font-bold rounded-xl transition-colors shadow-lg shadow-red-600/20"
                                 >
                                     Delete
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                )}
+
+                {/* Bulk Import Modal */}
+                {showBulkImport && (
+                    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
+                        <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 max-w-md w-full shadow-2xl">
+                            <div className="flex items-center justify-between mb-6">
+                                <div className="flex items-center gap-3">
+                                    <div className="w-10 h-10 bg-blue-500/10 rounded-lg flex items-center justify-center">
+                                        <FileSpreadsheet className="w-5 h-5 text-blue-500" />
+                                    </div>
+                                    <div>
+                                        <h3 className="text-lg font-bold text-white">Bulk Import Products</h3>
+                                        <p className="text-xs text-zinc-500">Upload CSV or Excel file</p>
+                                    </div>
+                                </div>
+                                <button
+                                    onClick={() => { setShowBulkImport(false); setSelectedFile(null); }}
+                                    className="p-2 hover:bg-zinc-800 rounded-lg text-zinc-400 hover:text-white transition-colors"
+                                >
+                                    <X className="w-5 h-5" />
+                                </button>
+                            </div>
+
+                            {/* Upload Area */}
+                            <div
+                                onClick={() => fileInputRef.current?.click()}
+                                className="border-2 border-dashed border-zinc-700 hover:border-blue-500 rounded-xl p-8 text-center cursor-pointer transition-colors mb-4 group"
+                            >
+                                <input
+                                    type="file"
+                                    ref={fileInputRef}
+                                    onChange={handleFileSelect}
+                                    accept=".csv,.xlsx,.xls"
+                                    className="hidden"
+                                />
+                                <div className="w-12 h-12 bg-zinc-800 group-hover:bg-blue-500/10 rounded-full flex items-center justify-center mx-auto mb-4 transition-colors">
+                                    <Upload className="w-6 h-6 text-zinc-400 group-hover:text-blue-500" />
+                                </div>
+                                {selectedFile ? (
+                                    <div>
+                                        <p className="text-white font-medium">{selectedFile.name}</p>
+                                        <p className="text-zinc-500 text-sm mt-1">{(selectedFile.size / 1024).toFixed(1)} KB</p>
+                                    </div>
+                                ) : (
+                                    <div>
+                                        <p className="text-white font-medium">Click to upload or drag and drop</p>
+                                        <p className="text-zinc-500 text-sm mt-1">CSV or Excel (.xlsx, .xls)</p>
+                                    </div>
+                                )}
+                            </div>
+
+                            <div className="bg-zinc-800/50 rounded-lg p-3 mb-6">
+                                <p className="text-xs text-zinc-400">
+                                    <span className="text-blue-400 font-medium">Tip:</span> Your file should include columns like: Product Name, Category, Price, Stock, Description, SKU
+                                </p>
+                            </div>
+
+                            <div className="flex gap-3">
+                                <button
+                                    onClick={() => { setShowBulkImport(false); setSelectedFile(null); }}
+                                    className="flex-1 py-2.5 bg-zinc-800 hover:bg-zinc-700 text-white font-medium rounded-xl transition-colors"
+                                >
+                                    Cancel
+                                </button>
+                                <button
+                                    onClick={handleBulkImport}
+                                    disabled={!selectedFile || isUploading}
+                                    className="flex-1 py-2.5 bg-blue-600 hover:bg-blue-500 disabled:bg-blue-600/50 disabled:cursor-not-allowed text-white font-bold rounded-xl transition-colors shadow-lg shadow-blue-600/20"
+                                >
+                                    {isUploading ? 'Importing...' : 'Import Products'}
                                 </button>
                             </div>
                         </div>

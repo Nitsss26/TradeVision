@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Mail, Lock, Eye, EyeOff, ArrowRight, ShieldCheck, CircleCheck } from 'lucide-react';
 import { login } from '../store/slices/authSlice';
+import toast from 'react-hot-toast';
 
 const LoginPage = () => {
     const navigate = useNavigate();
@@ -22,24 +23,17 @@ const LoginPage = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Manufacturer Portal Bypass
-        if (formData.email === 'analytics@gmail.com' && formData.password === '123') {
-            const dummyToken = 'manufacturer-token';
-            const dummyUser = {
-                id: 'mfr_001',
-                name: 'Tech Solutions Ltd.',
-                email: 'analytics@gmail.com',
-                role: 'manufacturer'
-            };
-            // Note: In a real app we'd dispatch(setUser) here, but for now we'll just redirect
-            // and let the layout handle any auth checks if needed, or just rely on local state
-            navigate('/manufacturer/dashboard');
-            return;
-        }
-
         const result = await dispatch(login(formData));
         if (result.meta.requestStatus === 'fulfilled') {
-            navigate('/dashboard');
+            toast.success('Welcome back! 👋');
+            const user = result.payload.user;
+            if (user.role === 'manufacturer') {
+                navigate('/manufacturer/analytics');
+            } else {
+                navigate('/dashboard');
+            }
+        } else {
+            toast.error(result.payload || 'Login failed. Please check your credentials.');
         }
     };
 
@@ -64,7 +58,7 @@ const LoginPage = () => {
                             <ShieldCheck className="w-4 h-4" /> Trusted by 10,000+ Businesses
                         </div>
                         <h1 className="text-5xl font-extrabold text-white mb-6 leading-[1.1] tracking-tight">
-                            Global Trade,<br />
+                            Global Trade<br />
                             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-500">Simplified.</span>
                         </h1>
                         <p className="text-zinc-400 text-xl leading-relaxed max-w-lg">
@@ -172,7 +166,7 @@ const LoginPage = () => {
                         </button>
                     </form>
 
-                    <div className="mt-8 pt-8 border-t border-zinc-800 text-center">
+                    {/* <div className="mt-8 pt-8 border-t border-zinc-800 text-center">
                         <p className="text-zinc-500 mb-6 text-sm">Or continue with</p>
                         <div className="grid grid-cols-2 gap-4">
                             <button className="flex items-center justify-center gap-2 py-3 bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 rounded-xl transition-colors text-white text-sm font-semibold">
@@ -184,7 +178,7 @@ const LoginPage = () => {
                                 Facebook
                             </button>
                         </div>
-                    </div>
+                    </div> */}
 
                     <p className="mt-8 text-center text-zinc-500 font-medium">
                         Don't have an account? <Link to="/register" className="text-blue-500 hover:text-blue-400 hover:underline">Create free account</Link>
