@@ -251,7 +251,7 @@ const Navbar = () => {
                     </Link>
 
                     {/* 3rd Place: Dead Stock (Clearance) */}
-                    <Link to="/clearance" className="text-zinc-300 hover:text-white transition-colors text-[13px] font-bold tracking-wide flex items-center gap-1 group">
+                    <Link to="/dead-stock" className="text-zinc-300 hover:text-white transition-colors text-[13px] font-bold tracking-wide flex items-center gap-1 group">
                         <Tag className="w-3.5 h-3.5 text-red-500 group-hover:rotate-12 transition-transform" />
                         <span className="bg-gradient-to-r from-red-400 to-orange-400 bg-clip-text text-transparent group-hover:from-red-300 group-hover:to-orange-300">
                             Dead Stock
@@ -308,7 +308,7 @@ const Navbar = () => {
                         <Link to="/manufacturers" className="text-zinc-300 py-3 border-b border-zinc-800 flex justify-between items-center hover:bg-zinc-800/50 px-2 rounded">
                             Verified Suppliers <ShieldCheck className="w-4 h-4 text-blue-500" />
                         </Link>
-                        <Link to="/clearance" className="text-red-400 font-bold py-3 border-b border-zinc-800 flex justify-between items-center hover:bg-zinc-800/50 px-2 rounded">
+                        <Link to="/dead-stock" className="text-red-400 font-bold py-3 border-b border-zinc-800 flex justify-between items-center hover:bg-zinc-800/50 px-2 rounded">
                             Dead Stock <Tag className="w-4 h-4 text-red-500" />
                         </Link>
                         <Link to="/trade-assurance" className="text-zinc-300 py-3 border-b border-zinc-800 flex justify-between items-center hover:bg-zinc-800/50 px-2 rounded">

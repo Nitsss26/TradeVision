@@ -1,6 +1,7 @@
 import { manufacturers } from './data/manufacturers';
 
 // Get all manufacturers
+console.log("ManufacturerService Loaded - Version Authentic Data 12345");
 const getAllManufacturers = async () => {
     return new Promise((resolve) => {
         setTimeout(() => {

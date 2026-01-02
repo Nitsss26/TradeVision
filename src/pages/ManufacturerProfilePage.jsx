@@ -15,7 +15,7 @@ const ManufacturerProfilePage = () => {
     const [manufacturer, setManufacturer] = useState(null);
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [activeTab, setActiveTab] = useState('products');
+    const [activeTab, setActiveTab] = useState('home');
 
     // Fallback images
     const productImages = [

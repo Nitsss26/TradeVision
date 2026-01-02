@@ -207,13 +207,13 @@ const ProductDetailPage = () => {
                         <div className="lg:col-span-3">
                             <div className="bg-zinc-900 rounded-2xl p-6 shadow-xl sticky top-24 border border-zinc-800 ring-1 ring-white/5 bg-gradient-to-b from-zinc-800/50 to-zinc-900">
                                 <div className="flex items-center gap-4 mb-5">
-                                    <div className="w-16 h-16 bg-white rounded-lg flex items-center justify-center p-2 border border-zinc-700 overflow-hidden shadow-lg shadow-black/50">
+                                    <Link to={`/manufacturers/${product.manufacturerId}`} className="w-16 h-16 bg-white rounded-lg flex items-center justify-center p-2 border border-zinc-700 overflow-hidden shadow-lg shadow-black/50 hover:opacity-90 transition-opacity cursor-pointer">
                                         <img
                                             src={product.manufacturer?.logo || `https://ui-avatars.com/api/?name=${product.manufacturerName}&background=0D8ABC&color=fff&size=128&bold=true`}
                                             alt={product.manufacturerName}
                                             className="w-full h-full object-contain rounded"
                                         />
-                                    </div>
+                                    </Link>
                                     <div className="flex-1 min-w-0">
                                         <h3 className="font-bold text-lg text-white truncate tracking-tight" title={product.manufacturerName}>
                                             {product.manufacturerName || "TexFab India Pvt Ltd"}
@@ -235,7 +235,7 @@ const ProductDetailPage = () => {
                                     </span>
                                 </div>
 
-                                <div className="space-y-4 border-t border-dashed border-zinc-700/50 pt-5 mb-6">
+                                <div className="space-y-4 border-t border-dashed border-zinc-700/50 pt-5 mb-4">
                                     <div className="flex justify-between items-center text-sm group">
                                         <span className="text-zinc-500 group-hover:text-zinc-400 transition-colors">Response Rate</span>
                                         <span className="font-bold text-emerald-400">98.5%</span>
@@ -247,6 +247,15 @@ const ProductDetailPage = () => {
                                     <div className="flex justify-between items-center text-sm group">
                                         <span className="text-zinc-500 group-hover:text-zinc-400 transition-colors">Transactions</span>
                                         <span className="font-bold text-zinc-200">5,000+</span>
+                                    </div>
+
+                                    <div className="pt-4 mt-2">
+                                        <Link
+                                            to={`/manufacturers/${product.manufacturerId}`}
+                                            className="w-full py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg transition-colors flex items-center justify-center gap-2 text-sm shadow-lg shadow-blue-900/20 active:scale-95"
+                                        >
+                                            Visit Store <ChevronRight className="w-4 h-4" />
+                                        </Link>
                                     </div>
                                 </div>
 

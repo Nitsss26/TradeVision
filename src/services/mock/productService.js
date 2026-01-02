@@ -3,6 +3,8 @@ import { getFromStorage, STORAGE_KEYS } from './storage';
 
 import { products as staticProducts } from './data/products';
 import { manufacturers as staticManufacturers } from './data/manufacturers';
+console.log("ProductService Loaded - Version Authentic Data Prices Updated");
+
 
 export const productService = {
     getAllProducts: async () => {

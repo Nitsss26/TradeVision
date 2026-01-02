@@ -1,4 +1,31 @@
 export const manufacturers = [
+    // --- REAL DATA START (Fermoscapes) ---
+    {
+        _id: "m11",
+        companyName: "Fermoscapes Private Limited",
+        description: "We are an Indian company that combines the pursuit of profit with the spreading of kindness, with the aim of benefiting all the artisans and stakeholders. We believe the artisans as the backbone of this company and we as a team has a primary goal to give direction and serve them. We aim to create a space where sustainable creations would not only be celebrated but would also find their rightful place in homes across the world.",
+        location: { city: "Gurugram", state: "Haryana", country: "India" },
+        isVerified: true,
+        businessDetails: {
+            yearEstablished: 2023,
+            employeeCount: "1-10",
+            annualRevenue: "0 - 40 L",
+            gstNo: "06AAFCF1763P1Z9",
+            legalStatus: "Limited Company",
+            address: "410 Gh-22, Sec-52, G-26, Gurugram-122001, Haryana, India"
+        },
+        metrics: { rating: 5.0, reviews: 12, productCount: 26 },
+        capabilities: ["Handmade Baskets", "Eco-friendly Decor", "Sustainable Products", "Artisan Crafts"],
+        images: [
+            "https://5.imimg.com/data5/SELLER/Default/2024/2/387433083/JH/SE/JZ/85554914/v-shaped-natural-gift-basket-500x500.jpg",
+            "https://5.imimg.com/data5/SELLER/Default/2023/9/341280804/NH/QI/SP/85554914/bw4-250x250.webp",
+            "https://5.imimg.com/data5/SELLER/Default/2024/2/387427596/TC/MV/MU/85554914/handmade-natural-grass-beach-tote-bag-250x250.jpg",
+            "https://5.imimg.com/data5/SELLER/Default/2024/2/387759008/OA/OQ/ZB/85554914/p-1000x1000.jpg",
+            "https://5.imimg.com/data5/SELLER/Default/2024/2/387759486/NO/RE/PO/85554914/k-1000x1000.jpg"
+        ],
+        logo: "https://5.imimg.com/data5/SELLER/Logo/2024/2/386834072/BL/XH/YO/85554914/1db3ba04-ead5-42c4-9e71-ea9131a96f51-120x120.png"
+    },
+    // --- REAL DATA END (Fermoscapes) ---
     // --- REAL DATA START (Giriraj Coated Fab) ---
     {
         _id: "m10",

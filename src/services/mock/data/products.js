@@ -1,4 +1,500 @@
 export const products = [
+    // --- REAL DATA START (Fermoscapes) ---
+    {
+        _id: "p38",
+        manufacturerId: "m11",
+        manufacturerName: "Fermoscapes Private Limited",
+        basicInfo: {
+            name: "Sabai Palm Leaf Wall Baskets",
+            slug: "sabai-palm-leaf-wall-baskets",
+            shortDescription: "Handmade Sabai Palm Leaf Baskets for wall decor.",
+            fullDescription: "Beautifully handcrafted wall baskets made from Sabai grass and date palm leaves. Adds a natural and bohemian touch to any living space. Perfect for wall decor or serving dry snacks.",
+            category: { level1: "Home & Garden", level2: "Decor", level3: "Wall Decor" },
+            tags: ["handmade", "wall basket", "sabai", "decor"]
+        },
+        pricing: { priceModel: "request_quote", basePrice: 450, currency: "INR", moq: 50 },
+        media: { images: [{ url: "https://5.imimg.com/data5/SELLER/Default/2023/9/341280804/NH/QI/SP/85554914/bw4-500x500.webp", isPrimary: true }] },
+        specs: { "Material": "Sabai Grass", "Usage": "Decor", "Type": "Handmade" },
+        inventory: { inStock: true, stockQuantity: 500 },
+        metrics: { views: 150, inquiries: 12, rating: 5.0 },
+        manufacturer: { isVerified: true }
+    },
+    {
+        _id: "p39",
+        manufacturerId: "m11",
+        manufacturerName: "Fermoscapes Private Limited",
+        basicInfo: {
+            name: "V Shaped Natural Gift Basket",
+            slug: "v-shaped-natural-gift-basket",
+            shortDescription: "Natural fiber V-shaped gift basket.",
+            fullDescription: "Elegant V-shaped basket woven from natural fibers, perfect for gifting hampers or home storage.",
+            category: { level1: "Home & Garden", level2: "Storage", level3: "Baskets" },
+            tags: ["basket", "gift", "natural", "storage"]
+        },
+        pricing: { priceModel: "request_quote", basePrice: 240, currency: "INR", moq: 50 },
+        media: { images: [{ url: "https://5.imimg.com/data5/SELLER/Default/2024/2/387433083/JH/SE/JZ/85554914/v-shaped-natural-gift-basket-500x500.jpg", isPrimary: true }] },
+        specs: { "Shape": "V-Shape", "Material": "Natural Fiber", "Usage": "Gifting" },
+        inventory: { inStock: true, stockQuantity: 300 },
+        metrics: { views: 120, inquiries: 8, rating: 4.8 },
+        manufacturer: { isVerified: true }
+    },
+    {
+        _id: "p40",
+        manufacturerId: "m11",
+        manufacturerName: "Fermoscapes Private Limited",
+        basicInfo: {
+            name: "Date Palm Leaf Storage Basket",
+            slug: "date-palm-leaf-storage-basket",
+            shortDescription: "Durable date palm leaf storage basket.",
+            fullDescription: "Sturdy storage basket crafted from date palm leaves. Ideal for organizing sustainable homes.",
+            category: { level1: "Home & Garden", level2: "Storage", level3: "Baskets" },
+            tags: ["storage", "date palm", "basket", "sustainable"]
+        },
+        pricing: { priceModel: "request_quote", basePrice: 280, currency: "INR", moq: 50 },
+        media: { images: [{ url: "https://5.imimg.com/data5/SELLER/Default/2024/2/386702356/OI/HJ/VD/85554914/kauna-grass-hamper-basket-with-lid-kauna-grass-organizer-basket-500x500.png", isPrimary: true }] },
+        specs: { "Material": "Date Palm", "Type": "Storage", "Feature": "Durable" },
+        inventory: { inStock: true, stockQuantity: 250 },
+        metrics: { views: 180, inquiries: 15, rating: 4.9 },
+        manufacturer: { isVerified: true }
+    },
+    {
+        _id: "p41",
+        manufacturerId: "m11",
+        manufacturerName: "Fermoscapes Private Limited",
+        basicInfo: {
+            name: "12 Inch Natural Nomad Basket",
+            slug: "natural-nomad-basket-12-inch",
+            shortDescription: "12-inch natural fiber nomad basket.",
+            fullDescription: "Classic nomad style basket, 12 inches in size. Versatile use for decor or storage.",
+            category: { level1: "Home & Garden", level2: "Decor", level3: "Baskets" },
+            tags: ["nomad", "basket", "12 inch", "decor"]
+        },
+        pricing: { priceModel: "request_quote", basePrice: 320, currency: "INR", moq: 50 },
+        media: { images: [{ url: "https://5.imimg.com/data5/SELLER/Default/2024/2/386720434/YZ/NW/BJ/85554914/fsog0059-01-1-500x500.png", isPrimary: true }] },
+        specs: { "Size": "12 Inch", "Style": "Nomad", "Material": "Natural Fiber" },
+        inventory: { inStock: true, stockQuantity: 150 },
+        metrics: { views: 100, inquiries: 5, rating: 4.7 },
+        manufacturer: { isVerified: true }
+    },
+    {
+        _id: "p42",
+        manufacturerId: "m11",
+        manufacturerName: "Fermoscapes Private Limited",
+        basicInfo: {
+            name: "Kauna Grass Small Hamper Basket",
+            slug: "kauna-grass-small-hamper-basket",
+            shortDescription: "Ethically sourced Kauna grass hamper basket.",
+            fullDescription: "Small hamper basket suitable for gift packaging, made from Kauna grass.",
+            category: { level1: "Home & Garden", level2: "Packaging", level3: "Gift Baskets" },
+            tags: ["kauna grass", "hamper", "gift", "small"]
+        },
+        pricing: { priceModel: "request_quote", basePrice: 210, currency: "INR", moq: 100 },
+        media: { images: [{ url: "https://5.imimg.com/data5/SELLER/Default/2024/2/387433965/XR/ZN/HZ/85554914/kauna-grass-small-hamper-basket-500x500.jpg", isPrimary: true }] },
+        specs: { "Material": "Kauna Grass", "Size": "Small", "Usage": "Hamper" },
+        inventory: { inStock: true, stockQuantity: 600 },
+        metrics: { views: 220, inquiries: 25, rating: 4.8 },
+        manufacturer: { isVerified: true }
+    },
+    {
+        _id: "p43",
+        manufacturerId: "m11",
+        manufacturerName: "Fermoscapes Private Limited",
+        basicInfo: {
+            name: "Handmade Paper Diaries",
+            slug: "handmade-paper-diaries",
+            shortDescription: "Eco-friendly handmade paper diaries.",
+            fullDescription: "Artisanal diaries made with handmade paper. Perfect for journaling and sketching.",
+            category: { level1: "Stationery", level2: "Notebooks", level3: "Diaries" },
+            tags: ["diary", "handmade paper", "stationery", "eco-friendly"]
+        },
+        pricing: { priceModel: "request_quote", basePrice: 250, currency: "INR", moq: 100 },
+        media: { images: [{ url: "https://5.imimg.com/data5/SELLER/Default/2025/4/506591939/QG/YT/EF/85554914/handmade-paper-diaries-500x500.jpg", isPrimary: true }] },
+        specs: { "Material": "Handmade Paper", "Type": "Diary", "Binding": "Stitched/Bound" },
+        inventory: { inStock: true, stockQuantity: 1000 },
+        metrics: { views: 300, inquiries: 40, rating: 4.9 },
+        manufacturer: { isVerified: true }
+    },
+    {
+        _id: "p44",
+        manufacturerId: "m11",
+        manufacturerName: "Fermoscapes Private Limited",
+        basicInfo: {
+            name: "Pink Handmade Block Printed Diary",
+            slug: "pink-handmade-block-printed-diary",
+            shortDescription: "Pink block printed diary with handmade paper.",
+            fullDescription: "Lovely pink diary featuring traditional block printing on the cover.",
+            category: { level1: "Stationery", level2: "Notebooks", level3: "Diaries" },
+            tags: ["diary", "pink", "block print", "handmade"]
+        },
+        pricing: { priceModel: "request_quote", basePrice: 250, currency: "INR", moq: 100 },
+        media: { images: [{ url: "https://5.imimg.com/data5/SELLER/Default/2023/9/341282202/HF/WK/II/85554914/1-693743ff-fb12-4f13-ab45-b34c7b5d447e-500x500.webp", isPrimary: true }] },
+        specs: { "Color": "Pink", "Print": "Block Print", "Material": "Paper/Fabric" },
+        inventory: { inStock: true, stockQuantity: 500 },
+        metrics: { views: 180, inquiries: 20, rating: 4.8 },
+        manufacturer: { isVerified: true }
+    },
+    {
+        _id: "p45",
+        manufacturerId: "m11",
+        manufacturerName: "Fermoscapes Private Limited",
+        basicInfo: {
+            name: "Turquoise Handmade Block Printed Diary",
+            slug: "turquoise-handmade-block-printed-diary",
+            shortDescription: "Turquoise block printed diary.",
+            fullDescription: "Vibrant turquoise diary with unique block print design.",
+            category: { level1: "Stationery", level2: "Notebooks", level3: "Diaries" },
+            tags: ["diary", "turquoise", "block print", "handmade"]
+        },
+        pricing: { priceModel: "request_quote", basePrice: 260, currency: "INR", moq: 100 },
+        media: { images: [{ url: "https://5.imimg.com/data5/SELLER/Default/2023/9/341284564/QZ/UR/BG/85554914/d-500x500.webp", isPrimary: true }] },
+        specs: { "Color": "Turquoise", "Print": "Block Print", "Material": "Handmade Paper" },
+        inventory: { inStock: true, stockQuantity: 500 },
+        metrics: { views: 160, inquiries: 18, rating: 4.8 },
+        manufacturer: { isVerified: true }
+    },
+    {
+        _id: "p46",
+        manufacturerId: "m11",
+        manufacturerName: "Fermoscapes Private Limited",
+        basicInfo: {
+            name: "White Handmade Block Printed Diary",
+            slug: "white-handmade-block-printed-diary",
+            shortDescription: "White block printed diary.",
+            fullDescription: "Classic white diary with elegant block printed motifs.",
+            category: { level1: "Stationery", level2: "Notebooks", level3: "Diaries" },
+            tags: ["diary", "white", "block print", "classic"]
+        },
+        pricing: { priceModel: "request_quote", basePrice: 250, currency: "INR", moq: 100 },
+        media: { images: [{ url: "https://5.imimg.com/data5/SELLER/Default/2023/9/341283970/JQ/ZM/FQ/85554914/6-61953170-c80f-4dd2-bc9d-34f8911aa7b2-500x500.webp", isPrimary: true }] },
+        specs: { "Color": "White", "Print": "Block Print", "Material": "Handmade Paper" },
+        inventory: { inStock: true, stockQuantity: 500 },
+        metrics: { views: 150, inquiries: 15, rating: 4.7 },
+        manufacturer: { isVerified: true }
+    },
+    {
+        _id: "p47",
+        manufacturerId: "m11",
+        manufacturerName: "Fermoscapes Private Limited",
+        basicInfo: {
+            name: "Handmade Natural Grass Beach Tote Bag",
+            slug: "handmade-natural-grass-beach-tote-bag",
+            shortDescription: "Natural grass tote bag for beach outings.",
+            fullDescription: "Stylish and spacious tote bag woven from natural grass. Perfect for beach days.",
+            category: { level1: "Fashion Accessories", level2: "Bags", level3: "Tote Bags" },
+            tags: ["tote bag", "beach", "grass", "handmade"]
+        },
+        pricing: { priceModel: "request_quote", basePrice: 350, currency: "INR", moq: 50 },
+        media: { images: [{ url: "https://5.imimg.com/data5/SELLER/Default/2024/2/387427596/TC/MV/MU/85554914/handmade-natural-grass-beach-tote-bag-500x500.jpg", isPrimary: true }] },
+        specs: { "Material": "Natural Grass", "Style": "Tote", "Occasion": "Beach/Casual" },
+        inventory: { inStock: true, stockQuantity: 200 },
+        metrics: { views: 250, inquiries: 30, rating: 4.9 },
+        manufacturer: { isVerified: true }
+    },
+    {
+        _id: "p48",
+        manufacturerId: "m11",
+        manufacturerName: "Fermoscapes Private Limited",
+        basicInfo: {
+            name: "Kauna Grass Bohemian Picnic Bag",
+            slug: "kauna-grass-bohemian-picnic-bag",
+            shortDescription: "Bohemian style Kauna grass picnic bag.",
+            fullDescription: "Charming picnic bag made from Kauna grass with a bohemian flair.",
+            category: { level1: "Fashion Accessories", level2: "Bags", level3: "Picnic Bags" },
+            tags: ["picnic bag", "bohemian", "kauna grass", "basket"]
+        },
+        pricing: { priceModel: "request_quote", basePrice: 330, currency: "INR", moq: 50 },
+        media: { images: [{ url: "https://5.imimg.com/data5/SELLER/Default/2023/9/345088891/XV/IE/SV/85554914/kauna-grass-picnic-bag-500x500.png", isPrimary: true }] },
+        specs: { "Material": "Kauna Grass", "Style": "Bohemian", "Usage": "Picnic" },
+        inventory: { inStock: true, stockQuantity: 150 },
+        metrics: { views: 200, inquiries: 22, rating: 4.8 },
+        manufacturer: { isVerified: true }
+    },
+    {
+        _id: "p49",
+        manufacturerId: "m11",
+        manufacturerName: "Fermoscapes Private Limited",
+        basicInfo: {
+            name: "Kauna Grass U Shaped Tote Bag",
+            slug: "kauna-grass-u-shaped-tote-bag",
+            shortDescription: "U-shaped Kauna grass tote bag.",
+            fullDescription: "Unique U-shaped tote bag woven from durable Kauna grass.",
+            category: { level1: "Fashion Accessories", level2: "Bags", level3: "Tote Bags" },
+            tags: ["tote bag", "u-shaped", "kauna grass", "fashion"]
+        },
+        pricing: { priceModel: "request_quote", basePrice: 340, currency: "INR", moq: 50 },
+        media: { images: [{ url: "https://5.imimg.com/data5/SELLER/Default/2024/2/387430810/ZS/SW/YU/85554914/kauna-grass-u-shaped-tote-bag-500x500.jpg", isPrimary: true }] },
+        specs: { "Shape": "U-Shape", "Material": "Kauna Grass", "Style": "Modern" },
+        inventory: { inStock: true, stockQuantity: 200 },
+        metrics: { views: 220, inquiries: 25, rating: 4.7 },
+        manufacturer: { isVerified: true }
+    },
+    {
+        _id: "p50",
+        manufacturerId: "m11",
+        manufacturerName: "Fermoscapes Private Limited",
+        basicInfo: {
+            name: "Date Palm Planter Table Top Plant Pot",
+            slug: "date-palm-planter-table-top",
+            shortDescription: "Date palm fiber tabletop planter.",
+            fullDescription: "Eco-friendly tabletop planter pot made from date palm fibers. Adds greenery availability to your desk.",
+            category: { level1: "Home & Garden", level2: "Garden", level3: "Planters" },
+            tags: ["planter", "date palm", "table top", "gardening"]
+        },
+        pricing: { priceModel: "request_quote", basePrice: 220, currency: "INR", moq: 100 },
+        media: { images: [{ url: "https://5.imimg.com/data5/SELLER/Default/2024/2/387429810/TF/ZU/RG/85554914/date-palm-planter-table-top-planter-small-planter-500x500.jpg", isPrimary: true }] },
+        specs: { "Material": "Date Palm Fiber", "Usage": "Table Top", "Type": "Planter" },
+        inventory: { inStock: true, stockQuantity: 400 },
+        metrics: { views: 180, inquiries: 15, rating: 4.6 },
+        manufacturer: { isVerified: true }
+    },
+    {
+        _id: "p51",
+        manufacturerId: "m11",
+        manufacturerName: "Fermoscapes Private Limited",
+        basicInfo: {
+            name: "Dual Color Sabai Grass Planter",
+            slug: "dual-color-sabai-grass-planter",
+            shortDescription: "Dual color (Natural & Maroon) Sabai grass planter.",
+            fullDescription: "Attractive dual-tone planter woven from Sabai grass in natural and maroon hues.",
+            category: { level1: "Home & Garden", level2: "Garden", level3: "Planters" },
+            tags: ["planter", "sabai grass", "dual color", "maroon"]
+        },
+        pricing: { priceModel: "request_quote", basePrice: 290, currency: "INR", moq: 50 },
+        media: { images: [{ url: "https://5.imimg.com/data5/SELLER/Default/2024/2/387430159/KD/FE/FO/85554914/dual-color-sabai-grass-planter-natural-maroon-500x500.jpg", isPrimary: true }] },
+        specs: { "Color": "Natural & Maroon", "Material": "Sabai Grass", "Type": "Planter" },
+        inventory: { inStock: true, stockQuantity: 300 },
+        metrics: { views: 200, inquiries: 20, rating: 4.8 },
+        manufacturer: { isVerified: true }
+    },
+    {
+        _id: "p52",
+        manufacturerId: "m11",
+        manufacturerName: "Fermoscapes Private Limited",
+        basicInfo: {
+            name: "9 Inch Sabai Grass Planter Pot",
+            slug: "9-inch-sabai-grass-planter-pot",
+            shortDescription: "9-inch Royal Blue Sabai grass planter pot.",
+            fullDescription: "Vibrant royal blue 9-inch planter pot crafted from Sabai grass.",
+            category: { level1: "Home & Garden", level2: "Garden", level3: "Planters" },
+            tags: ["planter", "9 inch", "royal blue", "sabai grass"]
+        },
+        pricing: { priceModel: "request_quote", basePrice: 310, currency: "INR", moq: 50 },
+        media: { images: [{ url: "https://5.imimg.com/data5/SELLER/Default/2024/2/387428246/EA/CO/ND/85554914/dual-color-sabai-grass-planter-natural-royal-blue-500x500.jpg", isPrimary: true }] },
+        specs: { "Size": "9 Inch", "Color": "Royal Blue", "Material": "Sabai Grass" },
+        inventory: { inStock: true, stockQuantity: 250 },
+        metrics: { views: 210, inquiries: 18, rating: 4.7 },
+        manufacturer: { isVerified: true }
+    },
+    {
+        _id: "p53",
+        manufacturerId: "m11",
+        manufacturerName: "Fermoscapes Private Limited",
+        basicInfo: {
+            name: "14 Inch Macrame Wall Hanging Mirror",
+            slug: "14-inch-macrame-wall-hanging-mirror",
+            shortDescription: "14-inch Macrame wall hanging mirror.",
+            fullDescription: "Bohemian inspired 14-inch macrame wall hanging mirror with intricate knotting.",
+            category: { level1: "Home & Garden", level2: "Decor", level3: "Mirrors" },
+            tags: ["mirror", "macrame", "wall hanging", "14 inch"]
+        },
+        pricing: { priceModel: "request_quote", basePrice: 850, currency: "INR", moq: 20 },
+        media: { images: [{ url: "https://5.imimg.com/data5/SELLER/Default/2024/2/386747120/BE/DZ/JV/85554914/a1-2-500x500.jpeg", isPrimary: true }] },
+        specs: { "Diameter": "14 Inch", "Material": "Macrame/Glass", "Style": "Boho" },
+        inventory: { inStock: true, stockQuantity: 100 },
+        metrics: { views: 300, inquiries: 35, rating: 5.0 },
+        manufacturer: { isVerified: true }
+    },
+    {
+        _id: "p54",
+        manufacturerId: "m11",
+        manufacturerName: "Fermoscapes Private Limited",
+        basicInfo: {
+            name: "Macrame Wall Hanging Mirror",
+            slug: "macrame-wall-hanging-mirror-artisanal",
+            shortDescription: "Artisanal macrame mirror for home decor.",
+            fullDescription: "Handcrafted artisanal macrame mirror, perfect for adding texture to walls.",
+            category: { level1: "Home & Garden", level2: "Decor", level3: "Mirrors" },
+            tags: ["mirror", "macrame", "artisanal", "decor"]
+        },
+        pricing: { priceModel: "request_quote", basePrice: 270, currency: "INR", moq: 20 },
+        media: { images: [{ url: "https://5.imimg.com/data5/SELLER/Default/2024/2/386745574/XB/HW/TA/85554914/a1-5-500x500.jpeg", isPrimary: true }] },
+        specs: { "Type": "Wall Hanging", "Material": "Macrame", "Use": "Decor" },
+        inventory: { inStock: true, stockQuantity: 120 },
+        metrics: { views: 250, inquiries: 20, rating: 4.8 },
+        manufacturer: { isVerified: true }
+    },
+    {
+        _id: "p55",
+        manufacturerId: "m11",
+        manufacturerName: "Fermoscapes Private Limited",
+        basicInfo: {
+            name: "Festival Corporate Gift Hamper",
+            slug: "festival-corporate-gift-hamper",
+            shortDescription: "Corporate gift hamper for festivals.",
+            fullDescription: "Premium gift hamper curated for corporate festival gifting.",
+            category: { level1: "Gifts", level2: "Corporate Gifts", level3: "Hampers" },
+            tags: ["gift hamper", "corporate", "festival", "premium"]
+        },
+        pricing: { priceModel: "request_quote", basePrice: 350, currency: "INR", moq: 50 },
+        media: { images: [{ url: "https://5.imimg.com/data5/SELLER/Default/2025/5/507668110/FT/IN/KX/85554914/festival-corporate-gift-hamper-250x250.jpg", isPrimary: true }] },
+        specs: { "Occasion": "Festival", "Type": "Corporate Gift", "Contents": "Assorted" },
+        inventory: { inStock: true, stockQuantity: 500 },
+        metrics: { views: 400, inquiries: 60, rating: 4.9 },
+        manufacturer: { isVerified: true }
+    },
+    {
+        _id: "p56",
+        manufacturerId: "m11",
+        manufacturerName: "Fermoscapes Private Limited",
+        basicInfo: {
+            name: "Gift Hamper",
+            slug: "gift-hamper-assorted",
+            shortDescription: "Assorted gift hamper.",
+            fullDescription: "Versatile assorted gift hamper suitable for various occasions.",
+            category: { level1: "Gifts", level2: "Hampers", level3: "Assorted" },
+            tags: ["gift", "hamper", "assorted", "occasion"]
+        },
+        pricing: { priceModel: "request_quote", basePrice: 300, currency: "INR", moq: 50 },
+        media: { images: [{ url: "https://5.imimg.com/data5/SELLER/Default/2025/5/507674775/BG/RR/MY/85554914/gift-hamper-500x500.png", isPrimary: true }] },
+        specs: { "Type": "Hamper", "Usage": "Gifting", "Style": "Assorted" },
+        inventory: { inStock: true, stockQuantity: 400 },
+        metrics: { views: 350, inquiries: 45, rating: 4.7 },
+        manufacturer: { isVerified: true }
+    },
+    {
+        _id: "p57",
+        manufacturerId: "m11",
+        manufacturerName: "Fermoscapes Private Limited",
+        basicInfo: {
+            name: "Kauna Grass Organizer Handle Tray",
+            slug: "kauna-grass-organizer-handle-tray",
+            shortDescription: "Kauna grass tray with handles.",
+            fullDescription: "Functional and stylish Kauna grass tray with integrated handles.",
+            category: { level1: "Home & Garden", level2: "Kitchen", level3: "Trays" },
+            tags: ["tray", "kauna grass", "organizer", "handles"]
+        },
+        pricing: { priceModel: "request_quote", basePrice: 350, currency: "INR", moq: 50 },
+        media: { images: [{ url: "https://5.imimg.com/data5/SELLER/Default/2023/8/334899795/AN/XG/JQ/85554914/10025-500x500.png", isPrimary: true }] },
+        specs: { "Material": "Kauna Grass", "Features": "Handles", "Shape": "Rectangular" },
+        inventory: { inStock: true, stockQuantity: 400 },
+        metrics: { views: 280, inquiries: 30, rating: 4.8 },
+        manufacturer: { isVerified: true }
+    },
+    {
+        _id: "p58",
+        manufacturerId: "m11",
+        manufacturerName: "Fermoscapes Private Limited",
+        basicInfo: {
+            name: "Tribal Dance Handmade Round Serving Tray",
+            slug: "tribal-dance-handmade-tray",
+            shortDescription: "Round serving tray with Tribal Dance motif.",
+            fullDescription: "Artistic round serving tray featuring a handmade Tribal Dance motif.",
+            category: { level1: "Home & Garden", level2: "Kitchen", level3: "Trays" },
+            tags: ["tray", "tribal art", "handmade", "serving"]
+        },
+        pricing: { priceModel: "request_quote", basePrice: 230, currency: "INR", moq: 50 },
+        media: { images: [{ url: "https://5.imimg.com/data5/SELLER/Default/2024/2/387424737/BP/TW/ZG/85554914/tribal-dance-handmade-round-serving-tray-500x500.jpg", isPrimary: true }] },
+        specs: { "Shape": "Round", "Design": "Tribal Dance", "Material": "Mixed" },
+        inventory: { inStock: true, stockQuantity: 200 },
+        metrics: { views: 220, inquiries: 25, rating: 4.9 },
+        manufacturer: { isVerified: true }
+    },
+    {
+        _id: "p59",
+        manufacturerId: "m11",
+        manufacturerName: "Fermoscapes Private Limited",
+        basicInfo: {
+            name: "Wedding Gift Hamper Baskets",
+            slug: "wedding-gift-hamper-baskets",
+            shortDescription: "Elegant wedding gift hamper baskets.",
+            fullDescription: "Beautifully designed baskets specifically for wedding gift hampers.",
+            category: { level1: "Home & Garden", level2: "Packaging", level3: "Gift Baskets" },
+            tags: ["wedding", "hamper", "basket", "elegant"]
+        },
+        pricing: { priceModel: "request_quote", basePrice: 550, currency: "INR", moq: 50 },
+        media: { images: [{ url: "https://5.imimg.com/data5/SELLER/Default/2025/5/507672531/NA/JW/LV/85554914/wedding-gift-hamper-baskets-250x250.jpg", isPrimary: true }] },
+        specs: { "Usage": "Wedding Gifting", "Material": "Wicker", "Style": "Elegant" },
+        inventory: { inStock: true, stockQuantity: 300 },
+        metrics: { views: 350, inquiries: 50, rating: 5.0 },
+        manufacturer: { isVerified: true }
+    },
+    {
+        _id: "p60",
+        manufacturerId: "m11",
+        manufacturerName: "Fermoscapes Private Limited",
+        basicInfo: {
+            name: "Multipurpose Date Palm Storage Box",
+            slug: "multipurpose-date-palm-storage-box",
+            shortDescription: "Storage box made from date palm leaves.",
+            fullDescription: "Eco-friendly storage box crafted from date palm leaves. Versatile and durable.",
+            category: { level1: "Home & Garden", level2: "Storage", level3: "Boxes" },
+            tags: ["storage", "box", "date palm", "multipurpose"]
+        },
+        pricing: { priceModel: "request_quote", basePrice: 650, currency: "INR", moq: 20 },
+        media: { images: [{ url: "https://5.imimg.com/data5/SELLER/Default/2023/8/335284044/QG/AF/TK/85554914/hnet-com-image-2023-08-16t180032-985-500x500.png", isPrimary: true }] },
+        specs: { "Material": "Date Palm", "Type": "Box", "Feature": "Durable" },
+        inventory: { inStock: true, stockQuantity: 300 },
+        metrics: { views: 280, inquiries: 25, rating: 4.8 },
+        manufacturer: { isVerified: true }
+    },
+    {
+        _id: "p61",
+        manufacturerId: "m11",
+        manufacturerName: "Fermoscapes Private Limited",
+        basicInfo: {
+            name: "Naomi Macrame Hand Woven Lampshade",
+            slug: "naomi-macrame-lampshade",
+            shortDescription: "Naomi macrame lampshade.",
+            fullDescription: "Exquisite Naomi hand woven macrame lampshade for atmospheric lighting.",
+            category: { level1: "Home & Garden", level2: "Lighting", level3: "Lampshades" },
+            tags: ["lampshade", "macrame", "hand woven", "lighting"]
+        },
+        pricing: { priceModel: "request_quote", basePrice: 340, currency: "INR", moq: 20 },
+        media: { images: [{ url: "https://5.imimg.com/data5/SELLER/Default/2024/2/386742038/FX/OB/ZG/85554914/primary-11-500x500.jpeg", isPrimary: true }] },
+        specs: { "Material": "Macrame", "Type": "Lampshade", "Name": "Naomi" },
+        inventory: { inStock: true, stockQuantity: 100 },
+        metrics: { views: 240, inquiries: 22, rating: 4.9 },
+        manufacturer: { isVerified: true }
+    },
+    {
+        _id: "p62",
+        manufacturerId: "m11",
+        manufacturerName: "Fermoscapes Private Limited",
+        basicInfo: {
+            name: "Dual Color Table Tray Organizer",
+            slug: "dual-color-table-tray-organizer",
+            shortDescription: "Table tray organizer with dual color accents.",
+            fullDescription: "Stylish table tray organizer featuring dual color accents for a modern look.",
+            category: { level1: "Home & Garden", level2: "Storage", level3: "Desk Organizers" },
+            tags: ["organizer", "tray", "dual color", "desk"]
+        },
+        pricing: { priceModel: "request_quote", basePrice: 280, currency: "INR", moq: 50 },
+        media: { images: [{ url: "https://5.imimg.com/data5/SELLER/Default/2023/9/345072178/DR/DZ/QA/85554914/dual-color-table-tray-organizer-500x500.png", isPrimary: true }] },
+        specs: { "Type": "Tray Organizer", "Color": "Dual", "Usage": "Desk/Table" },
+        inventory: { inStock: true, stockQuantity: 250 },
+        metrics: { views: 200, inquiries: 15, rating: 4.7 },
+        manufacturer: { isVerified: true }
+    },
+    {
+        _id: "p63",
+        manufacturerId: "m11",
+        manufacturerName: "Fermoscapes Private Limited",
+        basicInfo: {
+            name: "Handmade Natural Coasters",
+            slug: "handmade-natural-coasters",
+            shortDescription: "Natural fiber coasters.",
+            fullDescription: "Set of handmade natural fiber coasters to protect your surfaces.",
+            category: { level1: "Home & Garden", level2: "Kitchen", level3: "Tableware" },
+            tags: ["coasters", "natural", "handmade", "tableware"]
+        },
+        pricing: { priceModel: "request_quote", basePrice: 200, currency: "INR", moq: 100 },
+        media: { images: [{ url: "https://5.imimg.com/data5/SELLER/Default/2023/8/334900125/OM/WG/BM/85554914/10022-500x500.png", isPrimary: true }] },
+        specs: { "Material": "Natural Fiber", "Type": "Coaster", "Set": "Yes" },
+        inventory: { inStock: true, stockQuantity: 500 },
+        metrics: { views: 180, inquiries: 10, rating: 4.8 },
+        manufacturer: { isVerified: true }
+    },
+    // --- REAL DATA END (Fermoscapes) ---
     // --- REAL DATA START (Giriraj Coated Fab) ---
     {
         _id: "p30",
