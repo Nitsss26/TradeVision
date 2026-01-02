@@ -287,43 +287,6 @@ const ManufacturerProfileUI = ({ manufacturer, products, activeTab, setActiveTab
                                         </div>
                                     </div>
                                 </div>
-
-                                {/* Wide Banner - Product Catalog Strip */}
-                                <div className="rounded-2xl overflow-hidden relative group cursor-pointer" onClick={() => setActiveTab('products')}>
-                                    <div className="aspect-[4/1] md:aspect-[5/1]">
-                                        <img
-                                            src="https://5.imimg.com/data5/SELLER/Default/2024/2/387430810/ZS/SW/YU/85554914/kauna-grass-u-shaped-tote-bag-500x500.jpg"
-                                            alt="Product Catalogue"
-                                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                                        />
-                                        <div className="absolute inset-0 bg-gradient-to-r from-blue-950/95 via-blue-900/70 to-transparent" />
-                                        <div className="absolute inset-0 flex items-center px-8 md:px-12">
-                                            <div>
-                                                <span className="text-blue-300 text-xs font-bold uppercase tracking-widest">Product Catalogue</span>
-                                                <h3 className="text-white text-2xl md:text-3xl font-black mt-1">Explore 26+ Handcrafted Products</h3>
-                                                <p className="text-blue-100/80 text-sm mt-2 max-w-md">From baskets to diaries, discover our complete range of sustainable artisan creations.</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {/* Featured Products Preview */}
-                                <div>
-                                    <div className="flex items-center justify-between mb-6">
-                                        <h3 className="text-xl font-bold text-white flex items-center gap-2">
-                                            <Star className="w-5 h-5 text-yellow-500" />
-                                            Featured Products
-                                        </h3>
-                                        <button onClick={() => setActiveTab('products')} className="text-blue-400 hover:text-blue-300 text-sm font-medium">
-                                            View All →
-                                        </button>
-                                    </div>
-                                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                                        {products.slice(0, 4).map((product, idx) => (
-                                            <PremiumProductCard key={product._id || idx} product={product} />
-                                        ))}
-                                    </div>
-                                </div>
                             </div>
                         )}
 
@@ -546,18 +509,112 @@ const ManufacturerProfileUI = ({ manufacturer, products, activeTab, setActiveTab
                         </div>
 
                         {/* Trade Assurance Card */}
-                        <div className="bg-gradient-to-br from-green-900/30 to-emerald-900/20 border border-green-500/20 rounded-2xl p-5">
+                        <div className="bg-gradient-to-br from-orange-900/30 to-amber-900/20 border border-orange-500/20 rounded-2xl p-5">
                             <div className="flex items-center gap-2 mb-3">
-                                <ShieldCheck className="w-5 h-5 text-green-500" />
+                                <ShieldCheck className="w-5 h-5 text-orange-500" />
                                 <h3 className="text-white font-bold">Trade Assurance</h3>
                             </div>
                             <p className="text-zinc-400 text-sm mb-3">Your orders are protected by our comprehensive buyer protection program.</p>
-                            <Link to="/trade-assurance" className="text-green-400 text-sm font-medium hover:text-green-300">
+                            <Link to="/trade-assurance" className="text-orange-400 text-sm font-medium hover:text-orange-300">
                                 Learn more →
                             </Link>
                         </div>
                     </div>
                 </div>
+
+                {/* Full Width Section - Below Sidebar */}
+                {activeTab === 'home' && (
+                    <div className="space-y-6 mt-8">
+                        {/* Hero Brand Banner - Full Width */}
+                        <div className="rounded-2xl overflow-hidden relative group">
+                            <div className="aspect-[21/9] md:aspect-[3/1]">
+                                <img
+                                    src="/uploads/fermoscapes/brand_hero.png"
+                                    alt="Fermoscapes Brand"
+                                    className="w-full h-full object-cover"
+                                />
+                            </div>
+                        </div>
+
+                        {/* Product Catalog Banner */}
+                        <div className="rounded-2xl overflow-hidden relative group cursor-pointer" onClick={() => setActiveTab('products')}>
+                            <div className="aspect-[21/9] md:aspect-[3/1]">
+                                <img
+                                    src="/uploads/fermoscapes/catalog_main.jpg"
+                                    alt="Product Catalogue"
+                                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                                <div className="absolute bottom-0 left-0 right-0 p-6 md:p-10">
+                                    <span className="text-amber-400 text-xs font-bold uppercase tracking-widest">Product Catalogue</span>
+                                    <h3 className="text-white text-2xl md:text-4xl font-black mt-2">Explore Our Collection</h3>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Product Showcase Grid - 3 Catalog Pages */}
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div className="rounded-xl overflow-hidden relative group cursor-pointer" onClick={() => setActiveTab('products')}>
+                                <img
+                                    src="/uploads/fermoscapes/product_kauna_hamper.png"
+                                    alt="Kauna Grass Hamper"
+                                    className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-500"
+                                />
+                            </div>
+                            <div className="rounded-xl overflow-hidden relative group cursor-pointer" onClick={() => setActiveTab('products')}>
+                                <img
+                                    src="/uploads/fermoscapes/product_small_hamper.png"
+                                    alt="Small Hamper Basket"
+                                    className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-500"
+                                />
+                            </div>
+                            <div className="rounded-xl overflow-hidden relative group cursor-pointer" onClick={() => setActiveTab('products')}>
+                                <img
+                                    src="/uploads/fermoscapes/product_tray.png"
+                                    alt="Dual Color Tray"
+                                    className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-500"
+                                />
+                            </div>
+                        </div>
+
+                        {/* Featured Products Full Width - 6 Products */}
+                        <div>
+                            <div className="flex items-center justify-between mb-6">
+                                <h3 className="text-xl font-bold text-white flex items-center gap-2">
+                                    <Star className="w-5 h-5 text-yellow-500" />
+                                    Featured Products
+                                </h3>
+                                <button onClick={() => setActiveTab('products')} className="text-blue-400 hover:text-blue-300 text-sm font-medium">
+                                    View All →
+                                </button>
+                            </div>
+                            <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-4">
+                                {products.slice(0, 6).map((product, idx) => (
+                                    <PremiumProductCard key={product._id || idx} product={product} />
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Additional Catalog Banner */}
+                        <div className="rounded-2xl overflow-hidden relative group cursor-pointer" onClick={() => setActiveTab('products')}>
+                            <div className="aspect-[4/1] md:aspect-[6/1]">
+                                <img
+                                    src="https://5.imimg.com/data5/SELLER/Default/2024/2/387427596/TC/MV/MU/85554914/handmade-natural-grass-beach-tote-bag-500x500.jpg"
+                                    alt="Beach Collection"
+                                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-r from-amber-950/95 via-amber-900/60 to-transparent" />
+                                <div className="absolute inset-0 flex items-center px-8 md:px-12">
+                                    <div>
+                                        <span className="text-amber-300 text-xs font-bold uppercase tracking-widest">Summer Collection</span>
+                                        <h3 className="text-white text-2xl md:text-3xl font-black mt-1">Beach & Outdoor Essentials</h3>
+                                        <p className="text-amber-100/80 text-sm mt-2 max-w-md">Handwoven tote bags perfect for your summer adventures.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                )}
             </div>
         </div>
     );
