@@ -59,6 +59,7 @@ function App() {
         <Route path="/trade-assurance" element={<TradeAssurancePage />} />
         <Route path="/manufacturers" element={<ManufacturersPage />} />
         <Route path="/clearance" element={<ClearancePage />} />
+        <Route path="/dead-stock" element={<ClearancePage />} />
         <Route path="/manufacturers/:id" element={<ManufacturerProfilePage />} />
         <Route path="/dashboard" element={<DashboardPage />} />
         <Route path="/my-rfqs" element={<MyRFQsPage />} />
