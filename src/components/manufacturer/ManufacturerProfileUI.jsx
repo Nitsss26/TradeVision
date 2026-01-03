@@ -38,6 +38,10 @@ const ManufacturerProfileUI = ({ manufacturer, products, activeTab, setActiveTab
 
     const yearsInBusiness = new Date().getFullYear() - (manufacturer.businessDetails?.yearEstablished || 2010);
 
+    // Check if this is Fermoscapes for custom branding
+    const isFermoscapes = manufacturer._id === 'm11' || manufacturer.companyName?.toLowerCase().includes('fermoscapes');
+
+
     return (
         <div className={`min-h-screen bg-gradient-to-b from-zinc-950 via-black to-black ${isPreview ? 'rounded-xl overflow-hidden border border-zinc-800' : ''}`}>
             {/* Hero Banner */}
@@ -176,117 +180,138 @@ const ManufacturerProfileUI = ({ manufacturer, products, activeTab, setActiveTab
                         {/* Home Tab */}
                         {activeTab === 'home' && (
                             <div className="space-y-6">
-                                {/* Hero Banner Carousel */}
-                                <div className="relative rounded-2xl overflow-hidden group">
-                                    <div className="aspect-[21/9] md:aspect-[3/1] relative">
-                                        <img
-                                            src="https://5.imimg.com/data5/SELLER/Default/2023/9/345088891/XV/IE/SV/85554914/kauna-grass-picnic-bag-500x500.png"
-                                            alt="Fermoscapes Collection"
-                                            className="w-full h-full object-cover"
-                                        />
-                                        <div className="absolute inset-0 bg-gradient-to-r from-zinc-950/95 via-zinc-900/70 to-transparent" />
-                                        <div className="absolute inset-0 flex items-center">
-                                            <div className="px-8 md:px-12 max-w-2xl">
-                                                <div className="flex items-center gap-3 mb-4">
-                                                    <img
-                                                        src={manufacturer.logo || "https://5.imimg.com/data5/SELLER/Logo/2024/2/386834072/BL/XH/YO/85554914/1db3ba04-ead5-42c4-9e71-ea9131a96f51-120x120.png"}
-                                                        alt="Logo"
-                                                        className="w-16 h-16 rounded-xl bg-white p-1 object-contain shadow-xl"
-                                                    />
-                                                    <div>
-                                                        <span className="text-blue-400 text-xs font-bold uppercase tracking-wider">Official Store</span>
-                                                        <h1 className="text-2xl md:text-4xl font-black text-white">Fermoscapes</h1>
+                                {/* Fermoscapes Custom Home */}
+                                {isFermoscapes ? (
+                                    <>
+                                        {/* Hero Banner Carousel - Fermoscapes Only */}
+                                        <div className="relative rounded-2xl overflow-hidden group">
+                                            <div className="aspect-[21/9] md:aspect-[3/1] relative">
+                                                <img
+                                                    src="https://5.imimg.com/data5/SELLER/Default/2023/9/345088891/XV/IE/SV/85554914/kauna-grass-picnic-bag-500x500.png"
+                                                    alt="Fermoscapes Collection"
+                                                    className="w-full h-full object-cover"
+                                                />
+                                                <div className="absolute inset-0 bg-gradient-to-r from-zinc-950/95 via-zinc-900/70 to-transparent" />
+                                                <div className="absolute inset-0 flex items-center">
+                                                    <div className="px-8 md:px-12 max-w-2xl">
+                                                        <div className="flex items-center gap-3 mb-4">
+                                                            <img
+                                                                src={manufacturer.logo || "https://5.imimg.com/data5/SELLER/Logo/2024/2/386834072/BL/XH/YO/85554914/1db3ba04-ead5-42c4-9e71-ea9131a96f51-120x120.png"}
+                                                                alt="Logo"
+                                                                className="w-16 h-16 rounded-xl bg-white p-1 object-contain shadow-xl"
+                                                            />
+                                                            <div>
+                                                                <span className="text-blue-400 text-xs font-bold uppercase tracking-wider">Official Store</span>
+                                                                <h1 className="text-2xl md:text-4xl font-black text-white">Fermoscapes</h1>
+                                                            </div>
+                                                        </div>
+                                                        <p className="text-zinc-300 text-sm md:text-base mb-6 line-clamp-2">
+                                                            Premium handcrafted baskets, tote bags & eco-friendly home decor. Sustainable creations by skilled artisans.
+                                                        </p>
+                                                        <div className="flex gap-3">
+                                                            <button onClick={() => setActiveTab('products')} className="px-6 py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-full transition-all shadow-lg shadow-blue-500/30 flex items-center gap-2">
+                                                                <Sparkles className="w-4 h-4" /> Explore Collection
+                                                            </button>
+                                                            <button onClick={() => setActiveTab('contact')} className="px-6 py-2.5 bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white font-semibold rounded-full transition-all border border-white/20">
+                                                                Get Quote
+                                                            </button>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <p className="text-zinc-300 text-sm md:text-base mb-6 line-clamp-2">
-                                                    Premium handcrafted baskets, tote bags & eco-friendly home decor. Sustainable creations by skilled artisans.
-                                                </p>
-                                                <div className="flex gap-3">
-                                                    <button onClick={() => setActiveTab('products')} className="px-6 py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-full transition-all shadow-lg shadow-blue-500/30 flex items-center gap-2">
-                                                        <Sparkles className="w-4 h-4" /> Explore Collection
-                                                    </button>
-                                                    <button onClick={() => setActiveTab('contact')} className="px-6 py-2.5 bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white font-semibold rounded-full transition-all border border-white/20">
-                                                        Get Quote
-                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
 
-                                {/* Product Catalog Grid - Premium Branding */}
-                                <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                                    {/* Large Featured Banner */}
-                                    <div className="col-span-2 row-span-2 rounded-xl overflow-hidden relative group cursor-pointer" onClick={() => setActiveTab('products')}>
-                                        <img
-                                            src="https://5.imimg.com/data5/SELLER/Default/2024/2/387433965/XR/ZN/HZ/85554914/kauna-grass-small-hamper-basket-500x500.jpg"
-                                            alt="Gift Hampers Collection"
-                                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                                        />
-                                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-                                        <div className="absolute bottom-0 left-0 right-0 p-6">
-                                            <span className="text-blue-400 text-xs font-bold uppercase tracking-wider">Bestseller</span>
-                                            <h3 className="text-white text-xl md:text-2xl font-bold">Kauna Grass Hampers</h3>
-                                            <p className="text-zinc-300 text-sm mt-1">Perfect for gifting & storage</p>
+                                        {/* Product Catalog Grid - Fermoscapes Premium Branding */}
+                                        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                                            <div className="col-span-2 row-span-2 rounded-xl overflow-hidden relative group cursor-pointer" onClick={() => setActiveTab('products')}>
+                                                <img
+                                                    src="https://5.imimg.com/data5/SELLER/Default/2024/2/387433965/XR/ZN/HZ/85554914/kauna-grass-small-hamper-basket-500x500.jpg"
+                                                    alt="Gift Hampers Collection"
+                                                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                                                />
+                                                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                                                <div className="absolute bottom-0 left-0 right-0 p-6">
+                                                    <span className="text-blue-400 text-xs font-bold uppercase tracking-wider">Bestseller</span>
+                                                    <h3 className="text-white text-xl md:text-2xl font-bold">Kauna Grass Hampers</h3>
+                                                    <p className="text-zinc-300 text-sm mt-1">Perfect for gifting & storage</p>
+                                                </div>
+                                                <div className="absolute top-4 right-4 bg-white/10 backdrop-blur-md px-3 py-1 rounded-full">
+                                                    <span className="text-white text-xs font-bold">₹210+</span>
+                                                </div>
+                                            </div>
+                                            <div className="rounded-xl overflow-hidden relative group cursor-pointer aspect-square" onClick={() => setActiveTab('products')}>
+                                                <img src="https://5.imimg.com/data5/SELLER/Default/2024/2/387427596/TC/MV/MU/85554914/handmade-natural-grass-beach-tote-bag-500x500.jpg" alt="Beach Tote Bags" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                                                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+                                                <div className="absolute bottom-0 left-0 right-0 p-4">
+                                                    <h4 className="text-white text-sm font-bold">Beach Tote Bags</h4>
+                                                    <span className="text-blue-400 text-xs font-semibold">₹350+</span>
+                                                </div>
+                                            </div>
+                                            <div className="rounded-xl overflow-hidden relative group cursor-pointer aspect-square" onClick={() => setActiveTab('products')}>
+                                                <img src="https://5.imimg.com/data5/SELLER/Default/2023/9/341280804/NH/QI/SP/85554914/bw4-500x500.webp" alt="Wall Decor" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                                                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+                                                <div className="absolute bottom-0 left-0 right-0 p-4">
+                                                    <h4 className="text-white text-sm font-bold">Wall Decor</h4>
+                                                    <span className="text-blue-400 text-xs font-semibold">₹450+</span>
+                                                </div>
+                                            </div>
+                                            <div className="rounded-xl overflow-hidden relative group cursor-pointer aspect-square" onClick={() => setActiveTab('products')}>
+                                                <img src="https://5.imimg.com/data5/SELLER/Default/2023/9/341282202/HF/WK/II/85554914/1-693743ff-fb12-4f13-ab45-b34c7b5d447e-500x500.webp" alt="Block Print Diaries" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                                                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+                                                <div className="absolute bottom-0 left-0 right-0 p-4">
+                                                    <h4 className="text-white text-sm font-bold">Block Print Diaries</h4>
+                                                    <span className="text-blue-400 text-xs font-semibold">₹250+</span>
+                                                </div>
+                                            </div>
+                                            <div className="rounded-xl overflow-hidden relative group cursor-pointer aspect-square" onClick={() => setActiveTab('products')}>
+                                                <img src="https://5.imimg.com/data5/SELLER/Default/2024/2/386747120/BE/DZ/JV/85554914/a1-2-500x500.jpeg" alt="Macrame Mirrors" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                                                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+                                                <div className="absolute bottom-0 left-0 right-0 p-4">
+                                                    <h4 className="text-white text-sm font-bold">Macrame Mirrors</h4>
+                                                    <span className="text-blue-400 text-xs font-semibold">₹850+</span>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div className="absolute top-4 right-4 bg-white/10 backdrop-blur-md px-3 py-1 rounded-full">
-                                            <span className="text-white text-xs font-bold">₹210+</span>
+                                    </>
+                                ) : (
+                                    <>
+                                        {/* Default Home for Other Manufacturers */}
+                                        {/* Welcome Section */}
+                                        <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-8 relative overflow-hidden">
+                                            <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/5 rounded-full blur-3xl -mr-16 -mt-16"></div>
+                                            <h2 className="text-2xl font-bold text-white mb-4 relative z-10">Welcome to {manufacturer.companyName}</h2>
+                                            <p className="text-zinc-400 leading-relaxed max-w-3xl relative z-10">
+                                                {manufacturer.description || `Welcome to our official store. We are a leading manufacturer dedicated to providing high-quality products. Explore our range of ${manufacturer.capabilities?.join(', ') || 'products'} and contact us for any inquiries.`}
+                                            </p>
+                                            <div className="flex gap-4 mt-6 relative z-10">
+                                                <button onClick={() => setActiveTab('products')} className="px-6 py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-semibold rounded-lg transition-colors">
+                                                    View Products
+                                                </button>
+                                                <button onClick={() => setActiveTab('contact')} className="px-6 py-2.5 bg-zinc-800 hover:bg-zinc-700 text-white font-semibold rounded-lg transition-colors border border-zinc-700">
+                                                    Contact Us
+                                                </button>
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    {/* Small Catalog Cards */}
-                                    <div className="rounded-xl overflow-hidden relative group cursor-pointer aspect-square" onClick={() => setActiveTab('products')}>
-                                        <img
-                                            src="https://5.imimg.com/data5/SELLER/Default/2024/2/387427596/TC/MV/MU/85554914/handmade-natural-grass-beach-tote-bag-500x500.jpg"
-                                            alt="Beach Tote Bags"
-                                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                                        />
-                                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
-                                        <div className="absolute bottom-0 left-0 right-0 p-4">
-                                            <h4 className="text-white text-sm font-bold">Beach Tote Bags</h4>
-                                            <span className="text-blue-400 text-xs font-semibold">₹350+</span>
+                                        {/* Featured Products Preview - Default */}
+                                        <div>
+                                            <div className="flex items-center justify-between mb-6">
+                                                <h3 className="text-xl font-bold text-white flex items-center gap-2">
+                                                    <Star className="w-5 h-5 text-yellow-500" />
+                                                    Featured Products
+                                                </h3>
+                                                <button onClick={() => setActiveTab('products')} className="text-blue-400 hover:text-blue-300 text-sm font-medium">
+                                                    View All →
+                                                </button>
+                                            </div>
+                                            <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
+                                                {products.slice(0, 4).map((product, idx) => (
+                                                    <PremiumProductCard key={product._id || idx} product={product} />
+                                                ))}
+                                            </div>
                                         </div>
-                                    </div>
-
-                                    <div className="rounded-xl overflow-hidden relative group cursor-pointer aspect-square" onClick={() => setActiveTab('products')}>
-                                        <img
-                                            src="https://5.imimg.com/data5/SELLER/Default/2023/9/341280804/NH/QI/SP/85554914/bw4-500x500.webp"
-                                            alt="Wall Decor Baskets"
-                                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                                        />
-                                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
-                                        <div className="absolute bottom-0 left-0 right-0 p-4">
-                                            <h4 className="text-white text-sm font-bold">Wall Decor</h4>
-                                            <span className="text-blue-400 text-xs font-semibold">₹450+</span>
-                                        </div>
-                                    </div>
-
-                                    <div className="rounded-xl overflow-hidden relative group cursor-pointer aspect-square" onClick={() => setActiveTab('products')}>
-                                        <img
-                                            src="https://5.imimg.com/data5/SELLER/Default/2023/9/341282202/HF/WK/II/85554914/1-693743ff-fb12-4f13-ab45-b34c7b5d447e-500x500.webp"
-                                            alt="Block Printed Diaries"
-                                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                                        />
-                                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
-                                        <div className="absolute bottom-0 left-0 right-0 p-4">
-                                            <h4 className="text-white text-sm font-bold">Block Print Diaries</h4>
-                                            <span className="text-blue-400 text-xs font-semibold">₹250+</span>
-                                        </div>
-                                    </div>
-
-                                    <div className="rounded-xl overflow-hidden relative group cursor-pointer aspect-square" onClick={() => setActiveTab('products')}>
-                                        <img
-                                            src="https://5.imimg.com/data5/SELLER/Default/2024/2/386747120/BE/DZ/JV/85554914/a1-2-500x500.jpeg"
-                                            alt="Macrame Mirrors"
-                                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                                        />
-                                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
-                                        <div className="absolute bottom-0 left-0 right-0 p-4">
-                                            <h4 className="text-white text-sm font-bold">Macrame Mirrors</h4>
-                                            <span className="text-blue-400 text-xs font-semibold">₹850+</span>
-                                        </div>
-                                    </div>
-                                </div>
+                                    </>
+                                )}
                             </div>
                         )}
 
@@ -350,6 +375,65 @@ const ManufacturerProfileUI = ({ manufacturer, products, activeTab, setActiveTab
                                                 </div>
                                             </div>
                                         ))}
+                                    </div>
+                                </div>
+
+                                {/* Business Details Table */}
+                                <div className="md:col-span-2 bg-zinc-900/80 border border-zinc-800 rounded-2xl overflow-hidden">
+                                    <div className="p-6 border-b border-zinc-800">
+                                        <h3 className="text-xl font-bold text-white">{manufacturer.companyName}</h3>
+                                        <p className="text-zinc-400 text-sm mt-2">{manufacturer.description?.slice(0, 150)}...</p>
+                                        <div className="flex flex-wrap gap-2 mt-4">
+                                            <span className="px-3 py-1 bg-zinc-800 border border-zinc-700 rounded-full text-zinc-300 text-xs">
+                                                Established {manufacturer.businessDetails?.yearEstablished || 2010}
+                                            </span>
+                                            <span className="px-3 py-1 bg-zinc-800 border border-zinc-700 rounded-full text-zinc-300 text-xs">
+                                                {manufacturer.businessDetails?.employeeCount || '50-100'} Employees
+                                            </span>
+                                            {manufacturer.isVerified && (
+                                                <span className="px-3 py-1 bg-blue-900/50 border border-blue-500/30 rounded-full text-blue-300 text-xs">
+                                                    ISO 9001:2015
+                                                </span>
+                                            )}
+                                        </div>
+                                    </div>
+                                    <div className="divide-y divide-zinc-800">
+                                        <div className="grid grid-cols-2 px-6 py-4 hover:bg-zinc-800/30 transition-colors">
+                                            <span className="text-zinc-500 text-sm">GST Registration Date</span>
+                                            <span className="text-white font-medium">{manufacturer.businessDetails?.gstRegDate || '01-07-2017'}</span>
+                                        </div>
+                                        <div className="grid grid-cols-2 px-6 py-4 hover:bg-zinc-800/30 transition-colors">
+                                            <span className="text-zinc-500 text-sm">Legal Status of Firm</span>
+                                            <span className="text-blue-400 font-medium">{manufacturer.businessDetails?.legalStatus || 'Limited Company (LTD./PVT.LTD.)'}</span>
+                                        </div>
+                                        <div className="grid grid-cols-2 px-6 py-4 hover:bg-zinc-800/30 transition-colors">
+                                            <span className="text-zinc-500 text-sm">Nature of Business</span>
+                                            <span className="text-white font-medium">Manufacturer</span>
+                                        </div>
+                                        <div className="grid grid-cols-2 px-6 py-4 hover:bg-zinc-800/30 transition-colors">
+                                            <span className="text-zinc-500 text-sm">Number of Employees</span>
+                                            <span className="text-white font-medium">{manufacturer.businessDetails?.employeeCount || '50-100'}</span>
+                                        </div>
+                                        <div className="grid grid-cols-2 px-6 py-4 hover:bg-zinc-800/30 transition-colors">
+                                            <span className="text-zinc-500 text-sm">Annual Turnover</span>
+                                            <span className="text-blue-400 font-medium">{manufacturer.businessDetails?.annualRevenue || '100-500 Cr'}</span>
+                                        </div>
+                                        <div className="grid grid-cols-2 px-6 py-4 hover:bg-zinc-800/30 transition-colors">
+                                            <span className="text-zinc-500 text-sm">TradeVision Member Since</span>
+                                            <span className="text-white font-medium">June {manufacturer.businessDetails?.yearEstablished || 2010}</span>
+                                        </div>
+                                        <div className="grid grid-cols-2 px-6 py-4 hover:bg-zinc-800/30 transition-colors">
+                                            <span className="text-zinc-500 text-sm">GST No.</span>
+                                            <span className="text-white font-medium">{manufacturer.businessDetails?.gstNo || 'Not Available'}</span>
+                                        </div>
+                                        <div className="grid grid-cols-2 px-6 py-4 hover:bg-zinc-800/30 transition-colors">
+                                            <span className="text-zinc-500 text-sm">Import Export Code (IEC)</span>
+                                            <span className="text-zinc-400 font-medium">{manufacturer.businessDetails?.iecCode || 'Not Available'}</span>
+                                        </div>
+                                        <div className="grid grid-cols-2 px-6 py-4 hover:bg-zinc-800/30 transition-colors">
+                                            <span className="text-zinc-500 text-sm">Registered Address</span>
+                                            <span className="text-blue-400 font-medium">{manufacturer.businessDetails?.address || `${manufacturer.location?.city || 'City'}, ${manufacturer.location?.state || 'State'}, ${manufacturer.location?.country || 'India'}`}</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -522,8 +606,8 @@ const ManufacturerProfileUI = ({ manufacturer, products, activeTab, setActiveTab
                     </div>
                 </div>
 
-                {/* Full Width Section - Below Sidebar */}
-                {activeTab === 'home' && (
+                {/* Full Width Section - Below Sidebar (Fermoscapes Only) */}
+                {activeTab === 'home' && isFermoscapes && (
                     <div className="space-y-6 mt-8">
                         {/* Hero Brand Banner - Full Width */}
                         <div className="rounded-2xl overflow-hidden relative group">
