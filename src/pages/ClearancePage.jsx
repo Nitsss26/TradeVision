@@ -95,25 +95,25 @@ const ClearancePage = () => {
             <div className="min-h-screen bg-black font-sans pb-20">
                 {/* 1. Hero / Flash Sale Banner */}
                 <div className="relative h-[400px] md:h-[500px] w-full overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-r from-red-900 via-red-800 to-black z-10 flex items-center">
+                    <div className="absolute inset-0 bg-gradient-to-r from-zinc-900 via-zinc-800 to-black z-10 flex items-center">
                         <div className="max-w-[1400px] mx-auto px-4 lg:px-8 w-full grid md:grid-cols-2 gap-8 items-center">
                             <div className="space-y-6 animate-in slide-in-from-left duration-700">
                                 <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-red-600 text-white font-bold rounded-full text-sm animate-pulse">
                                     <Flame className="w-4 h-4 fill-white" />
-                                    MEGA FLASH SALE
+                                    DEAD STOCK CLEARANCE
                                 </div>
                                 <h1 className="text-5xl md:text-7xl font-black text-white leading-tight">
-                                    FLAT <span className="text-yellow-400">80% OFF</span><br />
-                                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-zinc-400">MEGA SALE</span>
+                                    UP TO <span className="text-yellow-400">90% OFF</span><br />
+                                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-zinc-400">DEAD STOCK</span>
                                 </h1>
-                                <p className="text-lg text-red-200">
-                                    Limited-time discounts on premium inventory at unbeatable prices.
-                                    Verified functionality. No returns.
+                                <p className="text-lg text-zinc-300 max-w-lg">
+                                    <b>Final Call:</b> Authentic verified inventory at liquidation prices.
+                                    Once sold, these deals are gone forever.
                                 </p>
 
                                 {/* Countdown */}
                                 <div className="flex items-center gap-4 pt-4">
-                                    <span className="text-red-300 font-bold uppercase tracking-widest text-sm">Ends In:</span>
+                                    <span className="text-red-400 font-bold uppercase tracking-widest text-sm">Offer Ends In:</span>
                                     <div className="flex gap-2 text-white">
                                         <div className="bg-black/50 backdrop-blur border border-red-500/30 rounded-lg p-3 min-w-[70px] text-center">
                                             <div className="text-3xl font-bold font-mono">{String(timeLeft.hours).padStart(2, '0')}</div>
@@ -135,15 +135,15 @@ const ClearancePage = () => {
 
                             {/* Visual Element */}
                             <div className="hidden md:block relative h-[400px]">
-                                <div className="absolute inset-0 bg-red-500/20 blur-[100px] rounded-full"></div>
+                                <div className="absolute inset-0 bg-red-500/10 blur-[100px] rounded-full"></div>
                                 <img
                                     src="https://images.pexels.com/photos/6207555/pexels-photo-6207555.jpeg?auto=compress&cs=tinysrgb&w=600"
-                                    alt="Clearance Sale"
-                                    className="relative z-10 w-full h-full object-contain drop-shadow-2xl hover:scale-105 transition-transform duration-500"
+                                    alt="Dead Stock"
+                                    className="relative z-10 w-full h-full object-contain drop-shadow-2xl grayscale hover:grayscale-0 transition-all duration-700"
                                 />
-                                <div className="absolute top-10 right-10 bg-yellow-400 text-black font-black text-xl px-4 py-8 rounded-full rotate-12 flex flex-col items-center justify-center w-24 h-24 shadow-xl z-20">
+                                <div className="absolute top-10 right-10 bg-yellow-400 text-black font-black text-xl px-4 py-8 rounded-full rotate-12 flex flex-col items-center justify-center w-24 h-24 shadow-xl z-20 animate-bounce">
                                     <span>SAVE</span>
-                                    <span className="text-3xl">80%</span>
+                                    <span className="text-3xl">90%</span>
                                 </div>
                             </div>
                         </div>
@@ -151,11 +151,11 @@ const ClearancePage = () => {
                 </div>
 
                 {/* 2. Selling Fast Bar */}
-                <div className="bg-yellow-400 text-black overflow-hidden py-2 font-bold uppercase tracking-wider text-sm">
+                <div className="bg-yellow-400 text-black overflow-hidden py-2.5 font-black uppercase tracking-widest text-sm border-y-4 border-black">
                     <div className="flex whitespace-nowrap animate-marquee">
                         {[...Array(10)].map((_, i) => (
-                            <span key={i} className="mx-8 flex items-center gap-2">
-                                <Zap className="w-4 h-4 fill-black" /> SELLING FAST - LIMITED QUANTITIES
+                            <span key={i} className="mx-8 flex items-center gap-4">
+                                <Zap className="w-5 h-5 fill-black" /> DEAD STOCK SALE • LIMITED QUANTITIES • FACTORY DIRECT CLEARANCE
                             </span>
                         ))}
                     </div>

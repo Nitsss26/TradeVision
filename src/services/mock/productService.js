@@ -32,24 +32,33 @@ export const mockProductService = {
         const priorityIds = ['m11', 'm10', 'm9'];
 
         products.sort((a, b) => {
+            // 1. Manufacturer Priority
             const aPriority = priorityIds.includes(a.manufacturerId) ? priorityIds.indexOf(a.manufacturerId) : 999;
             const bPriority = priorityIds.includes(b.manufacturerId) ? priorityIds.indexOf(b.manufacturerId) : 999;
-            return aPriority - bPriority;
+
+            if (aPriority !== bPriority) return aPriority - bPriority;
+
+            // 2. Image Availability (Has Image -> Top)
+            // Check if image exists and is not a placeholder
+            const aHasImage = a.media?.images?.[0]?.url && !a.media.images[0].url.includes('via.placeholder') ? 1 : 0;
+            const bHasImage = b.media?.images?.[0]?.url && !b.media.images[0].url.includes('via.placeholder') ? 1 : 0;
+
+            return bHasImage - aHasImage; // Higher value (1) comes first
         });
 
         const manufacturers = getFromStorage(STORAGE_KEYS.MANUFACTURERS) || [];
 
-        // Join Manufacturer Data (Optional if static data is rich enough, but good to keep)
-        // Note: staticProducts already has manufacturerName, but joining gets full manufacturer object
-        // For now, let's just use staticProducts as source and join if needed.
-
         // Simulate filtering
         if (filters.category) {
-            products = products.filter(p =>
-                p.basicInfo.category.level1 === filters.category ||
-                p.basicInfo.category.level2 === filters.category ||
-                p.basicInfo.category.level3 === filters.category
-            );
+            products = products.filter(p => {
+                // Fix for "Home" filter matching "Home & Garden"
+                if (filters.category === 'Home' && (p.basicInfo.category.level1.includes('Home') || p.basicInfo.category.level1 === 'Home & Garden')) {
+                    return true;
+                }
+                return p.basicInfo.category.level1 === filters.category ||
+                    p.basicInfo.category.level2 === filters.category ||
+                    p.basicInfo.category.level3 === filters.category
+            });
         }
         if (filters.search) {
             const searchLower = filters.search.toLowerCase();
@@ -76,14 +85,22 @@ export const mockProductService = {
 
     getFeaturedProducts: async () => {
         await delay(400);
-        // Return sorted products (Real Manufacturers First)
+        // Return sorted products (Real Manufacturers First, then Images)
         let products = [...staticProducts];
         const priorityIds = ['m11', 'm10', 'm9'];
 
         products.sort((a, b) => {
+            // 1. Manufacturer Priority
             const aPriority = priorityIds.includes(a.manufacturerId) ? priorityIds.indexOf(a.manufacturerId) : 999;
             const bPriority = priorityIds.includes(b.manufacturerId) ? priorityIds.indexOf(b.manufacturerId) : 999;
-            return aPriority - bPriority;
+
+            if (aPriority !== bPriority) return aPriority - bPriority;
+
+            // 2. Image Availability
+            const aHasImage = a.media?.images?.[0]?.url && !a.media.images[0].url.includes('via.placeholder') ? 1 : 0;
+            const bHasImage = b.media?.images?.[0]?.url && !b.media.images[0].url.includes('via.placeholder') ? 1 : 0;
+
+            return bHasImage - aHasImage;
         });
 
         return { success: true, data: products.slice(0, 8) }; // Return top 8

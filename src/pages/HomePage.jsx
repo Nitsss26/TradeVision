@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import {
     ShieldCheck, TrendingUp, Package, Users, ArrowRight,
     Star, Play, ChevronRight, Truck, Globe, Award, DollarSign,
-    Zap, Gem, Activity, MessageSquare
+    Zap, Gem, Activity, MessageSquare, Heart
 } from 'lucide-react';
 import MainLayout from '../layouts/MainLayout';
 import { productService } from '../services/mock/productService';
@@ -21,7 +21,7 @@ const HeroSection = ({ onOpenInquiry, user }) => {
     const slides = [
         {
             type: 'video',
-            src: 'https://videos.pexels.com/video-files/8061299/8061299-hd_1920_1080_25fps.mp4', // Artisan/Weaving Video for Fermoscapes
+            src: 'https://gv.videocdn.alibaba.com/icbu_vod_crm/video_target/gv98-c8531136-a18409ca-98836a62-7afd/trans/aidc/a7yggj-h264-hd.mp4',
             poster: 'https://images.pexels.com/photos/3735641/pexels-photo-3735641.jpeg?auto=compress&cs=tinysrgb&w=1920',
             title: "Premium Indian Handcrafts",
             subtitle: "Source authentic handmade baskets and decor directly from verified artisans like Fermoscapes.",
@@ -30,7 +30,7 @@ const HeroSection = ({ onOpenInquiry, user }) => {
         },
         {
             type: 'video',
-            src: 'https://videos.pexels.com/video-files/6192209/6192209-hd_1920_1080_25fps.mp4', // Industrial Fabric/Rolls for Giriraj/Jasch
+            src: 'https://gv.videocdn.alibaba.com/icbu_vod_crm/video_target/gv98-66c24536-a1ab2d16-98364a16-2b7a/trans/aidc/zetuf8-h264-hd.mp4',
             poster: 'https://images.pexels.com/photos/1108101/pexels-photo-1108101.jpeg?auto=compress&cs=tinysrgb&w=1920',
             title: "Industrial & Coated Fabrics",
             subtitle: "High-quality rexine, synthetic leather, and industrial textiles from Giriraj Coated Fab.",
@@ -39,12 +39,21 @@ const HeroSection = ({ onOpenInquiry, user }) => {
         },
         {
             type: 'video',
-            src: 'https://videos.pexels.com/video-files/4443657/4443657-hd_1920_1080_25fps.mp4', // Logistics/Shipping
+            src: 'https://gv.videocdn.alibaba.com/icbu_vod_crm/video_target/gv98-c8531136-a18409ca-98836a62-7afd/trans/aidc/a7yggj-h264-hd.mp4',
             poster: 'https://images.pexels.com/photos/4483610/pexels-photo-4483610.jpeg?auto=compress&cs=tinysrgb&w=1920',
             title: "Global Logistics Support",
             subtitle: "End-to-end shipping solutions reaching 200+ countries. Fast, reliable, and secure.",
             cta: "Explore Shipping",
             ctaLink: "/products"
+        },
+        {
+            type: 'video',
+            src: 'https://gv.videocdn.alibaba.com/icbu_vod_crm/video_target/gv98-66c24536-a1ab2d16-98364a16-2b7a/trans/aidc/zetuf8-h264-hd.mp4',
+            poster: 'https://images.pexels.com/photos/224924/pexels-photo-224924.jpeg?auto=compress&cs=tinysrgb&w=1920',
+            title: "Bulk Manufacturing Excellence",
+            subtitle: "Connect with top-tier manufacturers for high-volume production orders.",
+            cta: "Find Suppliers",
+            ctaLink: "/manufacturers"
         }
     ];
 
@@ -411,7 +420,7 @@ const CategoryShowcase = () => (
                         { name: "PVC Coated Fabric", price: "Price on Request", manufacturer: "Giriraj", img: "https://5.imimg.com/data5/WE/UQ/MY-5635866/anti-wrinkle-synthetic-leather-500x500.jpg", link: "/products?category=Machinery" },
                         { name: "Synthetic Leather", price: "Price on Request", manufacturer: "Giriraj", img: "https://5.imimg.com/data5/GT/MT/MY-5635866/synthetic-shoes-leather-500x500.jpg", link: "/products?category=Machinery" },
                         { name: "Thickness Gauge", price: "Price on Request", manufacturer: "Jasch", img: "https://5.imimg.com/data5/XO/KX/EN/SELLER-6265195/plastic-thickness-gauge-btg-3000-500x500.jpg", link: "/products?category=Machinery" },
-                        { name: "Coating System", price: "Price on Request", manufacturer: "Jasch", img: "https://5.imimg.com/data5/SELLER/Default/2021/3/XO/YP/DA/6265195/jasxh-xrf-3000-online-coating-measurement-system-500x500.jpg", link: "/products?category=Machinery" }
+                        { name: "Coating System", price: "Price on Request", manufacturer: "Jasch", img: "https://images.pexels.com/photos/257700/pexels-photo-257700.jpeg?auto=compress&cs=tinysrgb&w=500", link: "/products?category=Machinery" }
                     ].map((product, i) => (
                         <Link to={product.link} key={i} className="bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden hover:border-blue-500/50 transition-colors group cursor-pointer mt-5 block">
                             <div className="aspect-square bg-zinc-800 relative overflow-hidden">
@@ -445,9 +454,9 @@ const GoalsSection = () => (
                         <Gem className="w-3 h-3" /> Premium Collection
                     </span>
                     <h3 className="text-3xl font-black text-white mb-4 leading-tight">Elevate Your<br />Business</h3>
-                    <button className="bg-white/10 backdrop-blur border border-white/20 text-white px-6 py-2 rounded-full text-sm font-bold hover:bg-white hover:text-blue-950 transition-all flex items-center gap-2">
+                    <Link to="/products" className="bg-white/10 backdrop-blur border border-white/20 text-white px-6 py-2 rounded-full text-sm font-bold hover:bg-white hover:text-blue-950 transition-all flex items-center gap-2 w-fit">
                         Explore <ArrowRight className="w-3 h-3" />
-                    </button>
+                    </Link>
                 </div>
             </div>
 
@@ -723,6 +732,7 @@ const CategoryGrid = () => (
             { name: "Machinery", icon: Award, color: "text-yellow-400" },
             { name: "Home", icon: Package, color: "text-purple-400" },
             { name: "Beauty", icon: Star, color: "text-red-400" },
+            { name: "Health", icon: Heart, color: "text-rose-400" },
             { name: "More", icon: MenuIcon, color: "text-zinc-400" }
         ].map((cat, i) => (
             <Link to="/products" key={i} className="flex flex-col items-center gap-3 p-6 bg-zinc-900 border border-zinc-800 rounded-xl hover:border-blue-500 hover:shadow-lg transition-all group cursor-pointer hover:-translate-y-1">
@@ -743,6 +753,7 @@ const Flag = ({ className }) => (
 );
 
 const HomePage = () => {
+    const { user } = useSelector(state => state.auth);
     const [trendingProducts, setTrendingProducts] = useState([]);
     const [manufacturers, setManufacturers] = useState([]);
     const [isInquiryOpen, setIsInquiryOpen] = useState(false);
@@ -773,7 +784,7 @@ const HomePage = () => {
                 </div>
 
                 {/* Hero Section */}
-                <HeroSection onOpenInquiry={() => setIsInquiryOpen(true)} />
+                <HeroSection user={user} onOpenInquiry={() => setIsInquiryOpen(true)} />
 
                 {/* Main Content Area */}
                 <div className="max-w-[1400px] mx-auto px-4 lg:px-6 py-6 space-y-12">
@@ -838,6 +849,19 @@ const HomePage = () => {
                     <CategoryShowcase />
                     <GoalsSection />
                     <TrustSection />
+
+                    {/* Verified Manufacturers (Filtered M11, M10, M9) */}
+                    <div>
+                        <SectionHeader title="Verified Manufacturers" linkTo="/manufacturers" />
+                        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-6">
+                            {manufacturers
+                                .filter(mfr => ['m11', 'm10', 'm9'].includes(mfr._id))
+                                .map((mfr, index) => (
+                                    <MfrCard key={mfr._id} mfr={mfr} index={index} />
+                                ))}
+                        </div>
+                    </div>
+
                     <CategoryGrid />
                 </div>
             </div>

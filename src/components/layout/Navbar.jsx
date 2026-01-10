@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { logout } from '../../store/slices/authSlice';
 import {
     Search, Menu, ChevronDown, MapPin, Globe, User,
     ShoppingCart, X, ChevronRight, MessageSquare, Package, Tag, ShieldCheck, LogOut, Settings, Bell
 } from 'lucide-react';
 import CategoryDropdown from './CategoryDropdown';
+import MessagesPopup from '../common/MessagesPopup';
 
 const Navbar = () => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const { user } = useSelector(state => state.auth);
     const [searchQuery, setSearchQuery] = useState('');
     const [searchType, setSearchType] = useState('Products');
@@ -95,39 +98,12 @@ const Navbar = () => {
                         >
                             <div className="relative">
                                 <MessageSquare className="w-5 h-5 group-hover:text-blue-500 transition-colors" />
-                                {user && <span className="absolute -top-1 -right-1 w-2 h-2 bg-blue-500 rounded-full"></span>}
+                                {user && <span className="absolute -top-1 -right-1 w-2 h-2 bg-blue-500 rounded-full animate-pulse"></span>}
                             </div>
                             <span className="text-[10px] font-medium">Messages</span>
                         </button>
 
-                        {/* Messages Popup */}
-                        {messagesOpen && user && (
-                            <div className="absolute top-full right-0 mt-2 w-80 bg-zinc-900 border border-zinc-800 rounded-xl shadow-2xl overflow-hidden z-50">
-                                <div className="p-4 border-b border-zinc-800 flex items-center justify-between">
-                                    <h3 className="font-bold text-white">Messages</h3>
-                                    <button onClick={() => setMessagesOpen(false)} className="text-zinc-500 hover:text-white">
-                                        <X className="w-4 h-4" />
-                                    </button>
-                                </div>
-                                <div className="max-h-80 overflow-y-auto">
-                                    {[1, 2, 3].map((_, i) => (
-                                        <div key={i} className="p-4 border-b border-zinc-800 hover:bg-zinc-800/50 cursor-pointer flex gap-3">
-                                            <div className="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold text-sm shrink-0">
-                                                S
-                                            </div>
-                                            <div className="flex-1 min-w-0">
-                                                <p className="text-white text-sm font-medium truncate">Supplier {i + 1}</p>
-                                                <p className="text-zinc-500 text-xs truncate">Thank you for your inquiry...</p>
-                                            </div>
-                                            <span className="text-zinc-600 text-xs">2h</span>
-                                        </div>
-                                    ))}
-                                </div>
-                                <Link to="/messages" onClick={() => setMessagesOpen(false)} className="block p-3 text-center text-blue-400 text-sm font-medium hover:bg-zinc-800/50">
-                                    View All Messages
-                                </Link>
-                            </div>
-                        )}
+                        <MessagesPopup isOpen={messagesOpen} onClose={() => setMessagesOpen(false)} />
                     </div>
 
                     {/* Orders */}
@@ -188,7 +164,10 @@ const Navbar = () => {
                                         </div>
                                         <div className="p-2 border-t border-zinc-800">
                                             <button
-                                                onClick={() => { localStorage.removeItem('user'); window.location.reload(); }}
+                                                onClick={() => {
+                                                    dispatch(logout());
+                                                    navigate('/');
+                                                }}
                                                 className="flex items-center gap-3 px-3 py-2 text-red-400 hover:bg-zinc-800 rounded-lg w-full"
                                             >
                                                 <LogOut className="w-4 h-4" /> Sign Out
@@ -210,13 +189,42 @@ const Navbar = () => {
 
                 {/* Mobile Menu Button */}
                 <button
-                    className="md:hidden text-white p-2 hover:bg-zinc-800 rounded-lg transition-colors"
+                    className="md:hidden text-zinc-400 hover:text-white"
                     onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                 >
                     {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
                 </button>
             </div>
 
+            {/* Mobile Search Bar - Sleek Pill Design */}
+            <div className="md:hidden px-4 pb-4">
+                <form onSubmit={handleSearch} className="flex w-full bg-zinc-900/50 border border-zinc-800 rounded-full overflow-hidden focus-within:border-blue-500/50 focus-within:ring-1 focus-within:ring-blue-500/20 transition-all shadow-inner">
+                    <div className="relative group border-r border-zinc-800">
+                        <select
+                            value={searchType}
+                            onChange={(e) => setSearchType(e.target.value)}
+                            className="h-full pl-3 pr-7 bg-transparent text-zinc-300 text-xs font-bold appearance-none outline-none cursor-pointer"
+                        >
+                            <option value="Products">Prod</option>
+                            <option value="Manufacturers">Mfrs</option>
+                        </select>
+                        <ChevronDown className="w-3 h-3 text-zinc-500 absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none" />
+                    </div>
+                    <input
+                        type="text"
+                        placeholder="Search..."
+                        className="flex-1 px-3 py-2.5 bg-transparent text-white placeholder-zinc-500 outline-none text-sm font-medium min-w-0"
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                    />
+                    <button
+                        type="submit"
+                        className="px-4 bg-blue-600 text-white flex items-center justify-center"
+                    >
+                        <Search className="w-4 h-4" />
+                    </button>
+                </form>
+            </div>
             {/* Bottom Nav - Categories & Quick Links */}
             <div className="hidden md:flex items-center gap-8 px-4 lg:px-8 bg-zinc-950 border-t border-zinc-900 h-10 shadow-lg relative z-40">
                 {/* Mega Menu Trigger */}
