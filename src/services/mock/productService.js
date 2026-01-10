@@ -26,8 +26,18 @@ export const productService = {
 export const mockProductService = {
     getAllProducts: async (filters = {}) => {
         await delay(600);
-        let products = staticProducts; // Use static data directly
-        const manufacturers = getFromStorage(STORAGE_KEYS.MANUFACTURERS) || []; // Keep this or use static as well? Better to trust staticProducts which has manufacturerName
+        let products = [...staticProducts]; // Create a copy to sort
+
+        // Prioritize Real Manufacturers: Fermoscapes (m11), Giriraj (m10), Jasch (m9)
+        const priorityIds = ['m11', 'm10', 'm9'];
+
+        products.sort((a, b) => {
+            const aPriority = priorityIds.includes(a.manufacturerId) ? priorityIds.indexOf(a.manufacturerId) : 999;
+            const bPriority = priorityIds.includes(b.manufacturerId) ? priorityIds.indexOf(b.manufacturerId) : 999;
+            return aPriority - bPriority;
+        });
+
+        const manufacturers = getFromStorage(STORAGE_KEYS.MANUFACTURERS) || [];
 
         // Join Manufacturer Data (Optional if static data is rich enough, but good to keep)
         // Note: staticProducts already has manufacturerName, but joining gets full manufacturer object
@@ -66,7 +76,16 @@ export const mockProductService = {
 
     getFeaturedProducts: async () => {
         await delay(400);
-        // Just return first 4 for now
-        return { success: true, data: staticProducts.slice(0, 4) };
+        // Return sorted products (Real Manufacturers First)
+        let products = [...staticProducts];
+        const priorityIds = ['m11', 'm10', 'm9'];
+
+        products.sort((a, b) => {
+            const aPriority = priorityIds.includes(a.manufacturerId) ? priorityIds.indexOf(a.manufacturerId) : 999;
+            const bPriority = priorityIds.includes(b.manufacturerId) ? priorityIds.indexOf(b.manufacturerId) : 999;
+            return aPriority - bPriority;
+        });
+
+        return { success: true, data: products.slice(0, 8) }; // Return top 8
     }
 };

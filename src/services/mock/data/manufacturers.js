@@ -81,6 +81,7 @@ export const manufacturers = [
     },
     // --- REAL DATA END (Jasch) ---
 
+    /* 
     {
         _id: "m1",
         companyName: "TexFab India Pvt Ltd",
@@ -193,6 +194,7 @@ export const manufacturers = [
         metrics: { rating: 4.6, reviews: 78, productCount: 42 },
         capabilities: ["SS Fabrication", "Custom Engineering", "Installation", "Maintenance"]
     },
+    */
 
     // --- REAL DATA MOVED TO TOP ---
 ];

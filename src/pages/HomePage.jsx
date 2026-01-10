@@ -17,39 +17,34 @@ const HeroSection = ({ onOpenInquiry, user }) => {
     const navigate = useNavigate();
     const [currentSlide, setCurrentSlide] = useState(0);
 
-    // Slide Data - All using images for reliable backgrounds
+    // Slide Data - Real Videos & Images
     const slides = [
         {
-            type: 'image',
-            src: 'https://images.pexels.com/photos/3735641/pexels-photo-3735641.jpeg?auto=compress&cs=tinysrgb&w=1920',
-            title: "Source Premium Product",
-            subtitle: "Connect with top-rated verified manufacturers. Secure payments, quality inspections, and on-time delivery guaranteed.",
-            cta: "Start Sourcing",
+            type: 'video',
+            src: 'https://videos.pexels.com/video-files/8061299/8061299-hd_1920_1080_25fps.mp4', // Artisan/Weaving Video for Fermoscapes
+            poster: 'https://images.pexels.com/photos/3735641/pexels-photo-3735641.jpeg?auto=compress&cs=tinysrgb&w=1920',
+            title: "Premium Indian Handcrafts",
+            subtitle: "Source authentic handmade baskets and decor directly from verified artisans like Fermoscapes.",
+            cta: "View Collections",
+            ctaLink: "/products?category=Home & Garden"
+        },
+        {
+            type: 'video',
+            src: 'https://videos.pexels.com/video-files/6192209/6192209-hd_1920_1080_25fps.mp4', // Industrial Fabric/Rolls for Giriraj/Jasch
+            poster: 'https://images.pexels.com/photos/1108101/pexels-photo-1108101.jpeg?auto=compress&cs=tinysrgb&w=1920',
+            title: "Industrial & Coated Fabrics",
+            subtitle: "High-quality rexine, synthetic leather, and industrial textiles from Giriraj Coated Fab.",
+            cta: "Request Quote",
+            ctaLink: "/products?category=Machinery"
+        },
+        {
+            type: 'video',
+            src: 'https://videos.pexels.com/video-files/4443657/4443657-hd_1920_1080_25fps.mp4', // Logistics/Shipping
+            poster: 'https://images.pexels.com/photos/4483610/pexels-photo-4483610.jpeg?auto=compress&cs=tinysrgb&w=1920',
+            title: "Global Logistics Support",
+            subtitle: "End-to-end shipping solutions reaching 200+ countries. Fast, reliable, and secure.",
+            cta: "Explore Shipping",
             ctaLink: "/products"
-        },
-        {
-            type: 'image',
-            src: 'https://images.pexels.com/photos/906494/pexels-photo-906494.jpeg?auto=compress&cs=tinysrgb&w=1920',
-            title: "Global Shipping Solutions",
-            subtitle: "Access thousands of verified manufacturers and factory-direct prices instantly.",
-            cta: "Start Sourcing",
-            ctaLink: "/products"
-        },
-        {
-            type: 'image',
-            src: 'https://images.pexels.com/photos/1957478/pexels-photo-1957478.jpeg?auto=compress&cs=tinysrgb&w=1920',
-            title: "Global Supply Chain Solutions",
-            subtitle: "Streamline your logistics with our end-to-end shipping and fulfillment services.",
-            cta: "Explore Logistics",
-            ctaLink: "/trade-assurance"
-        },
-        {
-            type: 'image',
-            src: 'https://images.pexels.com/photos/4483610/pexels-photo-4483610.jpeg?auto=compress&cs=tinysrgb&w=1920',
-            title: "Industrial Manufacturing",
-            subtitle: "Discover the latest equipment and machinery from India's top manufacturers.",
-            cta: "View Products",
-            ctaLink: "/products?category=industrial"
         }
     ];
 
@@ -57,14 +52,21 @@ const HeroSection = ({ onOpenInquiry, user }) => {
     useEffect(() => {
         const timer = setInterval(() => {
             setCurrentSlide((prev) => (prev + 1) % slides.length);
-        }, 5000);
+        }, 8000); // 8 seconds for videos to play a bit
         return () => clearInterval(timer);
     }, []);
 
     return (
-        <div className="bg-black py-6">
-            <div className="max-w-[1400px] mx-auto px-4 lg:px-6">
-                <div className="grid grid-cols-12 gap-6 h-[500px] md:h-[420px]">
+        <div className="bg-black py-4 md:py-6 relative overflow-hidden">
+            {/* Mobile Particles/Embers Effect */}
+            <div className="absolute inset-0 z-0 pointer-events-none md:hidden">
+                <div className="absolute top-1/4 left-1/4 w-1.5 h-1.5 bg-amber-500/50 rounded-full animate-pulse"></div>
+                <div className="absolute top-3/4 left-3/4 w-1 h-1 bg-blue-500/50 rounded-full animate-pulse delay-700"></div>
+                <div className="absolute top-1/2 left-1/2 w-2 h-2 bg-indigo-500/30 rounded-full animate-ping delay-1000"></div>
+            </div>
+
+            <div className="max-w-[1400px] mx-auto px-4 lg:px-6 relative z-10">
+                <div className="grid grid-cols-12 gap-6 h-[300px] md:h-[480px]">
                     {/* LEFT: Categories Sidebar (Hidden on mobile/tablet) */}
                     <div className="hidden xl:block col-span-2 bg-zinc-900 rounded-2xl p-4 border border-zinc-800 shadow-xl overflow-y-auto custom-scrollbar">
                         <h3 className="text-white text-sm font-extrabold mb-4 px-2 flex items-center gap-2">
@@ -95,7 +97,8 @@ const HeroSection = ({ onOpenInquiry, user }) => {
                                             muted
                                             loop
                                             playsInline
-                                            className="w-full h-full object-cover opacity-80 scale-105"
+                                            poster={slide.poster}
+                                            className="w-full h-full object-cover opacity-60 md:opacity-80 scale-105"
                                         >
                                             <source src={slide.src} type="video/mp4" />
                                         </video>
@@ -103,26 +106,26 @@ const HeroSection = ({ onOpenInquiry, user }) => {
                                         <img
                                             src={slide.src}
                                             alt={slide.title}
-                                            className="w-full h-full object-cover opacity-80"
+                                            className="w-full h-full object-cover opacity-60 md:opacity-80"
                                         />
                                     )}
-                                    <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/50 to-black/30"></div>
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent md:bg-gradient-to-r md:from-black/90 md:via-black/50 md:to-black/30"></div>
                                 </div>
 
                                 {/* Content */}
-                                <div className="relative h-full flex flex-col justify-center px-8 md:px-12 z-20">
+                                <div className="relative h-full flex flex-col justify-end md:justify-center px-6 pb-12 md:pb-0 md:px-12 z-20">
                                     <div className="max-w-2xl">
-                                        <span className="inline-flex items-center gap-2 py-1.5 px-4 rounded-full bg-gradient-to-r from-blue-600/20 to-indigo-600/20 text-blue-400 text-xs font-bold border border-blue-500/30 mb-4 w-fit">
-                                            <ShieldCheck className="w-3 h-3" /> VERIFIED SUPPLIERS
+                                        <span className="inline-flex items-center gap-1.5 py-1 px-2.5 rounded-full bg-blue-600/20 backdrop-blur-md border border-blue-500/30 text-blue-300 text-[10px] font-bold uppercase mb-3 w-fit">
+                                            <ShieldCheck className="w-3 h-3" /> Verified Suppliers
                                         </span>
-                                        <h1 className="text-3xl md:text-5xl font-extrabold text-white mb-6 leading-tight tracking-tight drop-shadow-lg">
+                                        <h1 className="text-2xl md:text-5xl font-black text-white mb-2 md:mb-6 leading-tight tracking-tight drop-shadow-xl">
                                             {slide.title}
                                         </h1>
-                                        <p className="text-zinc-300 text-base md:text-lg mb-6 leading-relaxed drop-shadow-md max-w-lg">
+                                        <p className="text-zinc-300 text-xs md:text-lg mb-4 md:mb-6 leading-relaxed drop-shadow-lg max-w-sm md:max-w-lg line-clamp-2 md:line-clamp-none">
                                             {slide.subtitle}
                                         </p>
-                                        {/* Trust Badges */}
-                                        <div className="flex items-center gap-4 mb-8">
+                                        {/* Trust Badges - Hidden on very small screens to save space */}
+                                        <div className="hidden md:flex items-center gap-4 mb-8">
                                             <div className="flex items-center gap-2 text-xs text-zinc-400">
                                                 <div className="w-6 h-6 rounded-full bg-blue-500/20 flex items-center justify-center">
                                                     <ShieldCheck className="w-3 h-3 text-blue-400" />
@@ -137,8 +140,8 @@ const HeroSection = ({ onOpenInquiry, user }) => {
                                             </div>
                                         </div>
                                         <div className="flex gap-4">
-                                            <Link to={slide.ctaLink} className="px-8 py-3.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold rounded-full shadow-lg shadow-blue-600/30 transition-all hover:-translate-y-1 active:scale-95 flex items-center gap-2">
-                                                {slide.cta} <ArrowRight className="w-4 h-4" />
+                                            <Link to={slide.ctaLink} className="px-6 py-2.5 md:px-8 md:py-3.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold text-xs md:text-base rounded-full shadow-lg shadow-blue-600/30 transition-all hover:-translate-y-1 active:scale-95 flex items-center gap-2">
+                                                {slide.cta} <ArrowRight className="w-3 h-3 md:w-4 md:h-4" />
                                             </Link>
                                         </div>
                                     </div>
@@ -279,7 +282,7 @@ const BannerGrid = () => (
                     <span className="bg-blue-500/20 text-blue-400 text-xs font-bold px-2 py-1 rounded mb-3 inline-block border border-blue-500/30">NEW ARRIVALS</span>
                     <h3 className="text-2xl font-bold text-white mb-2">Smart Electronics</h3>
                     <p className="text-blue-200/80 text-sm mb-4 max-w-[200px]">Latest gadgets from top Shenzhen manufacturers.</p>
-                    <button className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-4 py-2 rounded-lg font-bold text-sm hover:from-blue-500 hover:to-indigo-500 transition-all shadow-lg shadow-blue-600/20">Shop Now</button>
+                    <Link to="/products?category=Electronics" className="inline-block bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-4 py-2 rounded-lg font-bold text-sm hover:from-blue-500 hover:to-indigo-500 transition-all shadow-lg shadow-blue-600/20">Shop Now</Link>
                 </div>
                 <img src="https://images.pexels.com/photos/303383/pexels-photo-303383.jpeg?auto=compress&cs=tinysrgb&w=300" className="absolute -right-4 -bottom-4 w-32 h-32 object-cover rounded-xl group-hover:scale-110 transition-transform rotate-6 opacity-70 border border-blue-500/30" alt="Electronics" />
             </div>
@@ -291,7 +294,7 @@ const BannerGrid = () => (
                     <span className="bg-blue-500/20 text-blue-400 text-xs font-bold px-2 py-1 rounded mb-3 inline-block border border-blue-500/30">HOT SELLER</span>
                     <h3 className="text-2xl font-bold text-white mb-2">Industrial Tools</h3>
                     <p className="text-blue-200/80 text-sm mb-4 max-w-[200px]">Heavy duty machinery at factory prices.</p>
-                    <button className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-4 py-2 rounded-lg font-bold text-sm hover:from-blue-500 hover:to-indigo-500 transition-all shadow-lg shadow-blue-600/20">View Catalog</button>
+                    <Link to="/products?category=Machinery" className="inline-block bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-4 py-2 rounded-lg font-bold text-sm hover:from-blue-500 hover:to-indigo-500 transition-all shadow-lg shadow-blue-600/20">View Catalog</Link>
                 </div>
                 <img src="https://images.pexels.com/photos/1109541/pexels-photo-1109541.jpeg?auto=compress&cs=tinysrgb&w=300" className="absolute -right-4 -bottom-4 w-32 h-32 object-cover rounded-xl group-hover:scale-110 transition-transform rotate-6 opacity-70 border border-blue-500/30" alt="Tools" />
             </div>
@@ -303,7 +306,7 @@ const BannerGrid = () => (
                     <span className="bg-blue-500/20 text-blue-400 text-xs font-bold px-2 py-1 rounded mb-3 inline-block border border-blue-500/30">PREMIUM</span>
                     <h3 className="text-2xl font-bold text-white mb-2">Eco Packaging</h3>
                     <p className="text-blue-200/80 text-sm mb-4 max-w-[200px]">Biodegradable solutions for your brand.</p>
-                    <button className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-4 py-2 rounded-lg font-bold text-sm hover:from-blue-500 hover:to-indigo-500 transition-all shadow-lg shadow-blue-600/20">Explore</button>
+                    <Link to="/products?category=Packaging" className="inline-block bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-4 py-2 rounded-lg font-bold text-sm hover:from-blue-500 hover:to-indigo-500 transition-all shadow-lg shadow-blue-600/20">Explore</Link>
                 </div>
                 <img src="https://images.pexels.com/photos/4498553/pexels-photo-4498553.jpeg?auto=compress&cs=tinysrgb&w=300" className="absolute -right-4 -bottom-4 w-32 h-32 object-cover rounded-xl group-hover:scale-110 transition-transform rotate-6 opacity-70 border border-blue-500/30" alt="Packaging" />
             </div>
@@ -370,7 +373,6 @@ const CategoryShowcase = () => (
     <div className="max-w-[1400px] mx-auto px-4 lg:px-6 py-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {/* Left: Large Banner - Premium Dark */}
-            {/* Left: Large Banner - Premium Dark */}
             <div className="relative rounded-2xl p-8 overflow-hidden min-h-[300px] flex flex-col justify-end group border border-blue-900/30">
                 {/* Background Image with Overlay */}
                 <img src="https://images.pexels.com/photos/1095601/pexels-photo-1095601.jpeg?auto=compress&cs=tinysrgb&w=800" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Industrial Background" />
@@ -383,15 +385,15 @@ const CategoryShowcase = () => (
                         <span className="w-1.5 h-1.5 bg-blue-400 rounded-full animate-pulse"></span> Trending
                     </span>
                     <h2 className="text-4xl md:text-5xl font-black text-white mb-4 leading-tight drop-shadow-lg">
-                        Premium Tools<br />
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">For Professionals</span>
+                        Premium<br />
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">Manufacturer Picks</span>
                     </h2>
                     <p className="text-zinc-300 mb-6 max-w-sm font-medium drop-shadow-md">
                         Equip your business with industry-standard machinery and tools verified for quality.
                     </p>
-                    <button className="bg-white text-blue-950 px-8 py-3 rounded-full text-sm font-bold w-fit hover:bg-blue-50 transition-all shadow-lg hover:shadow-white/10 flex items-center gap-2">
+                    <Link to="/products" className="bg-white text-blue-950 px-8 py-3 rounded-full text-sm font-bold w-fit hover:bg-blue-50 transition-all shadow-lg hover:shadow-white/10 flex items-center gap-2">
                         Shop Collection <ArrowRight className="w-4 h-4" />
-                    </button>
+                    </Link>
                 </div>
             </div>
 
@@ -399,31 +401,29 @@ const CategoryShowcase = () => (
             <div>
                 <div className="flex items-center justify-between mb-4">
                     <div>
-                        <h3 className="text-xl font-bold text-white">Top Business Tools</h3>
-                        <p className="text-zinc-400 text-sm">Premium picks for your business needs.</p>
+                        <h3 className="text-xl font-bold text-white">Top Manufacturer Choices</h3>
+                        <p className="text-zinc-400 text-sm">Giriraj Coated Fab & Jasch Industries</p>
                     </div>
                     <Link to="/products" className="text-blue-400 text-sm font-medium hover:underline flex items-center gap-1">View all <ChevronRight className="w-4 h-4" /></Link>
                 </div>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                     {[
-                        { name: "Power Drill Set", price: "₹8,999", oldPrice: "₹12,999", img: "https://images.pexels.com/photos/1109541/pexels-photo-1109541.jpeg?auto=compress&cs=tinysrgb&w=300" },
-                        { name: "LED Work Light", price: "₹2,499", oldPrice: "₹4,500", img: "https://images.pexels.com/photos/257736/pexels-photo-257736.jpeg?auto=compress&cs=tinysrgb&w=300" },
-                        { name: "Safety Gloves Pack", price: "₹599", oldPrice: "₹999", img: "https://images.pexels.com/photos/4491881/pexels-photo-4491881.jpeg?auto=compress&cs=tinysrgb&w=300" },
-                        { name: "Tool Organizer Box", price: "₹1,799", oldPrice: "₹2,999", img: "https://images.pexels.com/photos/175039/pexels-photo-175039.jpeg?auto=compress&cs=tinysrgb&w=300" }
+                        { name: "PVC Coated Fabric", price: "Price on Request", manufacturer: "Giriraj", img: "https://5.imimg.com/data5/WE/UQ/MY-5635866/anti-wrinkle-synthetic-leather-500x500.jpg", link: "/products?category=Machinery" },
+                        { name: "Synthetic Leather", price: "Price on Request", manufacturer: "Giriraj", img: "https://5.imimg.com/data5/GT/MT/MY-5635866/synthetic-shoes-leather-500x500.jpg", link: "/products?category=Machinery" },
+                        { name: "Thickness Gauge", price: "Price on Request", manufacturer: "Jasch", img: "https://5.imimg.com/data5/XO/KX/EN/SELLER-6265195/plastic-thickness-gauge-btg-3000-500x500.jpg", link: "/products?category=Machinery" },
+                        { name: "Coating System", price: "Price on Request", manufacturer: "Jasch", img: "https://5.imimg.com/data5/SELLER/Default/2021/3/XO/YP/DA/6265195/jasxh-xrf-3000-online-coating-measurement-system-500x500.jpg", link: "/products?category=Machinery" }
                     ].map((product, i) => (
-                        <div key={i} className="bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden hover:border-blue-500/50 transition-colors group cursor-pointer mt-5">
+                        <Link to={product.link} key={i} className="bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden hover:border-blue-500/50 transition-colors group cursor-pointer mt-5 block">
                             <div className="aspect-square bg-zinc-800 relative overflow-hidden">
                                 <img src={product.img} alt={product.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
-                                <span className="absolute top-2 left-2 text-[10px] font-bold px-2 py-0.5 rounded bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg">DEAL</span>
+                                <span className="absolute top-2 left-2 text-[10px] font-bold px-2 py-0.5 rounded bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg">VERIFIED</span>
                             </div>
                             <div className="p-3">
-                                <div className="flex items-baseline gap-2 mb-1">
-                                    <span className="text-blue-400 font-bold">{product.price}</span>
-                                    <span className="text-zinc-500 text-xs line-through">{product.oldPrice}</span>
-                                </div>
-                                <p className="text-zinc-400 text-xs line-clamp-2">{product.name}</p>
+                                <p className="text-zinc-500 text-[10px] mb-1 font-bold uppercase tracking-wider">{product.manufacturer}</p>
+                                <p className="text-white text-xs font-bold line-clamp-2 mb-1 group-hover:text-blue-400 transition-colors">{product.name}</p>
+                                <span className="text-blue-400 text-[10px] font-medium block">{product.price}</span>
                             </div>
-                        </div>
+                        </Link>
                     ))}
                 </div>
             </div>
@@ -764,13 +764,38 @@ const HomePage = () => {
     return (
         <MainLayout>
             <InquiryModal isOpen={isInquiryOpen} onClose={() => setIsInquiryOpen(false)} />
-            <div className="min-h-screen bg-black text-white font-sans pb-20">
+            <div className="min-h-screen bg-black text-white font-sans pb-20 relative">
+
+                {/* Mobile Particles/Embers Effect */}
+                <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden md:hidden">
+                    <div className="absolute top-0 left-1/4 w-1 h-1 bg-amber-500 rounded-full animate-float-up opacity-0"></div>
+                    <div className="absolute top-1/2 left-3/4 w-1 h-1 bg-blue-500 rounded-full animate-float-up-delayed opacity-0"></div>
+                </div>
+
                 {/* Hero Section */}
                 <HeroSection onOpenInquiry={() => setIsInquiryOpen(true)} />
 
-                {/* Best Selling & Hot Deals - New Section */}
-                <div className="max-w-[1400px] mx-auto px-4 lg:px-6 py-8 space-y-8">
-                    {/* Hot Offers Banner */}
+                {/* Main Content Area */}
+                <div className="max-w-[1400px] mx-auto px-4 lg:px-6 py-6 space-y-12">
+
+                    {/* SECTION 1: Featured Products (Real Manufacturers First) */}
+                    <div className="relative z-10">
+                        <SectionHeader title="Featured Products" linkTo="/products" />
+                        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+                            {trendingProducts.length > 0 ? trendingProducts.slice(0, 4).map((product) => (
+                                <div key={product._id} className="h-full">
+                                    <ProductCard product={product} />
+                                </div>
+                            )) : (
+                                // Loading skeleton
+                                [...Array(4)].map((_, i) => (
+                                    <div key={i} className="bg-zinc-900 rounded-xl h-[300px] animate-pulse"></div>
+                                ))
+                            )}
+                        </div>
+                    </div>
+
+                    {/* SECTION 2: Hot Offers Banners (The User's "Banner") */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div className="bg-gradient-to-r from-blue-950 via-indigo-950 to-zinc-900 rounded-2xl p-6 md:p-8 flex items-center relative overflow-hidden group min-h-[180px] border border-blue-900/50">
                             <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10"></div>
@@ -796,91 +821,29 @@ const HomePage = () => {
                         </div>
                     </div>
 
-                    <SectionHeader title="Best Selling Products" linkTo="/products?sort=best_selling" />
-                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-                        {[
-                            {
-                                _id: 'bs1',
-                                basicInfo: { name: "Industrial Grade Motor Unit" },
-                                pricing: { basePrice: 12499, minOrderUnit: 'unit', moq: 100, originalPrice: 15999 },
-                                manufacturer: { name: "TechMech Ind.", isVerified: true, years: "15 Yrs" },
-                                media: { images: [{ url: "https://images.pexels.com/photos/3846508/pexels-photo-3846508.jpeg?auto=compress&cs=tinysrgb&w=600" }] },
-                                metrics: { rating: 4.9 }
-                            },
-                            {
-                                _id: 'bs2',
-                                basicInfo: { name: "Heavy Duty Hydraulic Pump" },
-                                pricing: { basePrice: 28500, minOrderUnit: 'set', moq: 10, originalPrice: 32000 },
-                                manufacturer: { name: "HydraFlow Systems", isVerified: true, years: "8 Yrs" },
-                                media: { images: [{ url: "https://images.pexels.com/photos/1108101/pexels-photo-1108101.jpeg?auto=compress&cs=tinysrgb&w=600" }] },
-                                metrics: { rating: 4.7 }
-                            },
-                            {
-                                _id: 'bs3',
-                                basicInfo: { name: "Precision CNC Control Panel" },
-                                pricing: { basePrice: 45000, minOrderUnit: 'unit', moq: 5, originalPrice: 52000 },
-                                manufacturer: { name: "ControlTech Solutions", isVerified: true, years: "12 Yrs" },
-                                media: { hasVideo: true, images: [{ url: "https://images.pexels.com/photos/163100/circuit-circuit-board-resistor-computer-163100.jpeg?auto=compress&cs=tinysrgb&w=600" }] },
-                                metrics: { rating: 4.8 }
-                            },
-                            {
-                                _id: 'bs4',
-                                basicInfo: { name: "Industrial Copper Wire Roll" },
-                                pricing: { basePrice: 850, minOrderUnit: 'kg', moq: 500, originalPrice: 1200 },
-                                manufacturer: { name: "Metallo Corp", isVerified: true, years: "20 Yrs" },
-                                media: { images: [{ url: "https://images.pexels.com/photos/4483610/pexels-photo-4483610.jpeg?auto=compress&cs=tinysrgb&w=600" }] },
-                                metrics: { rating: 4.6 }
-                            }
-                        ].map((product) => (
-                            <div key={product._id} className="h-full">
-                                <ProductCard product={product} />
-                            </div>
-                        ))}
+                    {/* SECTION 3: More Products (Trending) */}
+                    <div>
+                        <SectionHeader title="More to Explore" linkTo="/products" />
+                        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+                            {trendingProducts.slice(4, 8).map((product) => (
+                                <div key={product._id} className="h-auto">
+                                    <ProductCard product={product} />
+                                </div>
+                            ))}
+                        </div>
                     </div>
-                </div>
 
-                <BannerGrid />
-                <FeaturedVideos />
-                <CategoryShowcase />
-                <GoalsSection />
-
-                <div className="max-w-[1400px] mx-auto px-4 lg:px-6 py-6 pb-20">
+                    <BannerGrid />
+                    <FeaturedVideos />
+                    <CategoryShowcase />
+                    <GoalsSection />
                     <TrustSection />
                     <CategoryGrid />
-
-                    {/* Trending Products */}
-                    <SectionHeader title="Trending Products" linkTo="/products" />
-                    <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-16">
-                        {trendingProducts.slice(0, 4).map((product) => (
-                            <div key={product._id} className="h-auto md:h-[400px]">
-                                <ProductCard product={product} />
-                            </div>
-                        ))}
-                    </div>
-
-                    {/* <div className="mb-16">
-                        <div className="w-full h-32 md:h-40 bg-gradient-to-r from-blue-900 to-purple-900 rounded-2xl flex flex-col md:flex-row items-center justify-between px-6 md:px-12 py-6 relative overflow-hidden">
-                            <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-20"></div>
-                            <div className="relative z-10 text-center md:text-left mb-4 md:mb-0">
-                                <h3 className="text-xl md:text-3xl font-bold text-white mb-1 md:mb-2">TradeVision Premium</h3>
-                                <p className="text-blue-200 text-sm md:text-base max-w-md">Unlock exclusive sourcing tools and verified supplier reports.</p>
-                            </div>
-                            <button className="relative z-10 bg-white text-blue-900 px-6 md:px-8 py-2 md:py-3 rounded-full font-bold text-sm hover:bg-blue-50 transition-colors">
-                                Upgrade Now
-                            </button>
-                        </div>
-                    </div> */}
-
-                    <SectionHeader title="Verified Manufacturers" linkTo="/manufacturers" />
-                    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-6">
-                        {manufacturers.slice(0, 6).map((mfr, index) => (
-                            <MfrCard key={mfr._id} mfr={mfr} index={index} />
-                        ))}
-                    </div>
                 </div>
             </div>
         </MainLayout>
     );
+
 };
 
 export default HomePage;
